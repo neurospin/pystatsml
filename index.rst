@@ -23,7 +23,7 @@ Phantom
     notebooks/ml_linear_classification.rst
     notebooks/ml_non_linear_prediction.rst
     notebooks/ml_resampling.rst
-    notebooks/ml_sklearn_pipelines.rst
+    notebooks/ml_processing_pipelines.rst
 
 ==================
 Indices and tables

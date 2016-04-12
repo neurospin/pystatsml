@@ -15,6 +15,7 @@ Regression
 Do it yourself
 --------------
 '''
+import numpy as np
 X = np.random.randn(n_samples * 2, n_features)
 beta = np.zeros(n_features)
 beta[:n_features_info] = 1

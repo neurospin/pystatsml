@@ -349,14 +349,19 @@ print("Nb errors=%i, error rate=%.2f" % (errors.sum(), errors.sum() / len(y_pred
 print(svmlinl1.coef_)
 
 '''
+## Exercise
+
 Compare predictions of Logistic regression (LR) and their SVM counterparts, ie.: L2 LR vs L2 SVM and L1 LR vs L1 SVM
+
 - Compute the correlation between pairs of weights vectors.
-- Compare the predictions of two classifiers using their decision function: 
-    * Provide the generic form of the decision function for a linear classifier, assuming that their is no intercept.
+
+- Compare the predictions of two classifiers using their decision function:
+
+    * Give the equation of the decision function for a linear classifier, assuming that their is no intercept.
     * Compute the correlation decision function.
     * Plot the pairwise decision function of the classifiers.
-- Conclude on the differences between Linear SVM and logistic regression.
 
+- Conclude on the differences between Linear SVM and logistic regression.
 '''
 
 print(np.corrcoef(lr.coef_, svmlin.coef_))
@@ -369,6 +374,57 @@ print(np.corrcoef(lrl1.decision_function(X), svmlinl1.decision_function(X)))
 
 plt.plot(lr.decision_function(X), svmlin.decision_function(X), "o")
 plt.plot(lrl1.decision_function(X), svmlinl1.decision_function(X), "o")
+
+'''
+Enet
+====
+'''
+from sklearn import datasets
+from sklearn import linear_model
+import matplotlib.pyplot as plt
+
+X, y = datasets.make_classification(n_samples=100,
+                           n_features=20,
+                           n_informative=3,
+                           n_redundant=0,
+                           n_repeated=0,
+                           n_classes=2,
+                           random_state=0,
+                           shuffle=False)
+
+from sklearn.linear_model import SGDClassifier
+enetloglike = SGDClassifier(loss="log", penalty="elasticnet",
+                            alpha=0.0001, l1_ratio=0.15, class_weight='balanced')
+enetloglike.fit(X, y)
+
+enethinge = SGDClassifier(loss="hinge", penalty="elasticnet",
+                            alpha=0.0001, l1_ratio=0.15,  class_weight='balanced')
+
+enetloglike.fit(X, y)
+enethinge.fit(X, y)
+
+print(np.corrcoef(enetloglike.coef_, enethinge.coef_))
+# The weights vectors are highly correlated
+
+print(np.corrcoef(enetloglike.decision_function(X), enethinge.decision_function(X)))
+# The decision function are highly correlated
+
+plt.plot(enetloglike.decision_function(X), enethinge.decision_function(X), "o")
+'''
+## Exercise
+
+Compare predictions of Enet Logistic regression (LR) and Hinge Enet
+
+- Compute the correlation between pairs of weights vectors.
+
+- Compare the predictions of two classifiers using their decision function: 
+
+    * Compute the correlation decision function.
+    * Plot the pairwise decision function of the classifiers.
+
+- Conclude on the differences between the two losses.
+
+'''
 
 
 '''
