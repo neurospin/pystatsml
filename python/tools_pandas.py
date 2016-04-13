@@ -389,7 +389,7 @@ Read csv from url
 ~~~~~~~~~~~~~~~~~
 '''
 
-url = 'https://raw.github.com/duchesnay/pylearn-doc/master/data/salary_table.csv'
+url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
 salary = pd.read_csv(url)
 
 '''

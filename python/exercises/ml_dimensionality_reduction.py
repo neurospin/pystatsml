@@ -70,7 +70,7 @@ assert np.all(basic_pca.transform(X) == pca.transform(X))
 '''
 Apply your sklearn PCA on `salary` and `experience` features of the salary
 dataset available at: 
-'https://raw.github.com/duchesnay/pylearn-doc/master/data/salary_table.csv'
+'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
 
 How many components do you need to explain 95% of the variance ?
 
@@ -84,7 +84,7 @@ import matplotlib.pyplot as plt
 try:
     salary = pd.read_csv('data/salary_table.csv')
 except:
-    url = 'https://raw.github.com/duchesnay/pylearn-doc/master/data/salary_table.csv'
+    url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
     salary = pd.read_csv(url)
 
 X = salary[['salary', 'experience']]

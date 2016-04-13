@@ -24,6 +24,7 @@ Phantom
     notebooks/ml_non_linear_prediction.rst
     notebooks/ml_resampling.rst
     notebooks/ml_processing_pipelines.rst
+    python/ml_case_studies.rst
 
 ==================
 Indices and tables

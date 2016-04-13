@@ -252,7 +252,7 @@ Simple linear regression (one continuous independant variable (IV))
 '''
 
 
-url = 'https://raw.github.com/duchesnay/pylearn-doc/master/data/salary_table.csv'
+url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
 salary = pd.read_csv(url)
 salary.E = salary.E.map({1:'Bachelor', 2:'Master', 3:'Ph.D'})
 salary.M = salary.M.map({0:'N', 1:'Y'})
