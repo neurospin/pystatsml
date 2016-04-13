@@ -50,15 +50,11 @@ import pandas as pd
 import numpy as np
 
 url = 'https://raw.github.com/neurospin/pystatsml/master/data/default%20of%20credit%20card%20clients.xls'
-#url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/00350/default%20of%20credit%20card%20clients.xls'
 data = pd.read_excel(url, skiprows=1, sheetname='Data')
 
 df = data.copy()
 target = 'default payment next month'
-df.describe(include='all')       # describe all Series
-RM = ['ID']
 print(df.columns)
-
 
 #Index(['ID', 'LIMIT_BAL', 'SEX', 'EDUCATION', 'MARRIAGE', 'AGE', 'PAY_0',
 #       'PAY_2', 'PAY_3', 'PAY_4', 'PAY_5', 'PAY_6', 'BILL_AMT1', 'BILL_AMT2',
@@ -68,15 +64,6 @@ print(df.columns)
 #      dtype='object')
 
 
-def describe_factor(x):
-    ret = dict()
-    for lvl in x.unique():
-        if pd.isnull(lvl):
-            ret["NaN"] = x.isnull().sum()
-        else:
-           ret[lvl] = np.sum(x==lvl)
-    return ret
-
 '''
 Data recoding of categorial factors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,6 +72,14 @@ Data recoding of categorial factors
 - Categorial that are ordinal are kept
 - Undocumented values are replaced with NaN
 '''
+def describe_factor(x):
+    ret = dict()
+    for lvl in x.unique():
+        if pd.isnull(lvl):
+            ret["NaN"] = x.isnull().sum()
+        else:
+           ret[lvl] = np.sum(x==lvl)
+    return ret
 
 print('Sex')
 print(describe_factor(df["SEX"]))
@@ -95,7 +90,8 @@ print(describe_factor(df["EDUCATION"]))
 # {0: 14, 1: 10585, 2: 14030, 3: 4917, 4: 123, 5: 280, 6: 51}
 
 # remap unknown with NaN
-df["EDUCATION"] = df["EDUCATION"].map({0: np.NaN, 1:1, 2:2, 3:3, 4:np.NaN, 5: np.NaN, 6: np.NaN})
+df["EDUCATION"] = df["EDUCATION"].map({0: np.NaN, 1:1, 2:2, 3:3, 4:np.NaN, 
+    5: np.NaN, 6: np.NaN})
 print(describe_factor(df["EDUCATION"]))
 # {1.0: 10585, 2.0: 14030, 3.0: 4917, 'NaN': 468}
 
