@@ -194,6 +194,9 @@ df.ix[df["MARRIAGE"].isnull(), "MARRIAGE"] = df["MARRIAGE"].mean()
 print(df.isnull().sum().sum())
 # O
 
+describe_factor(df[target])
+{0: 23364, 1: 6636}
+
 '''
 Prepare Data set
 ~~~~~~~~~~~~~~~~
@@ -209,8 +212,144 @@ Univariate analysis
 '''
 
 '''
-Machine Learning
-~~~~~~~~~~~~~~~~
+Machine Learning with SVM
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+On this large dataset, we can afford to set aside some test samples. This will
+also save computation time. However we will have to do some manual work. 
+'''
+
+import numpy as np
+from sklearn import datasets
+import sklearn.svm as svm
+from sklearn import preprocessing
+from sklearn.cross_validation import cross_val_score, train_test_split
+from sklearn.cross_validation import StratifiedKFold
+from sklearn.feature_selection import SelectKBest
+from sklearn.feature_selection import f_classif
+from sklearn.pipeline import Pipeline
+from sklearn.grid_search import GridSearchCV
+import sklearn.metrics as metrics
+
+def balanced_acc(estimator, X, y):
+    return metrics.recall_score(y, estimator.predict(X), average=None).mean()
+
+print("===============================================")
+print("== Put aside half of the samples as test set ==")
+print("===============================================")
+
+Xtr, Xte, ytr, yte = train_test_split(X, y, test_size=0.5, random_state=0, stratify=y)
+
+print("=================================")
+print("== Scale trainin and test data ==")
+print("=================================")
+
+scaler = preprocessing.StandardScaler()
+Xtrs = scaler.fit(Xtr).transform(Xtr)
+Xtes = scaler.transform(Xte)
+
+print("=========")
+print("== SVM ==")
+print("=========")
+
+svc = svm.LinearSVC(class_weight='balanced', dual=False)
+%time scores = cross_val_score(estimator=svc,\
+                         X=Xtrs, y=ytr, cv=2, scoring=balanced_acc)
+print("Validation bACC:%.2f" % scores.mean())
+#CPU times: user 1.01 s, sys: 39.7 ms, total: 1.05 s
+#Wall time: 112 ms
+#Validation  bACC:0.67
+
+svc_rbf = svm.SVC(kernel='rbf', class_weight='balanced')
+%time scores = cross_val_score(estimator=svc_rbf,\
+                         X=Xtrs, y=ytr, cv=2, scoring=balanced_acc)
+print("Validation bACC:%.2f" % scores.mean())
+#CPU times: user 10.2 s, sys: 136 ms, total: 10.3 s
+#Wall time: 10.3 s
+#Test  bACC:0.71
+
+svc_lasso = svm.LinearSVC(class_weight='balanced', penalty='l1', dual=False)
+%time scores = cross_val_score(estimator=svc_lasso,\
+                         X=Xtrs, y=ytr, cv=2, scoring=balanced_acc)
+print("Validation bACC:%.2f" % scores.mean())
+#CPU times: user 4.51 s, sys: 168 ms, total: 4.68 s
+#Wall time: 544 ms
+#Test  bACC:0.67
+
+print("========================")
+print("== SVM CV Grid search ==")
+print("========================")
+Cs = [0.001, .01, .1, 1, 10, 100, 1000]
+param_grid = {'C':Cs}
+
+print("-------------------")
+print("-- SVM Linear L2 --")
+print("-------------------")
+
+svc_cv = GridSearchCV(svc, cv=3,  param_grid=param_grid, scoring=balanced_acc,
+                      n_jobs=-1)
+# What are the best parameters ?
+%time svc_cv.fit(Xtrs, ytr).best_params_
+#CPU times: user 211 ms, sys: 209 ms, total: 421 ms
+#Wall time: 1.07 s
+#{'C': 0.01}
+scores = cross_val_score(estimator=svc_cv,\
+                         X=Xtrs, y=ytr, cv=2, scoring=balanced_acc)
+print("Validation bACC:%.2f" % scores.mean())
+#Validation bACC:0.67
+
+print("-------------")
+print("-- SVM RBF --")
+print("-------------")
+
+svc_rbf_cv = GridSearchCV(svc_rbf, cv=3,  param_grid=param_grid,
+                          scoring=balanced_acc, n_jobs=-1)
+# What are the best parameters ?
+%time svc_rbf_cv.fit(Xtrs, ytr).best_params_
+#Wall time: 1min 10s
+#Out[6]: {'C': 1}
+
+# reduce the grid search
+svc_rbf_cv.param_grid={'C': [0.1, 1, 10]}
+scores = cross_val_score(estimator=svc_rbf_cv,\
+                         X=Xtrs, y=ytr, cv=2, scoring=balanced_acc)
+print("Validation bACC:%.2f" % scores.mean())
+#Validation bACC:0.71
+
+print("-------------------")
+print("-- SVM Linear L1 --")
+print("-------------------")
+
+svc_lasso_cv = GridSearchCV(svc_lasso, cv=3,  param_grid=param_grid,
+                            scoring=balanced_acc, n_jobs=-1)
+# What are the best parameters ?
+%time svc_lasso_cv.fit(Xtrs, ytr).best_params_
+#CPU times: user 514 ms, sys: 181 ms, total: 695 ms
+#Wall time: 2.07 s
+#Out[10]: {'C': 0.1}
+
+# reduce the grid search
+svc_lasso_cv.param_grid={'C': [0.1, 1, 10]}
+
+scores = cross_val_score(estimator=svc_lasso_cv,\
+                         X=Xtrs, y=ytr, cv=2, scoring=balanced_acc)
+print("Validation bACC:%.2f" % scores.mean())
+#Validation bACC:0.67
+
+
+
+print("SVM-RBF, test bACC:%.2f" % balanced_acc(svc_rbf_cv, Xtes, yte))
+# SVM-RBF, test bACC:0.70
+
+print("SVM-Lasso, test bACC:%.2f" % balanced_acc(svc_lasso_cv, Xtes, yte))
+# SVM-Lasso, test bACC:0.67
+
+
+## SKIP
+###############################################################################
+'''
+Machine Learning: Logistic regression
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 '''
 
 import numpy as np
@@ -314,9 +453,9 @@ enet_cv = GridSearchCV(enet, cv=5,  param_grid=param_grid, scoring=balanced_acc)
     scoring=balanced_acc, n_jobs=-1)
 print("Test bACC:%.2f" % scores.mean())
 
-# CPU times: user 186 ms, sys: 227 ms, total: 414 ms
-# Wall time: 21.5 s
-# Test bACC:0.69
+###############################################################################
+## SKIP
+
 
 
 

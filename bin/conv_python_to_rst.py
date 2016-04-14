@@ -8,6 +8,7 @@ from __future__ import print_function
 import sys, os, argparse
 
 doc_tag = "'''"
+skip_tag = '## SKIP'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -26,9 +27,15 @@ if __name__ == "__main__":
     
     #line_in = '## Pandas data manipulation'
     code_block = True
+    skip = False
     for line_in in input_fd:
         #print(line_in)
         ## Switch state
+        if skip_tag in line_in:
+            skip = not skip
+            continue
+        if skip:
+            continue
         if doc_tag in line_in and not code_block:  # end doc start code block
             code_block = True
             output_fd.write('\n') # write new line instead of doc_tag

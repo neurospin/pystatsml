@@ -130,9 +130,9 @@ def balanced_acc(estimator, X, y):
     '''
     return metrics.recall_score(y, estimator.predict(X), average=None).mean()
 
-print("=============================")
+print("===============================")
 print("== Basic logistic regression ==")
-print("=============================")
+print("===============================")
 
 scores = cross_val_score(estimator=lm.LogisticRegression(C=1e8, class_weight='balanced'),
                          X=X, y=y, cv=5, scoring=balanced_acc)
