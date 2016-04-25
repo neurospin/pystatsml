@@ -5,7 +5,7 @@ Case studies of ML
 
 '''
 
-Default of credit card clients Data Set 
+Default of credit card clients Data Set
 ---------------------------------------
 
 Sources: 
