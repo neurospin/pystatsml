@@ -31,18 +31,27 @@ https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Noteboo
 IPython notebooks
 -----------------
 
-https://ipython.org/ipython-doc/3/notebook/index.html
+- https://ipython.org/ipython-doc/3/notebook/index.html
 
-http://nbviewer.ipython.org/github/ipython/ipython/tree/1.x/examples/
+- http://nbviewer.ipython.org/github/ipython/ipython/tree/1.x/examples/
 
 - http://www.kevinsheppard.com/Python_Course/IPython_Notebooks
 
 - Shortcuts: http://johnlaudun.org/20131228-ipython-notebook-keyboard-shortcuts/
 
+Machine Learning notebooks
+--------------------------
+
+http://www.kdnuggets.com/2016/04/top-10-ipython-nb-tutorials.html
+
 Markdown
 --------
 http://daringfireball.net/projects/markdown/basics
 
+R with Jupyther
+~~~~~~~~~~~~~~~
+
+conda install -c r r-essentials
 
 Sphinx
 ------

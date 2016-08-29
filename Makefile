@@ -50,7 +50,7 @@ help:
 
 # Rule to convert notebook to rst
 .ipynb.rst:
-	ipython nbconvert --to rst $< --output $@
+	jupyter nbconvert --to rst $< --output $@
 
 .py.rst:
 	$(PYTORST) $<
