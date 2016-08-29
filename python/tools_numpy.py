@@ -44,6 +44,7 @@ np.logspace(0, 3, 4)            # 10^0 to 10^3 (inclusive) with 4 points
 int_array = np.arange(5)
 float_array = int_array.astype(float)
 
+
 '''
 Reshaping
 ---------
@@ -52,6 +53,35 @@ Reshaping
 matrix = np.arange(10, dtype=float).reshape((2, 5))
 print(matrix.shape)
 print(matrix.reshape(5, 2))
+
+# Add an axis
+a = np.array([0, 1])
+a_col = a[:, np.newaxis]
+# array([[0],
+#       [1]])
+
+# Transpose
+a_col.T
+#array([[0, 1]])
+
+'''
+Stack arrays
+------------
+
+Stack flat arrays in columns
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'''
+a = np.array([0, 1])
+b = np.array([2, 3])
+
+np.stack((a, b)).T
+# [[0 2]
+# [1 3]]
+
+# or
+np.hstack((a[:, None], b[:, None]))
+# array([[0, 2],
+#       [1, 3]])
 
 '''
 Selection
