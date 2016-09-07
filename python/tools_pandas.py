@@ -414,6 +414,8 @@ pd.read_excel(xls_filename, sheetname='salary')
 Exercise
 --------
 
+Read the iris dataset into a DataFrame.
+
 Given modified Frame provided beloow, 
 '''
 

@@ -23,6 +23,8 @@ https://onlinecourses.science.psu.edu/stat857/node/141
 
 https://github.com/rasbt/python-machine-learning-book
 
+https://onlinecourses.science.psu.edu/stat505/
+
 A gallery of interesting IPython Notebooks
 ------------------------------------------
 
