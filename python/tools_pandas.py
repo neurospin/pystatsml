@@ -411,12 +411,36 @@ pd.read_excel(xls_filename, sheetname='users')
 pd.read_excel(xls_filename, sheetname='salary')
 
 '''
-Exercise
---------
 
-Read the iris dataset into a DataFrame.
+Exercises
+---------
 
-Given modified Frame provided beloow, 
+Data Frame
+~~~~~~~~~~
+
+1. Read the iris dataset at 'https://raw.github.com/neurospin/pystatsml/master/data/iris.csv'
+
+2. Print column names
+
+3. Get numerical columns
+
+4. For each species compute the mean of numerical columns and store it in  a ``stats`` table like:
+
+::
+
+          species  sepal_length  sepal_width  petal_length  petal_width
+    0      setosa         5.006        3.428         1.462        0.246
+    1  versicolor         5.936        2.770         4.260        1.326
+    2   virginica         6.588        2.974         5.552        2.026
+
+
+'''
+
+'''
+Missing data
+~~~~~~~~~~~~
+
+Add some missing data to the previous table ``users``:
 '''
 
 df = users.copy()
@@ -424,7 +448,7 @@ df.ix[[0, 2], "age"] = None
 df.ix[[1, 3], "gender"] = None
 
 '''
-1. Write a function  ``fillmissing_with_mean(df)`` that fill all missing value of numerical column with the mean of the current columns.
+1. Write a function ``fillmissing_with_mean(df)`` that fill all missing value of numerical column with the mean of the current columns.
 
 2. Save the original users and "imputed" frame in a single excel file "users.xlsx" with 2 sheets: original, imputed.
 '''
