@@ -1,57 +1,122 @@
+######
 ## PCA
+######
 
-# https://tgmstat.wordpress.com/2013/11/28/computing-and-visualizing-pca-in-r/
+# Write a class `BasicPCA` with two methods `fit(X)` that estimates the data mean
+# and principal components directions. `transform(X)` that project a new the data
+# into the principal components.
+# 
+# Check that your `BasicPCA` pfermed simillarly than the one from sklearn:
+#   `from sklearn.decomposition import PCA`
 
 
-user1 = data.frame(name=c('eric', 'sophie'),
-                     age=c(22, 48), gender=c('M', 'F'),
-                     job=c('engineer', 'scientist'))
-  
-user2 = data.frame(name=c('alice', 'john', 'peter', 'julie', 'christine'),
-                   age=c(19, 26, 33, 44, 35), gender=c('F', 'M', 'M', 'F', 'F'),
-                   job=c("student", "student", 'engineer', 'scientist', 'scientist'))
-
-user3 = rbind(user1, user2)
-
-salary = data.frame(name=c('alice', 'john', 'peter', 'julie'), salary=c(22000, 2400, 3500, 4300))
-
-user = merge(user3, salary, by="name", all=TRUE)
-
-user[(user$gender == 'F') & (user$job == 'scientist'), ]
-
-summary(user)
-
-types = NULL
-for(n in colnames(user)){
-  types = rbind(types, data.frame(var=n, 
-                                  type=typeof(user[[n]]),
-                                  isnumeric=is.numeric(user[[n]])))
+BasicPCA <- function(X){
+  obj = list()
+  Xc <- scale(X, center=TRUE, scale=FALSE)
+  obj$mean <- attr(Xc, "scaled:center")
+  s <- svd(Xc, nu = 0)
+  # v [K x P] a matrix whose columns contain the right singular vectors of x
+  obj$V = s$v
+  obj$var = 1 / (nrow(X) - 1) * s$d ^2
+  return(obj)
 }
 
-typeof(user['name'])
-typeof(user['name'])
+BasicPCA.transform <- function(obj, X){
+  #Xc = scale(X, center=obj$mean, scale=FALSE)
+  #return(Xc %*% obj$V)
+  scale(X, obj$mean, FALSE) %*% obj$V
+}
 
-link = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
-X = read.csv(url(link))
+# https://tgmstat.wordpress.com/2013/11/28/computing-and-visualizing-pca-in-r/
+# dataset
+n_samples = 10
+experience = rnorm(n_samples)
+salary = 1500 + experience + .5 * rnorm(n_samples)
+other = rnorm(n_samples)
+X = cbind(experience, salary, other)
 
-X = read.csv(curl(link))
+Xcs = scale(X, center=TRUE, scale=FALSE)
+attr(Xcs, "scaled:center") = NULL
+attr(Xcs, "scaled:scale") = NULL
 
-install.packages("RCurl")
-
-install.packages(c("curl", "httr"))
-require(RCurl)
-myCsv <- getURL("https://gist.github.com/raw/667867/c47ec2d72801cfd84c6320e1fe37055ffe600c87/test.csv")
-WhatJDwants <- read.csv(textConnection(myCsv))
+basic_pca = BasicPCA(Xcs)
+obj = basic_pca
+BasicPCA.transform(basic_pca, Xcs)
 
 
-urlfile<-'https://raw.github.com/aronlindberg/latent_growth_classes/master/LGC_data.csv'
-dsin<-read.csv(curl(link))
+# PCA with prcomp
+pca = prcomp(Xcs, center=TRUE, scale.=FALSE)
+names(pca)
+object = pca
 
-library(curl)
+all(pca$rotation == basic_pca$V)
 
-x <- read.csv( curl("https://raw.githubusercontent.com/trinker/dummy/master/data/gcircles.csv") )
+all(predict(pca, Xcs) == BasicPCA.transform(basic_pca, Xcs))
 
-download.file("https://raw.github.com/aronlindberg/latent_growth_classes/master/LGC_data.csv", 
-              destfile = "/tmp/test.csv", method = "curl")
+predict(pca, Xcs) - BasicPCA.transform(basic_pca, Xcs)
 
-download.file(link,  destfile = "/tmp/test.csv", method = "curl")
+cor(predict(pca, Xcs), BasicPCA.transform(basic_pca, Xcs))
+
+newdata = X
+scale(newdata, object$center, object$scale) %*% object$rotation
+
+# "https://raw.github.com/neurospin/pystatsml/master/data/iris.csv"
+# 
+# Describe the data set. Should the dataset been standardized ?
+# 
+# Retrieve the explained variance ratio. Determine $K$ the number of components.
+# 
+# Print the $K$ principal components direction and correlation of the $K$ principal
+# components with original variables. Interpret the contribution of original variables
+# into the PC.
+# 
+# Plot samples projected into the $K$ first PCs.
+# 
+# Color samples with their species.
+#
+
+#setwd("/home/ed203246/git/pystatsml/notebooks")
+df = read.csv("../data/iris.csv")
+
+# Describe the data set. Should the dataset been standardized ?
+summary(df)
+
+# sepal_length    sepal_width     petal_length    petal_width          species  
+# Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100   setosa    :50  
+# 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300   versicolor:50  
+# Median :5.800   Median :3.000   Median :4.350   Median :1.300   virginica :50  
+# Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199                  
+# 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800                  
+# Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500     
+
+numcols = colnames(df)[unlist(lapply(df, is.numeric))]
+
+
+# Describe the structure of correlation among variables.
+cor(X)
+
+# Compute a PCA with the maximum number of compoenents.
+X = df[, numcols]
+apply(X, 2, sd)
+
+Xcs = scale(X, center=TRUE, scale=TRUE)
+attr(Xcs, "scaled:center") = NULL
+attr(Xcs, "scaled:scale") = NULL
+apply(Xcs, 2, sd)
+apply(Xcs, 2, mean)
+
+#Compute a PCA with the maximum number of compoenents.
+pca = prcomp(Xcs)
+
+(pca$sdev ** 2) / sum(pca$sdev ** 2)
+cumsum(pca$sdev ** 2) / sum(pca$sdev ** 2)
+
+# K = 2
+names(pca)
+pca$rotation
+
+PC = predict(pca, Xcs)
+t(cor(Xcs, PC[, 1:2]))
+
+library(ggplot2)
+qplot(PC)
