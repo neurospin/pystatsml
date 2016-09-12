@@ -123,3 +123,20 @@ data = cbind(data, PC)
 library(ggplot2)
 
 qplot(PC1, PC2, data=data, colour=species)
+
+####################################################################
+## MDS
+####################################################################
+mds <- cmdscale(eurodist)
+x <- mds[,1]
+y <- -mds[,2]
+
+cities = rownames(as.matrix(eurodist))
+
+text(x, y, cities, cex=0.8)
+
+
+library(MASS)
+isoMDS(eurodist)
+
+autoplot(, colour = 'orange', size = 4, shape = 3)
