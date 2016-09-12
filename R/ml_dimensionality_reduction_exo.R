@@ -22,9 +22,8 @@ BasicPCA <- function(X){
 }
 
 BasicPCA.transform <- function(obj, X){
-  #Xc = scale(X, center=obj$mean, scale=FALSE)
-  #return(Xc %*% obj$V)
-  scale(X, obj$mean, FALSE) %*% obj$V
+  Xc <- scale(X, center=obj$mean, scale=FALSE)
+  return(Xc %*% obj$V)
 }
 
 # https://tgmstat.wordpress.com/2013/11/28/computing-and-visualizing-pca-in-r/
@@ -35,30 +34,21 @@ salary = 1500 + experience + .5 * rnorm(n_samples)
 other = rnorm(n_samples)
 X = cbind(experience, salary, other)
 
+# Optional: standardize data
 Xcs = scale(X, center=TRUE, scale=FALSE)
 attr(Xcs, "scaled:center") = NULL
 attr(Xcs, "scaled:scale") = NULL
 
 basic_pca = BasicPCA(Xcs)
-obj = basic_pca
 BasicPCA.transform(basic_pca, Xcs)
-
 
 # PCA with prcomp
 pca = prcomp(Xcs, center=TRUE, scale.=FALSE)
 names(pca)
-object = pca
 
+# Compare
 all(pca$rotation == basic_pca$V)
-
 all(predict(pca, Xcs) == BasicPCA.transform(basic_pca, Xcs))
-
-predict(pca, Xcs) - BasicPCA.transform(basic_pca, Xcs)
-
-cor(predict(pca, Xcs), BasicPCA.transform(basic_pca, Xcs))
-
-newdata = X
-scale(newdata, object$center, object$scale) %*% object$rotation
 
 # "https://raw.github.com/neurospin/pystatsml/master/data/iris.csv"
 # 
@@ -76,29 +66,30 @@ scale(newdata, object$center, object$scale) %*% object$rotation
 #
 
 #setwd("/home/ed203246/git/pystatsml/notebooks")
-df = read.csv("../data/iris.csv")
+data = read.csv("../data/iris.csv")
 
 # Describe the data set. Should the dataset been standardized ?
-summary(df)
 
+summary(data)
 # sepal_length    sepal_width     petal_length    petal_width          species  
 # Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100   setosa    :50  
 # 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300   versicolor:50  
 # Median :5.800   Median :3.000   Median :4.350   Median :1.300   virginica :50  
 # Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199                  
 # 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800                  
-# Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500     
+# Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500 
 
-numcols = colnames(df)[unlist(lapply(df, is.numeric))]
+numcols = colnames(data)[unlist(lapply(data, is.numeric))]
+apply(data[, numcols], 2, sd)
+#sepal_length  sepal_width petal_length  petal_width 
+#0.8280661    0.4358663    1.7652982    0.7622377 
 
 
-# Describe the structure of correlation among variables.
+# Describe the structure of correlation among variables.
+X = data[, numcols]
 cor(X)
 
 # Compute a PCA with the maximum number of compoenents.
-X = df[, numcols]
-apply(X, 2, sd)
-
 Xcs = scale(X, center=TRUE, scale=TRUE)
 attr(Xcs, "scaled:center") = NULL
 attr(Xcs, "scaled:scale") = NULL
@@ -108,7 +99,11 @@ apply(Xcs, 2, mean)
 #Compute a PCA with the maximum number of compoenents.
 pca = prcomp(Xcs)
 
+# Variance ratio by component
 (pca$sdev ** 2) / sum(pca$sdev ** 2)
+#[1] 0.729624454 0.228507618 0.036689219 0.005178709
+
+# cumulative explained variance
 cumsum(pca$sdev ** 2) / sum(pca$sdev ** 2)
 
 # K = 2
@@ -117,6 +112,14 @@ pca$rotation
 
 PC = predict(pca, Xcs)
 t(cor(Xcs, PC[, 1:2]))
+sepal_length sepal_width petal_length petal_width
+PC1    0.8901688  -0.4601427   0.99155518  0.96497896
+PC2   -0.3608299  -0.8827163  -0.02341519 -0.06399985
 
+data = cbind(data, PC)
+
+# Plot samples projected into the K first PCs
+# Color samples with their species.
 library(ggplot2)
-qplot(PC)
+
+qplot(PC1, PC2, data=data, colour=species)
