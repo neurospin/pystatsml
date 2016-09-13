@@ -65,6 +65,8 @@ all(predict(pca, Xcs) == BasicPCA.transform(basic_pca, Xcs))
 # Color samples with their species.
 #
 
+url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/iris.csv'
+data = read.csv(url)
 #setwd("/home/ed203246/git/pystatsml/notebooks")
 data = read.csv("../data/iris.csv")
 
@@ -127,16 +129,16 @@ qplot(PC1, PC2, data=data, colour=species)
 ####################################################################
 ## MDS
 ####################################################################
-mds <- cmdscale(eurodist)
-x <- mds[,1]
-y <- -mds[,2]
+# Load eurodist dataset from
+url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/eurodist.csv'
+# Apply MDS using cmdscale
+
+data = read.csv(url)
+city = data["city"]
+D = data[, 2:ncol(data)]
+
+mds <- cmdscale(D)
 
 cities = rownames(as.matrix(eurodist))
-
-text(x, y, cities, cex=0.8)
-
-
-library(MASS)
-isoMDS(eurodist)
-
-autoplot(, colour = 'orange', size = 4, shape = 3)
+plot(mds[,1], -mds[,2])
+text(mds[,1], -mds[,2], cities, cex=0.8)
