@@ -1,6 +1,11 @@
 
 Resources
 ---------
+ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml
+
+wget ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf
+
+wget ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/tools_R.html
 
 pdf: https://sites.google.com/site/duchesnay/courses
 duchesnay@gmail.com
