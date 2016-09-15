@@ -129,16 +129,98 @@ qplot(PC1, PC2, data=data, colour=species)
 ####################################################################
 ## MDS
 ####################################################################
-# Load eurodist dataset from
-url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/eurodist.csv'
-# Apply MDS using cmdscale
 
-data = read.csv(url)
-city = data["city"]
+##############
+## eurodist ##
+##############
+
+# Perform similar analysis on eurodist dataset using R, using:
+# - MDS: cmdscale.
+# - Euclidian parwise distance: dist
+#
+#url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/eurodist.csv'
+#data = read.csv(url)
+
+setwd("~/git/pystatsml/notebooks")
+#url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/eurodist.csv'
+data = read.csv("../data/eurodist.csv")
+
+city = data[["city"]]
 D = data[, 2:ncol(data)]
 
-mds <- cmdscale(D)
+print(data[1:5, 1:5])
 
-cities = rownames(as.matrix(eurodist))
-plot(mds[,1], -mds[,2])
-text(mds[,1], -mds[,2], cities, cex=0.8)
+# Arbitrary choice of K=2 components
+mds = cmdscale(D, k=2, , eig=T)
+
+# Recover coordinates of the cities in Euclidian referential whose orientation is arbitrary.
+print(as.matrix(dist(mds$points))[1:5, 1:5])
+
+plot(mds$points[,1], -mds$points[,2])
+text(mds$points[,1], -mds$points[,2], city, cex=0.8)
+
+
+# Apply MDS using cmdscale
+k_range = 1:(min(5, dim(D)-1))
+stress <- rep(0, max.k)
+for (kk in k_range){
+  mds <- cmdscale(D, k=kk, eig=T)
+  stress[kk] = (sum((D - as.matrix(dist(mds$points))) ^ 2)) ^ 0.5
+}
+plot(k_range, stress, type="l", xlab="k", ylab="stress")
+#cbind(1:max.k,P.k)
+
+# Ressources
+# http://people.stat.sc.edu/Hitchcock/chapter5_R_examples.txt
+
+##########
+## iris ##
+##########
+
+# Perform similar analysis on eurodist dataset using R, using:
+# - MDS: cmdscale.
+# - Euclidian parwise distance: dist
+#
+#url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/iris.csv'
+#data = read.csv(url)
+
+setwd("~/git/pystatsml/notebooks")
+#url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/iris.csv'
+data = read.csv("../data/iris.csv")
+
+species = data[["species"]]
+X = scale(data[, 1:4])
+attr(X, "scaled:center") = NULL
+attr(X, "scaled:scale") = NULL
+D = as.matrix(dist(X))
+print(D[1:5, 1:5])
+
+# Select K
+k_range = 1:(min(5, dim(D)-1))
+stress <- rep(0, max.k)
+for (kk in k_range){
+  mds <- cmdscale(D, k=kk, eig=T)
+  stress[kk] = (sum((D - as.matrix(dist(mds$points))) ^ 2)) ^ 0.5
+}
+plot(k_range, stress, type="l", xlab="k", ylab="stress")
+
+K = 2 # components
+mds = cmdscale(D, k=K , eig=T)
+
+# Recover coordinates of the cities in Euclidian referential whose orientation is arbitrary.
+print(as.matrix(dist(mds$points))[1:5, 1:5])
+
+plot(mds$points[,1], -mds$points[,2], col=species)
+
+# PCA with prcomp
+pca = prcomp(X, center=TRUE, scale.=FALSE)
+names(pca)
+PC = predict(pca, X)[, 1:K]
+
+# Compute correlation between PCA and MDS components
+cor(cbind(mds$points, PC))
+
+#     1.000000e+00  1.551000e-16 1.000000e+00  4.766625e-16
+#     1.551000e-16  1.000000e+00 4.474091e-16 -1.000000e+00
+# PC1 1.000000e+00  4.474091e-16 1.000000e+00  1.842964e-16
+# PC2 4.766625e-16 -1.000000e+00 1.842964e-16  1.000000e+00
