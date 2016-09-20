@@ -187,8 +187,8 @@ np.random.randn(10)         # random normals (mean 0, sd 1)
 np.random.randint(0, 2, 10) # 10 randomly picked 0 or 1
 
 '''
-Exercise array manipulation
----------------------------
+Exercises
+---------
 
 Given the array:
 '''

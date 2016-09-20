@@ -224,3 +224,26 @@ cor(cbind(mds$points, PC))
 #     1.551000e-16  1.000000e+00 4.474091e-16 -1.000000e+00
 # PC1 1.000000e+00  4.474091e-16 1.000000e+00  1.842964e-16
 # PC2 4.766625e-16 -1.000000e+00 1.842964e-16  1.000000e+00
+
+
+####################################################################
+## isomap
+####################################################################
+install.packages("vegan")
+
+s_curve = read.csv("../data/s_curve.csv")
+colnames(s_curve)
+
+X = as.matrix(s_curve[, c("x", "y", "z")])
+color = s_curve[["color"]]
+D <- dist(X, method="euclidean")
+
+library(vegan)
+
+iso = isomap(D, ndim=2, k=10)
+
+#install.packages("ggplot2")
+library(ggplot2)
+
+qplot(iso$points[,1], iso$points[,2], col=color) + scale_colour_gradientn(colours=rainbow(4))
+scale_fill_distiller(palette = "Spectral")
