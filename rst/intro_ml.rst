@@ -3,20 +3,17 @@ Introduction to Machine Learning
 ================================
 
 
-Machine Learning within data science
+Machine learning within data science
 ------------------------------------
 
 .. image:: images/Data_Science_VD.png
    :scale: 50
    :align: center
 
-ML cover two main types of data analysis:
+Machine learning covers two main types of data analysis:
 
-1. Exploratory analysis: **Unsupervised learning**. 
-Discover the structure within the data. Eg.: Experience (in years in a company) and salary are correlated.
-
-2. Predictive analysis **Supervised learning**. **"learn from the past to predict the future"**.
-Scenario: a company wants to detect potential future client among a base of prospect. Retrospective data analysis: given the base of prospected company (with their characteristics: size, domain, localization) some became client some not. Is it possible to learn to predict those which are more likely to become client from the company characteristics?  The training data consist of a set of *n* training samples. Each sample :math:`x_i` is a vector of *p* input features (company characteristics) and a target feature (:math:`y_i \in \{Yes, No\}` (became client). 
+1. Exploratory analysis: **Unsupervised learning**. Discover the structure within the data. E.g.: Experience (in years in a company) and salary are correlated.
+2. Predictive analysis: **Supervised learning**. This is sometimes described as to **"learn from the past to predict the future"**. Scenario: a company wants to detect potential future clients among a base of prospect. Retrospective data analysis: given the base of prospected company (with their characteristics: size, domain, localization, etc.) some became clients, some do not. Is it possible to learn to predict those that are more likely to become clients from their company characteristics? The training data consist of a set of *n* training samples. Each sample, :math:`x_i`, is a vector of *p* input features (company characteristics) and a target feature (:math:`y_i \in \{Yes, No\}` (whether they became a client or not).
 
 
 IT/computing science tools

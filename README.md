@@ -37,7 +37,17 @@ The easier is to install Anaconda at https://www.continuum.io with python >= 3
 - pandoc
 
 For Linux:
+
+Install pandoc:
 ```
 sudo apt-get install pandoc
+```
+If you don't already have pip:
+```
+sudo apt-get install python3-pip
+```
+Install Jupyter:
+```
+sudo -H pip3 install jupyter
 ```
 
