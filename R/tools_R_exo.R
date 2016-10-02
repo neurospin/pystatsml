@@ -6,12 +6,14 @@ colnames(df)
 
 
 #Get numerical columns
+unlist(lapply(df, is.numeric))
 num_cols = colnames(df)[unlist(lapply(df, is.numeric))]
 
 # For each species compute the mean of numerical columns and store it in a stats table like:
 stats = NULL
 for(grp in levels(df$species)){
-  m = as.matrix(df[df$species == grp, num_cols])
+  #grp = levels(df$species)[1]
+    m = as.matrix(df[df$species == grp, num_cols])
   line = data.frame(species=grp, as.list(colMeans(m)))
   stats = rbind(stats, line)
 }
@@ -33,16 +35,17 @@ user = merge(user3, salary, by="name", all=TRUE)
 
 
 df = user
+
 fillmissing_with_mean <- function(df){
   num_cols = colnames(df)[unlist(lapply(df, is.numeric))]
-  
   for(n in num_cols){
-    df[is.na(x), n] = mean(df[!is.na(x), n])
-    
+    # n = num_cols[1]
+    x = df[, n]
+    df[is.na(x), n] = mean(x[!is.na(x)]) # mean(x, na.rm=TRUE)
   }
   return(df)
 }
 
-fillmissing_with_mean(user)
+user_imputed = fillmissing_with_mean(user)
 
-write.csv(user, "users_imputed.csv", row.names=FALSE)
+write.csv(user_imputed, "users_imputed.csv", row.names=FALSE)

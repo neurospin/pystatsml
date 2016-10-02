@@ -21,9 +21,20 @@ X = matrix(rnorm(100*2), 100, 2)
 dim(X)
 X %*% (a / euclidian(a))
 
-'''
+### Compute row means and store them into a vector
+
+row_means = function(X){
+  #means = matrix(NA, dim(X)[1], 1)
+  means = NULL
+  for(i in 1:dim(X)[1]){
+    #means[i, 1] = mean(X[i,])
+    means = c(means, mean(X[i,]))
+  }
+  return(means)
+}
+row_means(X)
+
 ### Covariance matrix and Mahalanobis norm
-'''
 
 N = 10000
 mu = c(1, 1)
