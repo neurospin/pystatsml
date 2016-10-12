@@ -36,10 +36,10 @@ row_means(X)
 
 ### Covariance matrix and Mahalanobis norm
 
-N = 10000
+N = 100
 mu = c(1, 1)
 Cov = matrix(c(1, .8,
-                  .8, 1), 2, 2)
+              .8, 1), 2, 2)
 
 library(MASS)
 X = mvrnorm(N, mu, Cov)
@@ -65,7 +65,7 @@ mahalanobis <- function(x, xbar, Sinv){
 }
 
 
-dists = pd.DataFrame(
+#dists = pd.DataFrame(
 
 dist = matrix(nrow=N, ncol=2)
 
@@ -73,8 +73,7 @@ for(i in 1:nrow(X)){
     dist[i, 1] = mahalanobis(X[i, ], xbar, Sinv)
     dist[i, 2] = euclidian(X[i, ] - xbar)
 }
-
-dist = data.frame(dist, col.names=c('Mahalanobis', 'Euclidian'))
+colnames(dist) = c('Mahalanobis', 'Euclidian')
 
 print(dist[1:10, ])
 
