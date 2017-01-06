@@ -196,7 +196,7 @@ Given the array:
 X = np.random.randn(4, 2) # random normals in 4x2 array
 
 '''
-- For each column find the row indices of the minimiun value.
+- For each column find the row index of the minimiun value.
     
 - Write a function ``standardize(X)`` that return an array whose columns are centered and scaled (by std-dev).
 '''

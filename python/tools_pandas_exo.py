@@ -45,7 +45,50 @@ num_cols = df._get_numeric_data().columns
 stats = list()
 
 for grp, d in df.groupby("species"):
+    print(grp)
+    #print()
     stats.append( [grp] + d.ix[:, num_cols].mean(axis=0).tolist())
 
 stats = pd.DataFrame(stats, columns=["species"] + num_cols.tolist())
 print(stats)
+
+# or
+df.groupby("species").mean()
+
+##
+
+df.ix[[0, 1] ,"petal_width"] = None
+
+df.petal_width
+
+df["petal_width"][df["petal_width"].isnull()] = \
+    df["petal_width"][df["petal_width"].notnull()].median()
+
+
+#
+
+l = [(1, "a", 1), (2, "b", 2)]
+
+for x, y, z in l:
+    print(x, y, z)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

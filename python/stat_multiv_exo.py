@@ -69,3 +69,7 @@ x = X[0, :]
 import scipy.spatial
 assert(mahalanobis(X[0, :], xbar, Sinv) == scipy.spatial.distance.mahalanobis(xbar, X[0, :], Sinv))
 assert(mahalanobis(X[1, :], xbar, Sinv) == scipy.spatial.distance.mahalanobis(xbar, X[1, :], Sinv))
+
+
+
+

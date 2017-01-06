@@ -261,7 +261,7 @@ print(staked.pivot(index='name', columns='variable', values='value'))
 
 
 '''
-Quality control: dudlicate data
+Quality control: duplicate data
 -------------------------------
 '''
 
@@ -335,7 +335,7 @@ Based on parametric statistics: use the mean
 Assume random variable follows the normal distribution
 Exclude data outside 3 standard-deviations:
 - Probability that a sample lies within 1 sd: 68.27%
-- Probability that a sample lies within 2 sd: 99.73% (68.27 + 2 * 15.73)
+- Probability that a sample lies within 3 sd: 99.73% (68.27 + 2 * 15.73)
 https://fr.wikipedia.org/wiki/Loi_normale#/media/File:Boxplot_vs_PDF.svg
 '''
 
@@ -348,7 +348,7 @@ print(size_outlr_mean.mean())
 Based on non-parametric statistics: use the median
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Median absolute deviation. Use the Median which is a robust non-parametric statistics
+Median absolute deviation (MAD), based on the median, is a robust non-parametric statistics.
 https://en.wikipedia.org/wiki/Median_absolute_deviation
 '''
 

@@ -92,12 +92,16 @@ class Manager(Employee):
         return 2500 + 120 * self.years_of_service
 
 employees = dict()
-samples = Employee("lucy", 3), Employee("john", 1), Manager('julie', 3),  Manager('paul', 1)
+samples = [Employee("lucy", 3),
+           Employee("john", 1),
+           Manager('julie', 3),
+           Manager('paul', 1)]
 
 for e in samples:
     employees[e.name] = e
 
-[[name, employees[name].salary()] for name in employees]
+[[name, employees[name].salary()] for name 
+      in employees]
 
 sum([e.salary() for e in employees.values()]) / len(employees)
 
@@ -143,7 +147,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import os
 import tempfile
 
-tmpfile = os.path.join(tempfile.gettempdir(), "bsd.txt")
+tmpfile = os.path.join(tempfile.gettempdir(),
+                       "bsd.txt")
 
 fd = open(tmpfile, "w")
 fd.write(bsd_4clause)

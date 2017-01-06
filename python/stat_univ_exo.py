@@ -24,7 +24,7 @@ n = 10
 x  = np.random.normal(loc=1.78, scale=.1, size=n)
 y  = np.random.normal(loc=1.66, scale=.1, size=n)
 
-xbar = np.sum(x) / n
+xbar = np.sum(x) / x.shape[0]
 assert np.mean(x) == xbar
 
 xvar = np.sum((x - xbar) ** 2) / (n - 1)
@@ -130,7 +130,8 @@ df = nx + ny - 2
 pval = stats.t.sf(tval, df)
 pval2sided = pval * 2
 
-assert np.allclose((tval, pval2sided), stats.ttest_ind(x, y, equal_var=True))
+assert np.allclose((tval, pval2sided),
+                   stats.ttest_ind(x, y, equal_var=True))
 
 '''
 unequal variance
