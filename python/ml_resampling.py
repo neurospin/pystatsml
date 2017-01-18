@@ -66,3 +66,59 @@ print("Test  r2:%.2f" % scores.mean())
 
 By default, parameter search uses the score function of the estimator to evaluate a parameter setting. These are the sklearn.metrics.accuracy_score for classification and sklearn.metrics.r2_score for regression. For some applications, other scoring functions are better suited (for example in unbalanced classification, the accuracy score is often uninformative). An alternative scoring function can be specified via the scoring parameter to GridSearchCV, RandomizedSearchCV and many of the specialized cross-validation tools described below. See The scoring parameter: defining model evaluation rules for more details.
 '''
+
+'''
+Bootstrapping
+'''
+
+import numpy as np
+from sklearn import datasets
+import sklearn.linear_model as lm
+import sklearn.metrics as metrics
+import pandas as pd
+
+# Dataset
+n_features = 5
+n_features_info = 2
+n_samples = 100
+X = np.random.randn(n_samples, n_features)
+beta = np.zeros(n_features)
+beta[:n_features_info] = 1
+Xbeta = np.dot(X, beta)
+eps = np.random.randn(n_samples)
+y = Xbeta + eps
+
+
+model = lm.RidgeCV()
+model.fit(X, y)
+print("Coefficients on all data:")
+print(model.coef_)
+ 
+nboot = 100 # !! Should be at least 1000
+scores_names = ["r2"]
+scores_boot = np.zeros((nboot, len(scores_names)))
+coefs_boot = np.zeros((nboot, X.shape[1]))
+
+orig_all = np.arange(X.shape[0])
+for boot_i in range(nboot):
+    boot_tr = np.random.choice(orig_all, size=len(orig_all), replace=True)
+    boot_te = np.setdiff1d(orig_all, boot_tr, assume_unique=False)
+    Xtr, ytr = X[boot_tr, :], y[boot_tr]
+    Xte, yte = X[boot_te, :], y[boot_te]
+    model.fit(Xtr, ytr)
+    y_pred = model.predict(Xte).ravel()
+    #y_pred.shape, prob_pred.shape, yte.shape
+    scores_boot[boot_i, :] = metrics.r2_score(yte, y_pred)
+    coefs_boot[boot_i, :] = model.coef_
+
+scores_boot = pd.DataFrame(scores_boot, columns=scores_names)
+scores_stat = scores_boot.describe(percentiles=[.99, .95, .5, .1, .05, 0.01])
+
+print("r-squared: Mean=%.2f, SE=%.2f, CI=(%.2f %.2f)" %\
+      tuple(scores_stat.ix[["mean", "std", "5%", "95%"], "r2"]))
+
+
+coefs_boot = pd.DataFrame(coefs_boot)
+coefs_stat = coefs_boot.describe(percentiles=[.99, .95, .5, .1, .05, 0.01])
+print("Coefficients distribution")
+print(coefs_stat)
