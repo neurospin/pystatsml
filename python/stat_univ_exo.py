@@ -255,8 +255,8 @@ Simple linear regression (one continuous independant variable (IV))
 
 url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
 salary = pd.read_csv(url)
-salary.E = salary.E.map({1:'Bachelor', 2:'Master', 3:'Ph.D'})
-salary.M = salary.M.map({0:'N', 1:'Y'})
+salary.E = salary.experience.map({1:'Bachelor', 2:'Master', 3:'Ph.D'})
+salary.M = salary.management.map({0:'N', 1:'Y'})
 
 ## Outcome
 ## S: salaries for IT staff in a corporation.

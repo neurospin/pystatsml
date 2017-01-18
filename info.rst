@@ -12,9 +12,9 @@ duchesnay@gmail.com
 
 - Practical Machine Learning Course Notes (in R) 
 
-        https://sux13.github.io/DataScienceSpCourseNotes/8_PREDMACHLEARN/Practical_Machine_Learning_Course_Notes.html
+https://sux13.github.io/DataScienceSpCourseNotes/8_PREDMACHLEARN/Practical_Machine_Learning_Course_Notes.html
 
-ftp://ftp.cea.fr/pub/unati/people/educhesnay/pylearn_doc/MachineLearningPython.pdf
+Computational Statistics in Python: https://people.duke.edu/~ccc14/sta-663/index.html
 
 https://github.com/scipy-lectures/scipy-lecture-notes
 
