@@ -19,7 +19,7 @@ from matplotlib.patches import Ellipse
 def plot_cov_ellipse(cov, pos, nstd=2, ax=None, **kwargs):
     """
     Plots an `nstd` sigma error ellipse based on the specified covariance
-    matrix (`cov`). Additional keyword arguments are passed on to the 
+    matrix (`cov`). Additional keyword arguments are passed on to the
     ellipse patch artist.
 
     Parameters
@@ -29,7 +29,7 @@ def plot_cov_ellipse(cov, pos, nstd=2, ax=None, **kwargs):
             sequence of [x0, y0].
         nstd : The radius of the ellipse in numbers of standard deviations.
             Defaults to 2 standard deviations.
-        ax : The axis that the ellipse will be plotted on. Defaults to the 
+        ax : The axis that the ellipse will be plotted on. Defaults to the
             current axis.
         Additional keyword arguments are pass on to the ellipse patch.
 
@@ -89,7 +89,7 @@ print('Mahalanobis dist(m0, x)=%.2f < dist(m0, m2)=%.2f' % (dm_m0x, dm_m0m2))
 ## Exercice
 
 - Write a function `euclidian(a, b)` that compute the euclidian distance
-- Write a function `mahalanobis(a, b, Covi)` that compute the euclidian 
+- Write a function `mahalanobis(a, b, Covi)` that compute the euclidian
   distance, with the inverse of the covariance matrix. Use `scipy.linalg.inv(Cov)`
   to invert your matrix.
 '''
@@ -101,3 +101,19 @@ def mahalanobis(a, b, cov_inv):
 
 assert mahalanobis(mean0, mean1, Covi) == dm_m0m2
 assert euclidian(mean0, mean1)  == d2_m0m2
+
+mahalanobis(X0, mean0, Covi)
+X = X0
+mean = mean0
+covi= Covi
+
+np.sqrt(np.dot(np.dot((X - mean), covi),  (X - mean).T))
+
+def mahalanobis(X, mean, covi):
+    """
+    from scipy.spatial.distance import mahalanobis
+    d2= np.array([mahalanobis(X[i], mean, covi) for i in range(X.shape[0])])
+    np.all(mahalanobis(X, mean, covi) == d2)
+    """
+    return np.sqrt(np.sum(np.dot((X - mean), covi) *  (X - mean), axis=1))
+
