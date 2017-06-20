@@ -86,3 +86,11 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 
+R vs Python
+-----------
+
+https://www.datacamp.com/community/tutorials/r-or-python-for-data-analysis
+http://pandas.pydata.org/pandas-docs/stable/comparison_with_r.html
+
+
+
