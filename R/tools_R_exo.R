@@ -1,4 +1,5 @@
 #df = read.csv(url('https://raw.github.com/neurospin/pystatsml/master/data/iris.csv'))
+setwd("/home/ed203246/git/pystatsml/R")
 df = read.csv('../data/iris.csv')
 
 #Print column names

@@ -19,49 +19,51 @@ Machine learning covers two main types of data analysis:
 IT/computing science tools
 --------------------------
 
-    - Python: the language
-    - Numpy: raw numerical data
-    - Pandas: structured data
+    - High Performance Computing (HPC)
+    - Data flow, data base, file I/O, etc.
+    - Python: the language.
+    - Numpy: raw numerical data for computation.
+    - Pandas: structured data, I/O etc.
+
 
 Statistics and applied mathematics
 ----------------------------------
 
-    - Linear model
-    - Non parametric statistics
+    - Linear model.
+    - Non parametric statistics.
     - Linear algebra: matrix operations, inversion, eigenvalues.
 
 
 Data analysis methodology
 -------------------------
 
-DIKW Pyramid: Data, Information, Knowledge, and Wisdom
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Formalize customer's needs into a learning problem:
+    * A target variable: supervised problem.
+        - Target is qualitative: classification.
+        - Target is qualitative: regression.
+    * No target variable: unsupervised problem
+        - Vizualisation of high-dimensional samples: PCA, manifolds learning, etc.
+        - Finding groups of samples (hidden structure): clustering.
 
-.. image:: images/Wisdom-Knowledge-Information-Data-Pyramid15.png
-   :scale: 50
-   :align: center
+2. Ask question about the datasets
+    * Number of samples
+    * Number of variables, types of each variable.
 
-Methodology
-~~~~~~~~~~~
+3. Define the sample
+    * For prospective study formalize the experimental design: inclusion/exlusion criteria. The conditions that define the acquisition of the dataset.
+    * For retrospective study formalize the experimental design: inclusion/exlusion criteria. The conditions that define the selection of the dataset.
 
-1. Discuss with your customer:
+4. In a document formalize (i) the project objectives; (ii) the required learning dataset; More specifically the input data and the target variables. (iii)  In this document warm the customer that the learned algorithms may not work on new data acquired under different condition.
 
-    * Understand his needs.
-    * Formalize his needs into a learning problem.
-    * Define with your customer the learning dataset required for the project .
-    * Goto 1. until convergence of both sides (you and the customer).
+5. Read the learning dataset.
 
-2. In a document formalize (i) the project objectives; (ii) the required learning dataset; More specifically the input data and the target variables. (iii) The conditions that define the acquisition of the dataset. In this document warm the customer that the learned algorithms may not work on new data acquired under different condition.
+6. (i) Sanity check (basic descriptive statistics); (ii) data cleaning (impute missing data, recoding); Final Quality Control (QC) perform descriptive statistics and think ! (remove possible confounding variable, etc.).
 
-3. Read your learning dataset (level D of the pyramid) provided by the customer.
+7. Explore data (visualization, PCA) and perform basics univariate statistics for association between the target an input variables.
 
-4. Clean your data (QC: Quality Control) (reach level I of the pyramid).
+8. Perform more complex multivariate-machine learning.
 
-5. Explore data (visualization, PCA) and perform basics univariate statistics (reach level K of the pyramid).
+9. Model validation. First deliverable: the predictive model with performance on training dataset.
 
-7. Perform more complex multivariate-machine learning.
-
-8. Model validation. First deliverable: the predictive model with performance on training dataset.
-
-9. Apply on new data (level W of the pyramid).
+10. Apply on new data.
 

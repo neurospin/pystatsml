@@ -127,7 +127,7 @@ using boolean arrays
 arr[arr > 5]
 
 '''
-Boolean selection return a view wich authorizes the modification of the 
+Boolean selection return a view wich authorizes the modification of the
 original array
 '''
 
@@ -187,6 +187,84 @@ np.random.randn(10)         # random normals (mean 0, sd 1)
 np.random.randint(0, 2, 10) # 10 randomly picked 0 or 1
 
 '''
+Broadcasting
+------------
+
+Sources https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html
+
+Implicite conversion to allow operations on arrays of different sizes.
+
+- The smaller array is stretched or “broadcasted” across the larger array so that they have
+compatible shapes.
+
+- Fast vectorized operation in C instead of Python.
+
+- No needless copies.
+
+Rules
+~~~~~
+
+Starting with the trailing axis and working backward, Numpy compares arrays dimensions.
+
+- If two dimensions are equal then continues
+
+- If one of the operand has dimension 1 stretches it to match the largest one
+
+- When one of the shapes runs out of dimensions (because it has less dimensions than the other shape), Numpy will use 1 in the comparison process until the other shape's dimensions run out as well.
+
+
+.. figure:: images/numpy_broadcasting.png
+
+
+   Broadcasting (http://www.scipy-lectures.org)
+'''
+
+a = np.array([[ 0,  0,  0],
+              [10, 10, 10],
+              [20, 20, 20],
+              [30, 30, 30]])
+
+b = np.array([0, 1, 2])
+a + b
+
+'''
+.. parsed-literal::
+
+    array([[ 0,  1,  2],
+           [10, 11, 12],
+           [20, 21, 22],
+           [30, 31, 32]])
+'''
+
+'''
+Examples
+
+Shapes of operands A, B and result:
+'''
+
+A      (2d array):  5 x 4
+B      (1d array):      1
+Result (2d array):  5 x 4
+
+A      (2d array):  5 x 4
+B      (1d array):      4
+Result (2d array):  5 x 4
+
+A      (3d array):  15 x 3 x 5
+B      (3d array):  15 x 1 x 5
+Result (3d array):  15 x 3 x 5
+
+A      (3d array):  15 x 3 x 5
+B      (2d array):       3 x 5
+Result (3d array):  15 x 3 x 5
+
+A      (3d array):  15 x 3 x 5
+B      (2d array):       3 x 1
+Result (3d array):  15 x 3 x 5
+
+
+
+'''
 Exercises
 ---------
 
@@ -197,6 +275,6 @@ X = np.random.randn(4, 2) # random normals in 4x2 array
 
 '''
 - For each column find the row index of the minimiun value.
-    
+
 - Write a function ``standardize(X)`` that return an array whose columns are centered and scaled (by std-dev).
 '''
