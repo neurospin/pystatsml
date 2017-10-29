@@ -38,7 +38,7 @@ model.fit(X, y)
 print("Train r2:%.2f" % metrics.r2_score(y, model.predict(X)))
 print(model.best_params_)
 
-# 2) User made outer CV, usefull to extract specific imformation 
+# 2) User made outer CV, useful to extract specific information
 cv = KFold(len(y), n_folds=5, random_state=42)
 y_test_pred = np.zeros(len(y))
 y_train_pred = np.zeros(len(y))

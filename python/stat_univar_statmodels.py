@@ -148,7 +148,7 @@ No correction
 P, N = n_info,  n_features - n_info # Positives, Negatives
 TP = np.sum(pvals[:n_info ] < 0.05)  # True Positives
 FP = np.sum(pvals[n_info: ] < 0.05)  # False Positives
-print("No correction, FP: %i (exepected: %.2f), TP: %i" % (FP, N * 0.05, TP))
+print("No correction, FP: %i (expected: %.2f), TP: %i" % (FP, N * 0.05, TP))
 
 
 '''
@@ -156,7 +156,7 @@ False negative rate (FNR)
     FNR} = FN} / (TP} + FN}) = 1-TPR}
 '''
 FNR = 
-print("No correction, false positives: %i (exepected value: %i)" % (FP, 0.05 * (n_features - TP)))
+print("No correction, false positives: %i (expected value: %i)" % (FP, 0.05 * (n_features - TP)))
 
 
 
@@ -179,7 +179,7 @@ FP = np.sum(pvals_fdr[n_info: ] < 0.05)  # False Positives
 print("FDR correction, FP: %i, TP: %i" % (FP, TP))
 
 '''
-Binary classif measures:
+Binary classification measures:
 
 - **Sensitivity** or **true positive rate (TPR)**, eqv. with hit rate, recall:
 

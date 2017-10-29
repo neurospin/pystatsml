@@ -14,7 +14,7 @@ np.random.seed(seed=42)  # make the example reproducible
 Estimator of main statistical measures
 --------------------------------------
 
-- Generate 2 ramdom samples $x \sim(1.78, 0.1)$, $y \sim(1.66, 0.1)$ both of size 10.
+- Generate 2 random samples $x \sim(1.78, 0.1)$, $y \sim(1.66, 0.1)$ both of size 10.
 
 - Compute xbar $\bar{x}, \sigma_x, \sigma_{xy}$ using only `np.sum()` operation. 
 Explore `np.` module to find out the numpy functions that does the same 
@@ -169,7 +169,7 @@ pval2sided = pval * 2
 - Compare the two-sided p-value with the one obtained by `stats.ttest_ind`
 using `assert np.allclose(arr1, arr2)`
 '''
-# do it with sicpy
+# do it with scipy
 assert np.allclose((tval, pval2sided), stats.ttest_ind(x, y, equal_var=False))
 
 '''
@@ -248,7 +248,7 @@ assert np.allclose((fval, pval),
 
 
 '''
-Simple linear regression (one continuous independant variable (IV))
+Simple linear regression (one continuous independent variable (IV))
 -------------------------------------------------------------------
 '''
 

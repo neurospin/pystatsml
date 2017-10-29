@@ -167,7 +167,7 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
-bv = np.array([10, 20, 30, 40, 50])             # buisness volumes indicator
+bv = np.array([10, 20, 30, 40, 50])             # business volumes indicator
 tax  = .2 * bv                                  # Tax
 bp = .1 * bv + np.array([-.1, .2, .1, -.2, .1]) # business potential
 
@@ -210,7 +210,7 @@ ax.plot_wireframe(xx1, xx2, yy_3.reshape(xx1.shape), color="red",
 ax.scatter(X[:, 0], X[:, 1], zs=bp, c='k', marker='o', s=100, depthshade=True)
 
 plt.legend()
-ax.set_xlabel('Buisness volumes')
+ax.set_xlabel('Business volumes')
 ax.set_ylabel('Tax')
 ax.set_zlabel('Business potential')
 ax.set_zlim((-100, + 100))

@@ -88,7 +88,7 @@ def plot_linear_disc(beta, thres, X, y, Cov_hat=None):
     Sw = plot_cov_ellipse(Cov_hat, pos=mean1_hat, facecolor='none', linewidth=2, edgecolor=palette[3], ls='-')
     # Projection vector
     proj = plt.arrow(thres_xy[0], thres_xy[1], beta[0], beta[1], fc="k", ec="k", head_width=0.2, head_length=0.2, linewidth=2)
-    # Points along the separating hyperplance
+    # Points along the separating hyperplane
     hyper = plt.plot([sep_p1_xy[0], sep_p2_xy[0]], [sep_p1_xy[1], sep_p2_xy[1]], color='k', linewidth=4, ls='--')
     plt.axis('equal')
     #plt.legend([m1, m2, Sw, proj, err], ['$\mu_0$', '$\mu_1$', '$S_W$', "$w$", 'Errors'], loc='lower right', fontsize=18)
@@ -170,7 +170,7 @@ y_pred = lda.predict(X)
 errors =  y_pred != y
 print("Nb errors=%i, error rate=%.2f" % (errors.sum(), errors.sum() / len(y_pred)))
 
-# Use pandas & seaborn for convinience
+# Use pandas & seaborn for convenience
 data = pd.DataFrame(dict(x0=X[:, 0], x1=X[:, 1], y=["c"+str(v) for v in y]))
 plt.figure()
 g = sns.PairGrid(data, hue="y")
@@ -216,7 +216,7 @@ Cov = np.array([[1, .8],[.8, 1]])
 np.random.seed(45)
 X0 = np.random.multivariate_normal(mean0, Cov, n_samples)
 X1 = np.random.multivariate_normal(mean1, Cov, n_samples)
-# modify X1 to distrub the etimation of cov 
+# modify X1 to distrub the estimation of cov 
 X1[2, :] = [2, -4]
 
 X = np.vstack([X0, X1])
@@ -466,7 +466,7 @@ print('# specificity ~ sensitivity')
 plt.plot(lr_inter.decision_function(X), lr_nointer.decision_function(X), "o")
 print('# The decision function is highly correlated. The intercept has biased upwardly the decision function.')
 
-# Create imbalanced dataset, by subsampling sample of calss 0: keep only 10% of classe 0's samples and all classe 1's samples.
+# Create imbalanced dataset, by subsampling sample of calss 0: keep only 10% of class 0's samples and all class 1's samples.
 n0 = int(np.rint(np.sum(y == 0) / 20))
 subsample_idx = np.concatenate((np.where(y == 0)[0][:n0], np.where(y == 1)[0]))
 Ximb = X[subsample_idx, :]
@@ -487,14 +487,14 @@ p, r, f, s = metrics.precision_recall_fscore_support(yimb, lr_nointer.predict(Xi
 print("SPC: %.3f; SEN: %.3f" % tuple(r))
 print('''# Specificity ~ sensitivity. Nevertheless the prediction
 disequilibrium has been reduced.
-This sugest that intercept should not be used with impbalced training dataset
-when we explicitely want balanced prediction.
+This suggests that the intercept should not be used with the imbalanced training dataset
+when we explicitly want balanced prediction.
 ''')
 
 
 plt.plot(lr_inter.decision_function(X), lr_nointer.decision_function(X), "o")
 print('''# The decision function is no more highly correlated. 
-The intercept has largly modified the learning process it is no more a 
+The intercept has largely modified the learning process it is no more a 
 simple upward bias on the decision function.''')
 
 # Class reweighting + intercept

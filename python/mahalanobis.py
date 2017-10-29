@@ -81,15 +81,15 @@ Covi = scipy.linalg.inv(Cov)
 dm_m0x = scipy.spatial.distance.mahalanobis(mean0, x, Covi)
 dm_m0m2 = scipy.spatial.distance.mahalanobis(mean0, mean1, Covi)
 
-print('Euclidian dist(m0, x)=%.2f > dist(m0, m2)=%.2f' % (d2_m0x, d2_m0m2))
+print('Euclidean dist(m0, x)=%.2f > dist(m0, m2)=%.2f' % (d2_m0x, d2_m0m2))
 print('Mahalanobis dist(m0, x)=%.2f < dist(m0, m2)=%.2f' % (dm_m0x, dm_m0m2))
 
 
 '''
-## Exercice
+## Exercise
 
-- Write a function `euclidian(a, b)` that compute the euclidian distance
-- Write a function `mahalanobis(a, b, Covi)` that compute the euclidian
+- Write a function `euclidean(a, b)` that compute the euclidean distance
+- Write a function `mahalanobis(a, b, Covi)` that compute the euclidean
   distance, with the inverse of the covariance matrix. Use `scipy.linalg.inv(Cov)`
   to invert your matrix.
 '''
