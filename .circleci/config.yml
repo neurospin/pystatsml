@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: |
+          sudo apt-get install pandoc 
+          sudo apt-get install --no-install-recommends -y \
+              texlive-latex-recommended texlive-latex-extra \
+              texlive-fonts-recommended latexmk
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv /tmp/venv
+            . /tmp/venv/bin/activate
+            pip install ipython notebook sphinx
+      - run:
+           name: build HTML
+           command: |
+            . /tmp/venv/bin/activate
+            make html
+      - run:
+           name: build PDF
+           command: |
+            . /tmp/venv/bin/activate
+            # TODO: the nonstopmode option is necessary to avoid timeouts 
+            # when compilation errors occurs (e.g. some images are not found).
+            make pdf LATEXOPTS="--interaction=nonstopmode"
+      - store_artifacts:
+          path: build/html/
+          destination: html/
+      - store_artifacts:
+          path: build/latex/StatisticsMachineLearningPython.pdf
+          destination: pdf/StatisticsMachineLearningPython.pdf
