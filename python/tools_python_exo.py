@@ -72,9 +72,9 @@ Exercise 4: OOP
 
     Create a subclass Manager which redefine salary method 2500 + 120 * years_of_service.
 
-    Create a small dictionnary-nased database where the key is the employee's name. Populate the database with: Employee("lucy", 3), Employee("john", 1), Manager('julie', 10), Manager('paul', 3)
+    Create a small dictionary-based database where the key is the employee's name. Populate the database with: Employee("lucy", 3), Employee("john", 1), Manager('julie', 10), Manager('paul', 3)
 
-    Return a table of made name, salary rows, ie. a list of list  [[name, salary]]
+    Return a table of made name, salary rows, i.e. a list of list  [[name, salary]]
 
     Compute the average salary
 '''
@@ -107,10 +107,10 @@ sum([e.salary() for e in employees.values()]) / len(employees)
 
 
 '''
-Exercie 3: File I/O
+Exercise 3: File I/O
 
 Copy/past the bsd 4 clause license into a text file. Read, the file 
-(assuming this file could be huge) and cound the occurences of each word
+(assuming this file could be huge) and count the occurrences of each word
 within the file. Words are separated by whitespace or new line characters.
 '''
 

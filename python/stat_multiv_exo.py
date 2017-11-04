@@ -60,7 +60,7 @@ def mahalanobis(x, xbar, Sinv):
 dists = pd.DataFrame(
 [[mahalanobis(X[i, :], xbar, Sinv),
   euclidian(X[i, :] - xbar)] for i in range(X.shape[0])],
-            columns = ['Mahalanobis', 'Euclidian'])
+            columns = ['Mahalanobis', 'Euclidean'])
 
 print(dists[:10])
 

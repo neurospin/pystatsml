@@ -126,7 +126,7 @@ X, y = datasets.make_classification(n_samples=n_samples, n_features=n_features,
 
 def balanced_acc(estimator, X, y):
     '''
-    Balanced acuracy scorer
+    Balanced accuracy scorer
     '''
     return metrics.recall_score(y, estimator.predict(X), average=None).mean()
 

@@ -104,7 +104,7 @@ arr2[0, :]      # row 0: returns 1d array ([1, 2, 3, 4])
 arr2[:, 0]      # column 0: returns 1d array ([1, 5])
 arr2[:, :2]     # columns strictly before index 2 (2 first columns)
 arr2[:, 2:]     # columns after index 2 included
-arr2[:, 1:4]    # columns between index 1 (included) and 4 (exluded)
+arr2[:, 1:4]    # columns between index 1 (included) and 4 (excluded)
 
 '''
 Views and copies
@@ -127,7 +127,7 @@ using boolean arrays
 arr[arr > 5]
 
 '''
-Boolean selection return a view wich authorizes the modification of the
+Boolean selection return a view which authorizes the modification of the
 original array
 '''
 
@@ -192,7 +192,7 @@ Broadcasting
 
 Sources https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html
 
-Implicite conversion to allow operations on arrays of different sizes.
+Implicit conversion to allow operations on arrays of different sizes.
 
 - The smaller array is stretched or “broadcasted” across the larger array so that they have
 compatible shapes.
@@ -274,7 +274,7 @@ Given the array:
 X = np.random.randn(4, 2) # random normals in 4x2 array
 
 '''
-- For each column find the row index of the minimiun value.
+- For each column find the row index of the minimum value.
 
 - Write a function ``standardize(X)`` that return an array whose columns are centered and scaled (by std-dev).
 '''
