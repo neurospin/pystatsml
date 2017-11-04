@@ -114,7 +114,7 @@ pca$rotation
 
 PC = predict(pca, Xcs)
 t(cor(Xcs, PC[, 1:2]))
-# sepal_length sepal_width petal_length petal_width
+#     sepal_length sepal_width petal_length petal_width
 # PC1    0.8901688  -0.4601427   0.99155518  0.96497896
 # PC2   -0.3608299  -0.8827163  -0.02341519 -0.06399985
 
