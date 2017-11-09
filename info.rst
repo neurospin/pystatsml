@@ -92,5 +92,20 @@ R vs Python
 https://www.datacamp.com/community/tutorials/r-or-python-for-data-analysis
 http://pandas.pydata.org/pandas-docs/stable/comparison_with_r.html
 
+Mail to share the course
+------------------------
+
+Please find the link to my Machine Learning course in Python, it is a draft version:
+ftp://ftp.cea.fr//pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf
+
+Below the link to github:
+https://github.com/neurospin/pystatsml
+
+Basically, it uses ipython notebook (now Jupyter)  and pure python, everything is converted to rst and assembled to html or pdf using sphynx.
+
+It is a draft version, not finished yet with many spelling mistakes.
+
+Please fork and perform some pull request. If you are willing to contribute.
+
 
 
