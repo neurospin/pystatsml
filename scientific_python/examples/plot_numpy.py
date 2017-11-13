@@ -121,7 +121,7 @@ arr[0][3]      # alternative syntax
 # Slicing
 # ~~~~~~~
 #
-# Syntax: **start**(default 0):stop(default last):step(default 1)
+# Syntax: ``start:stop:step`` with ``start`` *(default 0)* ``stop`` *(default last)* ``step`` *(default 1)*
 #
 
 arr[0, :]      # row 0: returns 1d array ([1, 2, 3, 4])

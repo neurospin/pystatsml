@@ -14,7 +14,7 @@ Phantom
     rst/intro_ml.rst
     notebooks/tools_python.rst
     auto_gallery/plot_numpy.rst
-    python/tools_pandas.rst
+    auto_gallery/plot_pandas.rst
     notebooks/tools_matplotlib.rst
     notebooks/stat_univ.rst
     notebooks/stat_multiv.rst

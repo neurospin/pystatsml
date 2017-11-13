@@ -8,7 +8,7 @@ Structure
 
 Courses are avalaible in three formats:
 
-1. Python files in the [python](https://github.com/neurospin/pystatsml/tree/master/python) directory.
+1. Python files in the [python](https://github.com/neurospin/pystatsml/tree/master/python) directory. Note, that those files are progressively adapted to sphinx-gallery and moved to `scientific_python/examples/`.
 
 2. Ipython notebooks files in the  in the [notebooks](https://github.com/neurospin/pystatsml/tree/master/notebooks) directory.
 
@@ -32,11 +32,18 @@ Dependencies
 
 - python 3
 - ipython
+- Jupyter
+
 The easier is to install Anaconda at https://www.continuum.io with python >= 3
+
+- sphinx-gallery
+```
+pip install sphinx-gallery
+```
 
 - pandoc
 
-For Linux:
+For Linux (gnome based distributions):
 
 Install pandoc:
 ```
