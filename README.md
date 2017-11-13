@@ -8,7 +8,7 @@ Structure
 
 Courses are avalaible in three formats:
 
-1. Python files in the [python](https://github.com/neurospin/pystatsml/tree/master/python) directory. Note, that those files are progressively adapted to sphinx-gallery and moved to `scientific_python/examples/`.
+1. Python files in the [scientific_python/examples](https://github.com/neurospin/pystatsml/tree/master/scientific_python/examples). The sphinx-gallery is used to transform python files into rst documents.
 
 2. Ipython notebooks files in the  in the [notebooks](https://github.com/neurospin/pystatsml/tree/master/notebooks) directory.
 
