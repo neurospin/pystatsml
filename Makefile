@@ -63,6 +63,7 @@ rst: $(RST)
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -rf auto_gallery/
 	rm -f $(RST)
 
 

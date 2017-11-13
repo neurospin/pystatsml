@@ -1,16 +1,8 @@
 
-Resources
----------
-ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml
+ML Resources
+------------
 
-wget ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf
-
-wget ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/tools_R.html
-
-pdf: https://sites.google.com/site/duchesnay/courses
-duchesnay@gmail.com
-
-- Practical Machine Learning Course Notes (in R) 
+Practical Machine Learning Course Notes (in R) 
 
 https://sux13.github.io/DataScienceSpCourseNotes/8_PREDMACHLEARN/Practical_Machine_Learning_Course_Notes.html
 
@@ -69,6 +61,18 @@ IPython notebooks + Sphinx
 --------------------------
 
 http://sphinx-ipynb.readthedocs.org/en/latest/howto.html
+
+sphinx-gallery
+--------------
+
+https://sphinx-gallery.readthedocs.io/en/latest/
+
+pip install sphinx-gallery
+
+
+http://www.scipy-lectures.org
+
+https://github.com/scipy-lectures/scipy-lecture-notes
 
 rst
 ---

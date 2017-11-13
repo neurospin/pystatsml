@@ -13,7 +13,7 @@ Phantom
 
     rst/intro_ml.rst
     notebooks/tools_python.rst
-    python/tools_numpy.rst
+    auto_gallery/plot_numpy.rst
     python/tools_pandas.rst
     notebooks/tools_matplotlib.rst
     notebooks/stat_univ.rst

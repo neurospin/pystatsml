@@ -31,6 +31,7 @@ import shlex
 # ones.
 extensions = [
     'sphinx.ext.mathjax',
+    'sphinx_gallery.gen_gallery',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -286,3 +287,14 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+
+# -- Options for sphinx gallery -------------------------------------------
+
+sphinx_gallery_conf = {
+    # path to your examples scripts
+    'examples_dirs' : ['scientific_python/examples'],
+    # path where to save gallery generated examples
+    'gallery_dirs'  : 'auto_gallery',
+    'backreferences_dir': False}
+
