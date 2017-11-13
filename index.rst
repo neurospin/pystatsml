@@ -12,7 +12,7 @@ Phantom
     :maxdepth: 2
 
     rst/intro_ml.rst
-    notebooks/tools_python.rst
+    auto_gallery/plot_python.rst
     auto_gallery/plot_numpy.rst
     auto_gallery/plot_pandas.rst
     notebooks/tools_matplotlib.rst
