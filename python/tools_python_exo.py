@@ -32,7 +32,7 @@ Exercise 2: functions + list + loop
 
 Given a list of numbers, return a list where
 all adjacent duplicate elements have been reduced to a single element.
-Ex: `[1, 2, 2, 3, 2]` returns `[1, 2, 3, 2]`. 
+Ex: `[1, 2, 2, 3, 2]` returns `[1, 2, 3, 2]`.
 You may create a new list or modify the passed in list.
 
 Remove all duplicate values (adjacent or not)
@@ -62,7 +62,7 @@ remove_duplicates([3, 2, 2, 1, 2])
 
 def remove_duplicates(original_list):
     return(list(set(original_list)))
-    
+
 remove_duplicates([3, 2, 2, 1, 2])
 
 '''
@@ -100,7 +100,7 @@ samples = [Employee("lucy", 3),
 for e in samples:
     employees[e.name] = e
 
-[[name, employees[name].salary()] for name 
+[[name, employees[name].salary()] for name
       in employees]
 
 sum([e.salary() for e in employees.values()]) / len(employees)
@@ -109,7 +109,7 @@ sum([e.salary() for e in employees.values()]) / len(employees)
 '''
 Exercise 3: File I/O
 
-Copy/past the bsd 4 clause license into a text file. Read, the file 
+Copy/past the bsd 4 clause license into a text file. Read, the file
 (assuming this file could be huge) and count the occurrences of each word
 within the file. Words are separated by whitespace or new line characters.
 '''
@@ -165,3 +165,7 @@ for line in fd:
             count[word] += 1
 
 print(count)
+
+
+
+salary

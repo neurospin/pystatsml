@@ -39,7 +39,7 @@ Data analysis methodology
 1. Formalize customer's needs into a learning problem:
     * A target variable: supervised problem.
         - Target is qualitative: classification.
-        - Target is qualitative: regression.
+        - Target is quantitative: regression.
     * No target variable: unsupervised problem
         - Vizualisation of high-dimensional samples: PCA, manifolds learning, etc.
         - Finding groups of samples (hidden structure): clustering.

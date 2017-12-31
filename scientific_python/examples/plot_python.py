@@ -826,7 +826,7 @@ except NotImplementedError as e:
 # Exercise 3: File I/O
 # ~~~~~~~~~~~~~~~~~~~~
 #
-# Copy/past the bsd 4 clause license into a text file. Read, the file
+# Copy/past the _BSD 4 clause license_ into a text file. Read, the file
 # (assuming this file could be huge) and count the occurrences of each
 # word within the file. Words are separated by whitespace or new line
 # characters.
