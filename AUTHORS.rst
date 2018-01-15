@@ -4,11 +4,11 @@ Authors
 Editors
 --------
 
-- Edouard Duchesnay
+- Edouard Duchesnay (edouard.duchesnay@gmail.com)
 
 Chapter authors 
 ----------------
 
 Listed by alphabetical order.
 
-- Tommy Löfstedt
+- Tommy Löfstedt (lofstedt.tommy@gmail.com)
