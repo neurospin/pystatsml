@@ -49,6 +49,7 @@ print(user3)
 # Combining DataFrames
 # --------------------
 
+##############################################################################
 # Concatenate DataFrame
 # ~~~~~~~~~~~~~~~~~~~~~
 
@@ -131,10 +132,12 @@ users[my_cols]                  # ...and use that list to select columns
 type(users[my_cols])            # DataFrame
 
 ##############################################################################
-# Rows selection
-# --------------
+# Rows selection (basic)
+# ----------------------
 
+##############################################################################
 # iloc is strictly integer position based
+
 df = users.copy()
 df.iloc[0]     # first row
 df.iloc[0, 0]  # first item of first row
@@ -146,7 +149,9 @@ for i in range(users.shape[0]):
 
 print(df)  # df is not modified
 
+##############################################################################
 # ix supports mixed integer and label based access.
+
 df = users.copy()
 df.ix[0]         # first row
 df.ix[0, "age"]  # first item of first row
@@ -158,10 +163,12 @@ for i in range(df.shape[0]):
 print(df)  # df is modified
 
 ##############################################################################
-# Rows selection / filtering
+# Rows selection (filtering)
 # --------------------------
 
+##############################################################################
 # simple logical filtering
+
 users[users.age < 20]        # only show users with age < 20
 young_bool = users.age < 20  # or, create a Series of booleans...
 young = users[young_bool]            # ...and use that Series to filter rows
@@ -172,7 +179,7 @@ print(young)
 # Advanced logical filtering
 
 users[users.age < 20][['age', 'job']]           # select multiple columns
-users[(users.age > 20) & (users.gender=='M')]   # use multiple conditions
+users[(users.age > 20) & (users.gender == 'M')]   # use multiple conditions
 users[users.job.isin(['student', 'engineer'])]  # filter specific values
 
 ##############################################################################
@@ -208,6 +215,7 @@ print(df.describe(include=['object']))  # limit to one (or more) types
 # Statistics per group (groupby)
 
 print(df.groupby("job").mean())
+
 
 ##############################################################################
 # Groupby in a loop
@@ -356,6 +364,49 @@ with pd.ExcelWriter(xls_filename) as writer:
 
 pd.read_excel(xls_filename, sheetname='users')
 pd.read_excel(xls_filename, sheetname='salary')
+
+##############################################################################
+# SQL (SQLite)
+# ~~~~~~~~~~~~
+
+import pandas as pd
+import sqlite3
+
+db_filename = os.path.join(tmpdir, "users.db")
+
+##############################################################################
+# Connect
+
+conn = sqlite3.connect(db_filename)
+
+##############################################################################
+# Creating tables with pandas
+
+url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
+salary = pd.read_csv(url)
+
+salary.to_sql("salary", conn, if_exists="replace")
+
+##############################################################################
+# Push modifications
+
+cur = conn.cursor()
+values = (100, 14000, 5,  'Bachelor', 'N')
+cur.execute("insert into salary values (?, ?, ?, ?, ?)", values)
+conn.commit()
+
+
+##############################################################################
+# Reading results into a pandas DataFrame
+
+salary_sql = pd.read_sql_query("select * from salary;", conn)
+print(salary_sql.head())
+
+pd.read_sql_query("select * from salary;", conn).tail()
+pd.read_sql_query('select * from salary where salary>25000;', conn)
+pd.read_sql_query('select * from salary where experience=16;', conn)
+pd.read_sql_query('select * from salary where education="Master";', conn)
+
 
 ##############################################################################
 # Exercises
