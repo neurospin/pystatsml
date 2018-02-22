@@ -46,9 +46,11 @@ user3 = pd.DataFrame(dict(name=['peter', 'julie'],
 print(user3)
 
 ##############################################################################
-# Concatenate DataFrame
-# ---------------------
+# Combining DataFrames
+# --------------------
 
+# Concatenate DataFrame
+# ~~~~~~~~~~~~~~~~~~~~~
 
 user1.append(user2)
 users = pd.concat([user1, user2, user3])
@@ -56,12 +58,11 @@ print(users)
 
 ##############################################################################
 # Join DataFrame
-# --------------
+# ~~~~~~~~~~~~~~
 
 user4 = pd.DataFrame(dict(name=['alice', 'john', 'eric', 'julie'],
                           height=[165, 180, 175, 171]))
 print(user4)
-
 
 
 ##############################################################################
@@ -80,16 +81,31 @@ print(users)
 
 
 ##############################################################################
+# Reshaping by pivoting
+# ~~~~~~~~~~~~~~~~~~~~~
+#
+# “Unpivots” a DataFrame from wide format to long (stacked) format,
+
+staked = pd.melt(users, id_vars="name", var_name="variable", value_name="value")
+print(staked)
+
+
+##############################################################################
+# “pivots” a DataFrame from long (stacked) format to wide format,
+
+print(staked.pivot(index='name', columns='variable', values='value'))
+
+
+##############################################################################
 # Summarizing
 # -----------
+
 # examine the users data
 
 users                   # print the first 30 and last 30 rows
 type(users)             # DataFrame
 users.head()            # print the first 5 rows
 users.tail()            # print the last 5 rows
-
-print(users.describe()) # summarize all numeric columns
 
 
 users.index             # "the index" (aka "the labels")
@@ -98,12 +114,6 @@ users.dtypes            # data types of each column
 users.shape             # number of rows and columns
 users.values            # underlying numpy array
 users.info()            # concise summary (includes memory usage as of pandas 0.15.0)
-
-##############################################################################
-# summarize all columns (new in pandas 0.15.0)
-
-print(users.describe(include='all'))
-print(users.describe(include=['object']))  # limit to one (or more) types
 
 
 ##############################################################################
@@ -148,8 +158,8 @@ for i in range(df.shape[0]):
 print(df)  # df is modified
 
 ##############################################################################
-# Rows selction / filtering
-# -------------------------
+# Rows selection / filtering
+# --------------------------
 
 # simple logical filtering
 users[users.age < 20]        # only show users with age < 20
@@ -179,21 +189,31 @@ df.sort_values(by=['job', 'age'], inplace=True) # modify df
 
 print(df)
 
+
 ##############################################################################
-# Reshaping by pivoting
-# ---------------------
+# Descriptive statistics
+# ----------------------
 #
-# “Unpivots” a DataFrame from wide format to long (stacked) format,
+# Summarize all numeric columns
 
-staked = pd.melt(users, id_vars="name", var_name="variable", value_name="value")
-print(staked)
-
-
+print(df.describe())
 
 ##############################################################################
-# “pivots” a DataFrame from long (stacked) format to wide format,
+# Summarize all columns
 
-print(staked.pivot(index='name', columns='variable', values='value'))
+print(df.describe(include='all'))
+print(df.describe(include=['object']))  # limit to one (or more) types
+
+##############################################################################
+# Statistics per group (groupby)
+
+print(df.groupby("job").mean())
+
+##############################################################################
+# Groupby in a loop
+
+for grp, data in df.groupby("job"):
+    print(grp, data)
 
 
 ##############################################################################
@@ -259,6 +279,11 @@ df.travail = df.travail.map({ 'student':'etudiant',  'manager':'manager',
                 'engineer':'ingenieur', 'scientist':'scientific'})
 assert df.travail.isnull().sum() == 0
 
+
+
+df['travail'].str.contains("etu|inge")
+
+
 ##############################################################################
 # Dealing with outliers
 # ---------------------
@@ -294,13 +319,6 @@ size_outlr_mad = size.copy()
 size_outlr_mad[((size - size.median()).abs() > 3 * mad)] = size.median()
 print(size_outlr_mad.mean(), size_outlr_mad.median())
 
-
-##############################################################################
-# Groupby
-# -------
-
-for grp, data in users.groupby("job"):
-    print(grp, data)
 
 ##############################################################################
 # File I/O
