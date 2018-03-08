@@ -9,6 +9,22 @@ import matplotlib.pyplot as plt
 %matplotlib inline
 np.random.seed(seed=42)  # make the example reproducible
 
+'''
+### Simple linear regression and correlation (application)
+
+Load the dataset: birthwt Risk Factors Associated with Low Infant Birth Weight at
+`ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/birthwt.csv`
+
+1. Test the association of mother’s age and birth weight using the correlation test and linear regeression.
+
+2. Test the association of mother’s weight and birth weight using the correlation test and linear regeression.
+
+3. Produce two scatter plot of: (i) age by birth weight; (ii) mother’s weight by birth weight.
+
+Conclusion ?
+'''
+
+TODO
 
 '''
 Estimator of main statistical measures
@@ -16,8 +32,8 @@ Estimator of main statistical measures
 
 - Generate 2 random samples $x \sim(1.78, 0.1)$, $y \sim(1.66, 0.1)$ both of size 10.
 
-- Compute xbar $\bar{x}, \sigma_x, \sigma_{xy}$ using only `np.sum()` operation. 
-Explore `np.` module to find out the numpy functions that does the same 
+- Compute xbar $\bar{x}, \sigma_x, \sigma_{xy}$ using only `np.sum()` operation.
+Explore `np.` module to find out the numpy functions that does the same
 computations and compare them (using `assert`) with your previous results.
 '''
 n = 10
@@ -34,7 +50,7 @@ ybar = np.sum(y) / n
 xycov = np.sum((x - xbar) * (y - ybar)) / (n - 1)
 
 xy = np.vstack((x, y))
-Cov = np.cov(xy, ddof=1)  # or bias = True is the default behavior 
+Cov = np.cov(xy, ddof=1)  # or bias = True is the default behavior
 assert Cov[0, 0] == xvar
 assert Cov[0, 1] == xycov
 assert np.all(np.cov(xy, ddof=1) == np.cov(xy))
@@ -43,7 +59,7 @@ assert np.all(np.cov(xy, ddof=1) == np.cov(xy))
 One sample t-test
 -----------------
 
-- 
+-
 Given the following samples, test whether its true mean is 1.75.
 Warning, when computing the std or the variance set ddof=1. The default
 value 0, leads to the biased estimator of the variance.
@@ -56,7 +72,7 @@ x = np.random.normal(loc=1.78, scale=.1, size=n)
 '''
 - Compute the t-value (tval)
 
-- Plot the T(n-1) distribution for 100 tvalues values within [0, 10]. Draw P(T(n-1)>tval) 
+- Plot the T(n-1) distribution for 100 tvalues values within [0, 10]. Draw P(T(n-1)>tval)
   ie. color the surface defined by x values larger than tval below the T(n-1).
   Using the code.
 
@@ -64,7 +80,7 @@ x = np.random.normal(loc=1.78, scale=.1, size=n)
 
 - The p-value is one-sided: a two-sided test would test P(T(n-1) > tval)
   and P(T(n-1) < -tval). What would be the two sided p-value ?
-  
+
 - Compare the two-sided p-value with the one obtained by stats.ttest_1samp
 using `assert np.allclose(arr1, arr2)`
 '''
@@ -93,12 +109,38 @@ Two sample t-test  (quantitative ~ categorial (2 levels))
 ---------------------------------------------------------
 
 Given the following two sample, test whether their means are equals.
+
+```
+height = np.array([ 1.83,  1.83,  1.73,  1.82,  1.83,  1.73,  1.99,  1.85,  1.68,  1.87,
+                    1.66,  1.71,  1.73,  1.64,  1.70,  1.60,  1.79,  1.73,  1.62,  1.77])
+grp = np.array(["M"] * 10 + ["F"] * 10)
+```
+
+- Compute the means/std-dev per groups.
+
+- Compute the $t$-value.
+
+- Compute the $p$-value.
+
+- The $p$-value is one-sided: a two-sided test would test `P(T > tval)`
+  and `P(T < -tval)`. What would the two sided $p$-value be?
+
+- Compare the two-sided $p$-value with the one obtained by `stats.ttest_ind` using `assert np.allclose(arr1, arr2)`.
 '''
 
+height = np.array([ 1.83,  1.83,  1.73,  1.82,  1.83,  1.73,  1.99,  1.85,  1.68,  1.87,
+                    1.66,  1.71,  1.73,  1.64,  1.70,  1.60,  1.79,  1.73,  1.62,  1.77])
+grp = np.array(["M"] * 10 + ["F"] * 10)
+
 import scipy.stats as stats
-nx, ny = 50, 25
-x = np.random.normal(loc=1.76, scale=.1, size=nx)
-y = np.random.normal(loc=1.70, scale=.12, size=ny)
+
+x = height[grp=="M"]
+y = height[grp=="F"]
+
+# import scipy.stats as stats
+# nx, ny = 50, 25
+# x = np.random.normal(loc=1.76, scale=.1, size=nx)
+# y = np.random.normal(loc=1.70, scale=.12, size=ny)
 
 # Compute with scipy
 tval, pval = stats.ttest_ind(x, y, equal_var=False)
@@ -184,74 +226,50 @@ plt.plot([-1, +1], [xbar, ybar], "or", markersize=15)
 #left, left + width, bottom, bottom + height
 #plt.bar(left=0, height=se, width=0.1, bottom=ybar-se/2)
 ## effect size error bar
-plt.errorbar(-.1, ybar + (xbar - ybar) / 2, yerr=(xbar - ybar) / 2, 
+plt.errorbar(-.1, ybar + (xbar - ybar) / 2, yerr=(xbar - ybar) / 2,
              elinewidth=3, capsize=5, markeredgewidth=3,
              color='r')
 
-plt.errorbar([-.8, .8], [xbar, ybar], yerr=np.sqrt([xvar, yvar]) / 2, 
+plt.errorbar([-.8, .8], [xbar, ybar], yerr=np.sqrt([xvar, yvar]) / 2,
              elinewidth=3, capsize=5, markeredgewidth=3,
              color='b')
 
-plt.errorbar(.1, ybar, yerr=se / 2, 
+plt.errorbar(.1, ybar, yerr=se / 2,
              elinewidth=3, capsize=5, markeredgewidth=3,
              color='b')
 
 plt.savefig("/tmp/two_samples_ttest.svg")
 plt.clf()
 
-'''
-Anova F-test (quantitative ~ categorial (>2 levels))
-----------------------------------------------------
-
-Perform an Anova on the following dataset.
-- Compute between and within variances
-- Compute fval
-- Compare the p-value with the one obtained by `stats.f_oneway`
-using `assert np.allclose(arr1, arr2)`
-'''
-import scipy.stats as stats
-
-# dataset
-mu_k = np.array([1, 2, 3])    # means of 3 samples
-sd_k = np.array([1, 1, 1])    # sd of 3 samples
-n_k = np.array([10, 20, 30])  # sizes of 3 samples
-grp = [0, 1, 2]               # group labels
-n = np.sum(n_k)
-label = np.hstack([[k] * n_k[k] for k in [0, 1, 2]])
-
-y = np.zeros(n)
-for k in grp:
-    y[label == k] = np.random.normal(mu_k[k], sd_k[k], n_k[k])
-
-# Compute with scipy
-fval, pval = stats.f_oneway(y[label == 0], y[label == 1], y[label == 2])
-
-
-# estimate parameters
-ybar_k = np.zeros(3)
-
-ybar = y.mean()
-for k in grp:
-    ybar_k[k] = np.mean(y[label == k])
-
-
-betweenvar = np.sum([n_k[k] * (ybar_k[k] - ybar) ** 2 for k in grp]) / (len(grp) - 1)
-withinvar = np.sum([np.sum((y[label==k] - ybar_k[k]) ** 2) for k in grp]) / (n - len(grp))
-
-fval = betweenvar / withinvar
-# Survival function (1 - `cdf`)
-pval = stats.f.sf(fval, (len(grp) - 1), n - len(grp))
-
-assert np.allclose((fval, pval), 
-                   stats.f_oneway(y[label == 0], y[label == 1], y[label == 2]))
-
-
 
 '''
-Simple linear regression (one continuous independent variable (IV))
--------------------------------------------------------------------
-'''
+Simple linear regression
+------------------------
 
+Considering the salary and the experience of the salary table.
+
+Compute:
+
+- $\bar{y}$: `y_mu`
+
+- $SS_\text{tot}$: `ss_tot`
+
+- $SS_\text{reg}$: `ss_reg`
+
+- $SS_\text{res}$: `ss_res`
+
+- Check partition of variance formula based on sum of squares by using `assert np.allclose(val1, val2, atol=1e-05)`
+
+- Compute $R^2$ and compare it with the `r_value` above
+
+- Compute the $F$ score
+
+- Compute the $p$-value:
+ *  Plot the $F(1, n)$ distribution for 100 $f$ values within $[10, 25]$. Draw $P(F(1, n) > F)$, i.e. color the surface defined by the $x$ values larger than $F$ below the $F(1, n)$.
+
+ * $P(F(1, n) > F)$ is the $p$-value, compute it.
+
+'''
 
 url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
 salary = pd.read_csv(url)
@@ -392,3 +410,104 @@ mse = np.sum((y - yhat) ** 2) / N
 print("MSE =", mse)
 
 import scipy.stats as stats
+
+'''
+### Two sample t-test (maths)
+
+
+Given the following two sample, test whether their means are equals.
+
+```
+height = np.array([ 1.83,  1.83,  1.73,  1.82,  1.83,  1.73,  1.99,  1.85,  1.68,  1.87,
+                    1.66,  1.71,  1.73,  1.64,  1.70,  1.60,  1.79,  1.73,  1.62,  1.77])
+grp = np.array(["M"] * 10 + ["F"] * 10)
+```
+
+- Compute the means/std-dev per groups.
+
+- Compute the $t$-value.
+
+- Compute the $p$-value.
+
+- The $p$-value is one-sided: a two-sided test would test `P(T > tval)`
+  and `P(T < -tval)`. What would the two sided $p$-value be?
+
+- Compare the two-sided $p$-value with the one obtained by `stats.ttest_ind` using `assert np.allclose(arr1, arr2)`.
+'''
+
+'''
+### Two sample t-test (application)
+
+Risk Factors Associated with Low Infant Birth Weight:
+
+`ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/birthwt.csv`
+
+
+1. Explore the data
+
+2. Recode factors
+
+3. Compute the means/std-dev per groups.
+
+4. Plot birth weight by smoking (box plot, violin plot or histogram)
+
+5. Test the effect of smoking on birth weight
+'''
+
+import pandas as pd
+url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/birthwt.csv'
+df = pd.read_csv(url)
+
+df.describe()
+
+df.smoke.describe()
+
+df.smoke.map({1:"y", 0:"n"})
+
+'''
+Anova F-test (quantitative ~ categorial (>2 levels))
+----------------------------------------------------
+
+Perform an ANOVA dataset described bellow
+
+- Compute between and within variances
+- Compute $F$-value: `fval`
+- Compare the $p$-value with the one obtained by `stats.f_oneway` using `assert np.allclose(arr1, arr2)`
+'''
+import scipy.stats as stats
+
+# dataset
+mu_k = np.array([1, 2, 3])    # means of 3 samples
+sd_k = np.array([1, 1, 1])    # sd of 3 samples
+n_k = np.array([10, 20, 30])  # sizes of 3 samples
+grp = [0, 1, 2]               # group labels
+n = np.sum(n_k)
+label = np.hstack([[k] * n_k[k] for k in [0, 1, 2]])
+
+y = np.zeros(n)
+for k in grp:
+    y[label == k] = np.random.normal(mu_k[k], sd_k[k], n_k[k])
+
+# Compute with scipy
+fval, pval = stats.f_oneway(y[label == 0], y[label == 1], y[label == 2])
+
+
+# estimate parameters
+ybar_k = np.zeros(3)
+
+ybar = y.mean()
+for k in grp:
+    ybar_k[k] = np.mean(y[label == k])
+
+
+betweenvar = np.sum([n_k[k] * (ybar_k[k] - ybar) ** 2 for k in grp]) / (len(grp) - 1)
+withinvar = np.sum([np.sum((y[label==k] - ybar_k[k]) ** 2) for k in grp]) / (n - len(grp))
+
+fval = betweenvar / withinvar
+# Survival function (1 - `cdf`)
+pval = stats.f.sf(fval, (len(grp) - 1), n - len(grp))
+
+assert np.allclose((fval, pval),
+                   stats.f_oneway(y[label == 0], y[label == 1], y[label == 2]))
+
+
