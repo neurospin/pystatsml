@@ -455,14 +455,32 @@ Risk Factors Associated with Low Infant Birth Weight:
 '''
 
 import pandas as pd
-url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/data/birthwt.csv'
+url = 'https://raw.github.com/neurospin/pystatsml/master/data/birthwt.csv'
 df = pd.read_csv(url)
 
 df.describe()
 
 df.smoke.describe()
 
-df.smoke.map({1:"y", 0:"n"})
+df.smoke = df.smoke.map({1:"y", 0:"n"})
+
+df.smoke.describe()
+
+print(df[['smoke' , 'bwt']] .groupby("smoke").mean())
+print(df[['smoke' , 'bwt']] .groupby("smoke").std())
+
+
+import seaborn as sns
+
+ax = sns.violinplot(x="smoke", y="bwt", data=df, inner=None)
+ax = sns.swarmplot(x="smoke", y="bwt", data=df,
+                    color="white", edgecolor="gray")
+
+
+
+import scipy.stats as stats
+print(stats.ttest_ind(df.bwt[df.smoke == "y"],
+                      df.bwt[df.smoke == "n"]))
 
 '''
 Anova F-test (quantitative ~ categorial (>2 levels))
