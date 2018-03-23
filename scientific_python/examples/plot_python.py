@@ -249,7 +249,7 @@ sorted(simpsons, reverse=True)
 sorted(simpsons, key=len)
 
 # create a second reference to the same list
-num = [1, 2, 3]
+num = np.asarray([1, 2, 3])
 same_num = num
 same_num[0] = 0         # modifies both 'num' and 'same_num'
 

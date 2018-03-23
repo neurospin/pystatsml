@@ -58,3 +58,8 @@ Install Jupyter:
 sudo -H pip3 install jupyter
 ```
 
+Others
+------
+
+sudo apt-get install latexmk texlive-latex-extra
+
