@@ -1,4 +1,5 @@
 version: 2
+# initial CircleCI setup
 jobs:
   build:
     docker:
