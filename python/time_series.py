@@ -35,21 +35,19 @@ import pandas as pd
 import numpy as np
 
 # Create a Series from a list
-
-ser = pd.Series([1, 3, 5, 7])
+ser = pd.Series([1, 3])
 print(ser)
 
+# String as index
 prices = {'apple': 4.99,
          'banana': 1.99,
-         'orange': 3.99,
-         'grapes': 0.99}
+         'orange': 3.99}
 ser = pd.Series(prices)
-
 print(ser)
 
-x = pd.Series(np.arange(1,8), index=[x for x in 'abcdefg'])
+x = pd.Series(np.arange(1,3), index=[x for x in 'ab'])
 print(x)
-print('element "d" => ', x['d'])
+print(x['b'])
 
 '''
 ## Time Series Analysis of Google Trends
@@ -290,9 +288,9 @@ from pandas.tools.plotting import autocorrelation_plot
 x = df["diet"].astype(float)
 autocorrelation_plot(x)
 
-"""
+'''
 Compute Autocorrelation Function (ACF)
-"""
+'''
 
 from statsmodels.tsa.stattools import acf
 
@@ -384,11 +382,9 @@ These can be used to determine the p and q values as:
 from statsmodels.tsa.arima_model import ARMA
 
 
-# fit model
-model = ARMA(x, order=(1,1)).fit()
+model = ARMA(x, order=(1,1)).fit() # fit model
 
 print(model.summary())
-
 plt.plot(x)
 plt.plot(model.predict(), color='red')
 plt.title('RSS: %.4f'% sum((model.fittedvalues-x)**2))

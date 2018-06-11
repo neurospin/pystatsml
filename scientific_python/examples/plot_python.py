@@ -195,8 +195,7 @@ if x > 0: print('positive')
 # Different objects categorized along a certain ordered sequence, lists
 # are ordered, iterable, mutable (adding or removing objects changes the
 # list size), can contain multiple data types
-#
-
+# .. chunk-chap13-001
 
 # create an empty list (two ways)
 empty_list = []
@@ -572,9 +571,9 @@ for fruit in fruits:
     if fruit == 'banana':
         print("Found the banana!")
         break   # exit the loop and skip the 'else' block
-else:
-    # this block executes ONLY if the for loop completes without hitting 'break'
-    print("Can't find the banana")
+    else:
+        # this block executes ONLY if the for loop completes without hitting 'break'
+        print("Can't find the banana")
 
 # while loop
 count = 0
