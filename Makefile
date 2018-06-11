@@ -7,11 +7,12 @@ SPHINXBUILD   = sphinx-build
 PYTORST       = python bin/conv_python_to_rst.py
 PAPER         =
 BUILDDIR      = build
-NTBOOK        = $(shell ls notebooks/*.ipynb)
+NTBOOK        = $(shell ls notebooks/*.ipynb visualization/*.ipynb)
 SRC           = $(shell ls python/*.py)
 RST           = $(NTBOOK:.ipynb=.rst) $(SRC:.py=.rst)
-$(info $(RST))
-$(info $(PYTORST))
+$(info $(NTBOOK))
+#$(info $(RST))
+#$(info $(PYTORST))
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -50,7 +51,8 @@ help:
 
 # Rule to convert notebook to rst
 .ipynb.rst:
-	jupyter nbconvert --to rst $< --output $@
+	jupyter nbconvert --to rst $<
+#	jupyter nbconvert --to rst $< --output $@
 
 .py.rst:
 	$(PYTORST) $<

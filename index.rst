@@ -15,7 +15,7 @@ Phantom
     auto_gallery/python.rst
     auto_gallery/numpy.rst
     auto_gallery/pandas.rst
-    notebooks/tools_matplotlib.rst
+    visualization/matplotlib.rst
     notebooks/stat_univ.rst
     notebooks/stat_multiv.rst
     notebooks/time_series.rst
