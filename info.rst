@@ -89,7 +89,7 @@ https://github.com/kynan/nbstripout
 
 Set up the git filter and attributes as described in the manual installation instructions below:
 
-``cd notebooks``
+``cd pystatsml``
 ``nbstripout --install``
 
 

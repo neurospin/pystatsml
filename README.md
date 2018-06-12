@@ -27,34 +27,35 @@ Build the html files:
 ```
 make html
 ```
+
 Dependencies
 ------------
+The easier is to install Anaconda at https://www.continuum.io with python >= 3. Anaconda provides
 
 - python 3
 - ipython
 - Jupyter
+- pandoc
 
-The easier is to install Anaconda at https://www.continuum.io with python >= 3
 
-- sphinx-gallery
+Then install:
+
+- [sphinx-gallery](https://sphinx-gallery.readthedocs.io)
+
 ```
 pip install sphinx-gallery
 ```
 
-- pandoc
+- [nbstripout](https://github.com/kynan/nbstripout)
 
-For Linux (gnome based distributions):
+```
+conda install -c conda-forge nbstripout
+```
 
-Install pandoc:
+Configure your git repository with nbstripout pre-commit hook for users who don't want to track output in VCS.
+
 ```
-sudo apt-get install pandoc
-```
-If you don't already have pip:
-```
-sudo apt-get install python3-pip
-```
-Install Jupyter:
-```
-sudo -H pip3 install jupyter
+cd pystatsml
+nbstripout --install
 ```
 
