@@ -169,7 +169,3 @@ for line in fd:
             count[word] += 1
 
 print(count)
-
-
-
-salary

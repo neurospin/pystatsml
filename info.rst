@@ -80,6 +80,19 @@ http://www.scipy-lectures.org
 
 https://github.com/scipy-lectures/scipy-lecture-notes
 
+strip jupyter output before submission
+--------------------------------------
+
+https://github.com/kynan/nbstripout
+
+``conda install -c conda-forge nbstripout``
+
+Set up the git filter and attributes as described in the manual installation instructions below:
+
+``cd pystatsml``
+``nbstripout --install``
+
+
 rst
 ---
 
