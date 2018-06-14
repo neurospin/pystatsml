@@ -16,16 +16,16 @@ Phantom
     auto_gallery/numpy.rst
     auto_gallery/pandas.rst
     visualization/matplotlib.rst
-    notebooks/stat_univ.rst
-    notebooks/stat_multiv.rst
-    data_analysis/time_series.rst
-    notebooks/ml_dimensionality_reduction.rst
-    notebooks/ml_clustering.rst
-    notebooks/ml_linear_regression.rst
-    notebooks/ml_linear_classification.rst
-    notebooks/ml_non_linear_prediction.rst
-    notebooks/ml_resampling.rst
-    notebooks/ml_processing_pipelines.rst
+    statistics/stat_univ.rst
+    statistics/stat_multiv.rst
+    time_series/time_series.rst
+    ml_unsupervised/ml_decomposition.rst
+    ml_unsupervised/ml_clustering.rst
+    ml_supervised/ml_linear_regression.rst
+    ml_supervised/ml_linear_classification.rst
+    ml_supervised/ml_non_linear_prediction.rst
+    ml_resampling/ml_resampling.rst
+    ml_sklearn/ml_processing_pipelines.rst
     python/ml_case_studies.rst
 
 ==================
