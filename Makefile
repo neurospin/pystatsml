@@ -7,7 +7,7 @@ SPHINXBUILD   = sphinx-build
 PYTORST       = python bin/conv_python_to_rst.py
 PAPER         =
 BUILDDIR      = build
-NTBOOK        = $(shell ls notebooks/*.ipynb visualization/*.ipynb data_analysis/*.ipynb)
+NTBOOK        = $(shell ls python_lang/*.ipynb visualization/*.ipynb statistics/*.ipynb time_series/*.ipynb ml_unsupervised/*.ipynb ml_supervised/*.ipynb ml_resampling/*.ipynb ml_sklearn/*.ipynb)
 SRC           = $(shell ls python/*.py)
 RST           = $(NTBOOK:.ipynb=.rst) $(SRC:.py=.rst)
 $(info $(NTBOOK))
