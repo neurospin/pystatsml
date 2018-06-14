@@ -69,6 +69,15 @@ IPython notebooks + Sphinx
 
 http://sphinx-ipynb.readthedocs.org/en/latest/howto.html
 
+
+nbsphinx: Jupyter Notebook Tools for Sphinx
+
+https://nbsphinx.readthedocs.io/en/0.3.3/
+
+nbsphinx is a Sphinx extension that provides a source parser for *.ipynb files. Custom Sphinx directives are used to show Jupyter Notebook code cells (and of course their results) in both HTML and LaTeX output. Un-evaluated notebooks – i.e. notebooks without stored output cells – will be automatically executed during the Sphinx build process.
+
+conda install -c conda-forge nbsphinx
+
 sphinx-gallery
 --------------
 
