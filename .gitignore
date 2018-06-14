@@ -14,3 +14,5 @@ notebooks/*.rst
 python/*.rst
 .spyderproject
 build/
+auto_gallery/
+

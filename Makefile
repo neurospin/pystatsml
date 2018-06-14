@@ -7,8 +7,8 @@ SPHINXBUILD   = sphinx-build
 PYTORST       = python bin/conv_python_to_rst.py
 PAPER         =
 BUILDDIR      = build
-NTBOOK        = $(shell ls python_lang/*.ipynb visualization/*.ipynb statistics/*.ipynb time_series/*.ipynb ml_unsupervised/*.ipynb ml_supervised/*.ipynb ml_resampling/*.ipynb ml_sklearn/*.ipynb)
-SRC           = $(shell ls python/*.py)
+NTBOOK        = $(shell ls visualization/*.ipynb statistics/*.ipynb time_series/*.ipynb ml_unsupervised/*.ipynb ml_supervised/*.ipynb ml_resampling/*.ipynb ml_sklearn/*.ipynb)
+#SRC           = $(shell ls python/*.py)
 RST           = $(NTBOOK:.ipynb=.rst) $(SRC:.py=.rst)
 $(info $(NTBOOK))
 #$(info $(RST))
@@ -32,7 +32,7 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 .SUFFIXES: .rst .ipynb .py
 
-.PHONY: help clean html dirhtml singlehtml htmlhelp epub latex latexpdf text changes linkcheck doctest coverage gettext
+.PHONY: help clean html dirhtml singlehtml htmlhelp epub latex latexpdf text changes linkcheck doctest coverage gettext exe
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -54,8 +54,8 @@ help:
 	jupyter nbconvert --to rst $<
 #	jupyter nbconvert --to rst $< --output $@
 
-.py.rst:
-	$(PYTORST) $<
+#.py.rst:
+#	$(PYTORST) $<
 
 debug:
 	@echo $(RST)
@@ -68,6 +68,11 @@ clean:
 	rm -rf auto_gallery/
 	rm -f $(RST)
 
+exe:
+	@echo "Execute notebooks" 
+	for nb in $(NTBOOK) ; do jupyter nbconvert --to notebook --execute $$nb --output $$(basename $$nb); done
+#	$(EXEIPYNB) $(NTBOOK)
+#	@echo toto nbconvert --to notebook --execute $< --output $(basename $<)
 
 html: rst
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
