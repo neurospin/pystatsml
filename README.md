@@ -6,18 +6,24 @@ This is a draft version !!
 Structure
 ---------
 
-Courses are avalaible in three formats:
+Courses are available in three formats:
 
-1. Python files in the [scientific_python/examples](https://github.com/neurospin/pystatsml/tree/master/scientific_python/examples). The sphinx-gallery is used to transform python files into rst documents.
+1. Jupyter notebooks.
 
-2. Ipython notebooks files in the  in the [notebooks](https://github.com/neurospin/pystatsml/tree/master/notebooks) directory.
+2. Python files using sphinx-gallery.
 
-3. ReStructuredText files in the [rst](https://github.com/neurospin/pystatsml/tree/master/rst) directory.
+3. ReStructuredText files.
 
 All notebooks and python files are converted into `rst` format and then assembled together using sphinx.
 
 Build
 -----
+
+After pulling the repository execute Jupyter notebooks (outputs are expected to be removed before git submission).
+```
+make exe
+```
+
 Build the pdf file:
 ```
 make pdf
@@ -40,13 +46,13 @@ The easier is to install Anaconda at https://www.continuum.io with python >= 3. 
 
 Then install:
 
-- [sphinx-gallery](https://sphinx-gallery.readthedocs.io)
+1. [sphinx-gallery](https://sphinx-gallery.readthedocs.io)
 
 ```
 pip install sphinx-gallery
 ```
 
-- [nbstripout](https://github.com/kynan/nbstripout)
+2. [nbstripout](https://github.com/kynan/nbstripout)
 
 ```
 conda install -c conda-forge nbstripout
