@@ -85,6 +85,37 @@ import numpy as np
 # show all functions in math module
 content = dir(math)
 
+######################################################################
+# Basic operations
+# ----------------
+#
+
+# Numbers
+10 + 4          # add (returns 14)
+10 - 4          # subtract (returns 6)
+10 * 4          # multiply (returns 40)
+10 ** 4         # exponent (returns 10000)
+10 / 4          # divide (returns 2 because both types are 'int')
+10 / float(4)   # divide (returns 2.5)
+5 % 4           # modulo (returns 1) - also known as the remainder
+
+10 / 4          # true division (returns 2.5)
+10 // 4         # floor division (returns 2)
+
+
+# Boolean operations
+# comparisons (these return True)
+5 > 3
+5 >= 3
+5 != 3
+5 == 5
+
+# boolean operations (these return True)
+5 > 3 and 6 > 3
+5 > 3 or 5 < 3
+not False
+False or not False and True     # evaluation order: not, and, or
+
 
 ######################################################################
 # Data types
@@ -121,76 +152,8 @@ bool([2])
 
 
 ######################################################################
-# Math
-# ----
-#
-
-# basic operations
-10 + 4          # add (returns 14)
-10 - 4          # subtract (returns 6)
-10 * 4          # multiply (returns 40)
-10 ** 4         # exponent (returns 10000)
-10 / 4          # divide (returns 2 because both types are 'int')
-10 / float(4)   # divide (returns 2.5)
-5 % 4           # modulo (returns 1) - also known as the remainder
-
-10 / 4          # true division (returns 2.5)
-10 // 4         # floor division (returns 2)
-
-
-######################################################################
-# Comparisons and boolean operations
-# ----------------------------------
-#
-
-# comparisons (these return True)
-5 > 3
-5 >= 3
-5 != 3
-5 == 5
-
-# boolean operations (these return True)
-5 > 3 and 6 > 3
-5 > 3 or 5 < 3
-not False
-False or not False and True     # evaluation order: not, and, or
-
-
-######################################################################
-# Conditional statements
-# ----------------------
-#
-
-x = 3
-# if statement
-if x > 0:
-    print('positive')
-
-# if/else statement
-if x > 0:
-    print('positive')
-else:
-    print('zero or negative')
-
-# if/elif/else statement
-if x > 0:
-    print('positive')
-elif x == 0:
-    print('zero')
-else:
-    print('negative')
-
-# single-line if statement (sometimes discouraged)
-if x > 0: print('positive')
-
-# single-line if/else statement (sometimes discouraged)
-# known as a 'ternary operator'
-'positive' if x > 0 else 'zero or negative'
-
-
-######################################################################
 # Lists
-# -----
+# ~~~~~
 #
 # Different objects categorized along a certain ordered sequence, lists
 # are ordered, iterable, mutable (adding or removing objects changes the
@@ -272,7 +235,7 @@ num == new_num          # returns True (their contents are equivalent)
 
 ######################################################################
 # Tuples
-# ------
+# ~~~~~~
 #
 # Like lists, but their size cannot change: ordered, iterable, immutable,
 # can contain multiple data types
@@ -304,7 +267,7 @@ bart = ('male', 10, 'simpson')  # create a tuple
 
 ######################################################################
 # Strings
-# -------
+# ~~~~~~~
 #
 # A sequence of characters, they are iterable, immutable
 #
@@ -369,7 +332,7 @@ print(r'first line\nfirst line')     # raw strings treat backslashes as literal 
 
 ######################################################################
 # Dictionaries
-# ------------
+# ~~~~~~~~~~~~
 #
 # Dictionaries are structures which can contain multiple data types, and
 # is ordered with key-value pairs: for each (unique) key, the dictionary
@@ -429,7 +392,7 @@ family['kids'].remove('lisa')       # removes 'lisa'
 
 ######################################################################
 # Sets
-# ----
+# ~~~~
 #
 # Like dictionaries, but with unique keys only (no corresponding values).
 # They are: unordered, iterable, mutable, can contain multiple data types
@@ -469,6 +432,106 @@ languages.update('go', 'spark') # add multiple elements (can also pass a list or
 # get a sorted list of unique elements from a list
 sorted(set([9, 0, 2, 1, 0]))    # returns [0, 1, 2, 9]
 
+######################################################################
+# Execution control statements
+# ---------------------------
+#
+
+######################################################################
+# Conditional statements
+# ~~~~~~~~~~~~~~~~~~~~~~
+x = 3
+# if statement
+if x > 0:
+    print('positive')
+
+# if/else statement
+if x > 0:
+    print('positive')
+else:
+    print('zero or negative')
+
+# if/elif/else statement
+if x > 0:
+    print('positive')
+elif x == 0:
+    print('zero')
+else:
+    print('negative')
+
+# single-line if statement (sometimes discouraged)
+if x > 0: print('positive')
+
+# single-line if/else statement (sometimes discouraged)
+# known as a 'ternary operator'
+'positive' if x > 0 else 'zero or negative'
+
+######################################################################
+# Loops
+# ~~~~~
+#
+# Loops are a set of instructions which repeat until termination
+# conditions are met. This can include iterating through all values in an
+# object, go through a range of values, etc
+#
+
+# range returns a list of integers
+range(0, 3)     # returns [0, 1, 2]: includes first value but excludes second value
+range(3)        # same thing: starting at zero is the default
+range(0, 5, 2)  # returns [0, 2, 4]: third argument specifies the 'stride'
+
+# for loop (not recommended)
+fruits = ['apple', 'banana', 'cherry']
+for i in range(len(fruits)):
+    print(fruits[i].upper())
+
+# alternative for loop (recommended style)
+for fruit in fruits:
+    print(fruit.upper())
+
+# use range when iterating over a large sequence to avoid actually creating the integer list in memory
+for i in range(10**6):
+    pass
+
+# iterate through two things at once (using tuple unpacking)
+family = {'dad':'homer', 'mom':'marge', 'size':6}
+for key, value in family.items():
+    print(key, value)
+
+# use enumerate if you need to access the index value within the loop
+for index, fruit in enumerate(fruits):
+    print(index, fruit)
+
+# for/else loop
+for fruit in fruits:
+    if fruit == 'banana':
+        print("Found the banana!")
+        break   # exit the loop and skip the 'else' block
+    else:
+        # this block executes ONLY if the for loop completes without hitting 'break'
+        print("Can't find the banana")
+
+# while loop
+count = 0
+while count < 5:
+    print("This will print 5 times")
+    count += 1      # equivalent to 'count = count + 1'
+
+######################################################################
+# Exceptions handling
+# ~~~~~~~~~~~~~~~~~~~
+#
+
+dct = dict(a=[1, 2], b=[4, 5])
+
+key = 'c'
+try:
+    dct[key]
+except:
+    print("Key %s is missing. Add it with empty value" % key)
+    dct['c'] = []
+
+print(dct)
 
 ######################################################################
 # Functions
@@ -529,62 +592,12 @@ min_max_num = min_max(nums)         # min_max_num = (1, 3)
 # return values can be assigned into multiple variables using tuple unpacking
 min_num, max_num = min_max(nums)    # min_num = 1, max_num = 3
 
-
 ######################################################################
-# Loops
-# -----
+# List comprehensions, iterators, etc.
+# ------------------------------------
 #
-# Loops are a set of instructions which repeat until termination
-# conditions are met. This can include iterating through all values in an
-# object, go through a range of values, etc
-#
-
-# range returns a list of integers
-range(0, 3)     # returns [0, 1, 2]: includes first value but excludes second value
-range(3)        # same thing: starting at zero is the default
-range(0, 5, 2)  # returns [0, 2, 4]: third argument specifies the 'stride'
-
-# for loop (not recommended)
-fruits = ['apple', 'banana', 'cherry']
-for i in range(len(fruits)):
-    print(fruits[i].upper())
-
-# alternative for loop (recommended style)
-for fruit in fruits:
-    print(fruit.upper())
-
-# use range when iterating over a large sequence to avoid actually creating the integer list in memory
-for i in range(10**6):
-    pass
-
-# iterate through two things at once (using tuple unpacking)
-family = {'dad':'homer', 'mom':'marge', 'size':6}
-for key, value in family.items():
-    print(key, value)
-
-# use enumerate if you need to access the index value within the loop
-for index, fruit in enumerate(fruits):
-    print(index, fruit)
-
-# for/else loop
-for fruit in fruits:
-    if fruit == 'banana':
-        print("Found the banana!")
-        break   # exit the loop and skip the 'else' block
-    else:
-        # this block executes ONLY if the for loop completes without hitting 'break'
-        print("Can't find the banana")
-
-# while loop
-count = 0
-while count < 5:
-    print("This will print 5 times")
-    count += 1      # equivalent to 'count = count + 1'
-
-
-######################################################################
 # List comprehensions
-# -------------------
+# ~~~~~~~~~~~~~~~~~~~
 #
 # Process which affects whole lists without iterating through loops. For
 # more:
@@ -640,29 +653,28 @@ unique_lengths = {len(fruit) for fruit in fruits}   # {5, 6}
 # dictionary comprehension
 fruit_lengths = {fruit:len(fruit) for fruit in fruits}              # {'apple': 5, 'banana': 6, 'cherry': 6}
 
-
 ######################################################################
-# Exceptions handling
-# -------------------
+# System programming
+# ------------------
 #
 
-dct = dict(a=[1, 2], b=[4, 5])
+######################################################################
+# Operating system interfaces (os)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+import os
 
-key = 'c'
-try:
-    dct[key]
-except:
-    print("Key %s is missing. Add it with empty value" % key)
-    dct['c'] = []
+# Get the current working directory
+cwd = os.getcwd()
+print(cwd)
 
-print(dct)
-
+# Set the current working directory
+os.chdir(cwd)
 
 ######################################################################
-# Basic operating system interfaces (os)
-# --------------------------------------
+# File input/output
+# ~~~~~~~~~~~~~~~~~
 #
-
 import os
 import tempfile
 
@@ -728,6 +740,68 @@ f.close()
 with open(filename, 'r') as f:
     lines = [line for line in f]
 
+######################################################################
+# Command execution
+# ~~~~~~~~~~~~~~~~~
+
+# TODO
+
+######################################################################
+# Multiprocessing and multithreading
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# TODO
+
+######################################################################
+# Networking
+# ----------
+#
+
+# TODO
+
+######################################################################
+# FTP
+# ~~~
+#
+
+# Full FTP features with ftplib
+import ftplib
+ftp = ftplib.FTP("ftp.cea.fr")
+ftp.login()
+ftp.cwd('/pub/unati/people/educhesnay/pystatml/datasets')
+ftp.retrlines('LIST')
+
+fd = open(os.path.join(tmpdir, "readme1.rst"), "wb")
+ftp.retrbinary('RETR readme.rst', fd.write)
+fd.close()
+ftp.quit()
+
+# File download urllib
+import urllib.request
+ftp_url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/datasets/readme.rst'
+urllib.request.urlretrieve(ftp_url, os.path.join(tmpdir, "readme2.rst"))
+
+
+######################################################################
+# HTTP
+# ~~~~
+#
+
+# TODO
+
+######################################################################
+# Sockets
+# ~~~~~~~
+#
+
+# TODO
+
+######################################################################
+# xmlrpc
+# ~~~~~~
+#
+
+# TODO
 
 ######################################################################
 # Object Oriented Programing (OOP)
