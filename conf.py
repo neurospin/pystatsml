@@ -296,7 +296,7 @@ sphinx_gallery_conf = {
     'examples_dirs' : ['python_lang', 'data_manipulation'],
     'filename_pattern': '/',
     # path where to save gallery generated examples
-    'gallery_dirs'  : 'auto_gallery',
+    'gallery_dirs'  : ['auto_gallery', 'auto_gallery'],
     'backreferences_dir': False}
 
 

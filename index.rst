@@ -11,6 +11,7 @@ Phantom
 .. toctree::
     :maxdepth: 2
 
+    rst/intro_python.rst
     rst/intro_ml.rst
     auto_gallery/python.rst
     auto_gallery/numpy.rst

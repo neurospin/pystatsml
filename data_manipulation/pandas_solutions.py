@@ -37,7 +37,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-url = 'https://raw.github.com/neurospin/pystatsml/master/data/iris.csv'
+url = 'https://raw.github.com/neurospin/pystatsml/master/datasets/iris.csv'
 df = pd.read_csv(url)
 
 num_cols = df._get_numeric_data().columns

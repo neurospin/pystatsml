@@ -3,7 +3,6 @@ Pandas: data manipulation
 =========================
 
 It is often said that 80% of data analysis is spent on the cleaning and
-preparing data. To get a handle on the problem, this chapter focuses on a
 small, but important, aspect of data manipulation and cleaning with Pandas.
 
 **Sources**:
@@ -216,6 +215,10 @@ print(df.describe(include=['object']))  # limit to one (or more) types
 
 print(df.groupby("job").mean())
 
+print(df.groupby("job")["age"].mean())
+
+print(df.groupby("job").describe(include='all'))
+
 
 ##############################################################################
 # Groupby in a loop
@@ -345,7 +348,7 @@ other = pd.read_csv(csv_filename)
 # Read csv from url
 # ~~~~~~~~~~~~~~~~~
 
-url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
+url = 'https://raw.github.com/neurospin/pystatsml/master/datasets/salary_table.csv'
 salary = pd.read_csv(url)
 
 ##############################################################################
@@ -382,7 +385,7 @@ conn = sqlite3.connect(db_filename)
 ##############################################################################
 # Creating tables with pandas
 
-url = 'https://raw.github.com/neurospin/pystatsml/master/data/salary_table.csv'
+url = 'https://raw.github.com/neurospin/pystatsml/master/datasets/salary_table.csv'
 salary = pd.read_csv(url)
 
 salary.to_sql("salary", conn, if_exists="replace")

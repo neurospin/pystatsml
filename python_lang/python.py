@@ -6,60 +6,6 @@ Python language
 
 """
 
-
-######################################################################
-# Set up your programming environment using Anaconda
-# --------------------------------------------------
-#
-# 1. Download anaconda (Python 3.x) http://continuum.io/downloads
-#
-# 2. Install it, on Linux:
-#
-# ::
-#
-#     bash Anaconda3-2.4.1-Linux-x86_64.sh
-#
-# 3. Add anaconda path in your PATH variable in your ``.bashrc`` file:
-#
-# ::
-#
-#     export PATH="${HOME}/anaconda3/bin:$PATH"
-#
-# 4. Optional: install additionnal packages:
-#
-# Using ``conda``:
-#
-# ::
-#
-#     conda install seaborn
-#
-# Using ``pip``:
-#
-# ::
-#
-#     pip install -U --user seaborn
-#
-# Optional:
-#
-# ::
-#
-#     pip install -U --user nibabel
-#     pip install -U --user nilearn
-#
-# 5. Python editor ``spyder``:
-#
-#    -  Consoles/Open IPython console.
-#    -  Left panel text editor
-#    -  Right panel ipython console
-#    -  F9 run selection or curent line (in recent version of spyder)
-#
-# 6. Python interpreter: one can use either ``python`` or ``ipython``,
-#    with later being an interpretive shell within python that provides
-#    additional features: https://docs.python.org/3/tutorial/ &
-#    http://ipython.readthedocs.io/en/stable/interactive/tutorial.html.
-#
-
-
 ######################################################################
 # Import libraries
 # ----------------
@@ -272,7 +218,6 @@ bart = ('male', 10, 'simpson')  # create a tuple
 # A sequence of characters, they are iterable, immutable
 #
 
-from __future__ import print_function
 # create a string
 s = str(42)         # convert another data type into a string
 s = 'I like you'
@@ -325,9 +270,31 @@ s5.strip()          # returns 'ham and cheese'
 # more examples: http://mkaz.com/2012/10/10/python-string-format/
 'pi is {:.2f}'.format(3.14159)      # returns 'pi is 3.14'
 
-# normal strings versus raw strings
-print('first line\nsecond line')     # normal strings allow for escaped characters
-print(r'first line\nfirst line')     # raw strings treat backslashes as literal characters
+
+
+######################################################################
+# Strings 2/2
+# ~~~~~~~~~~~
+
+######################################################################
+# Normal strings allow for escaped characters
+#
+
+print('first line\nsecond line')
+
+######################################################################
+# raw strings treat backslashes as literal characters
+#
+
+print(r'first line\nfirst line')
+
+######################################################################
+#sequece of bytes are not strings, should be decoded before some operations
+#
+s = b'first line\nsecond line'
+print(s)
+
+print(s.decode('utf-8').split())
 
 
 ######################################################################
@@ -654,15 +621,36 @@ unique_lengths = {len(fruit) for fruit in fruits}   # {5, 6}
 fruit_lengths = {fruit:len(fruit) for fruit in fruits}              # {'apple': 5, 'banana': 6, 'cherry': 6}
 
 ######################################################################
+# Regular expression
+# ------------------
+#
+# Capture the pattern ```anyprefixsub-<subj id>_ses-<session id>_<modality>```
+
+import re
+
+regex = re.compile("^.+(sub-.+)_(ses-.+)_(mod-.+)")
+
+strings = ["abcsub-033_ses-01_mod-mri", "defsub-044_ses-01_mod-mri", "ghisub-055_ses-02_mod-ctscan" ]
+print([regex.findall(s)[0] for s in strings])
+
+######################################################################
 # System programming
 # ------------------
 #
+
+
 
 ######################################################################
 # Operating system interfaces (os)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
+
+
 import os
+
+######################################################################
+# Current working directory
+#
 
 # Get the current working directory
 cwd = os.getcwd()
@@ -672,29 +660,35 @@ print(cwd)
 os.chdir(cwd)
 
 ######################################################################
-# File input/output
-# ~~~~~~~~~~~~~~~~~
+# Temporary directory
 #
-import os
+
 import tempfile
 
 tmpdir = tempfile.gettempdir()
 
+######################################################################
+# Join paths
+#
+
+mytmpdir = os.path.join(tmpdir, "foobar")
+
 # list containing the names of the entries in the directory given by path.
 os.listdir(tmpdir)
 
-# Change the current working directory to path.
-os.chdir(tmpdir)
 
-# Get current working directory.
-print('Working dir:', os.getcwd())
-
-# Join paths
-mytmpdir = os.path.join(tmpdir, "foobar")
-
+######################################################################
 # Create a directory
+
 if not os.path.exists(mytmpdir):
     os.mkdir(mytmpdir)
+
+os.makedirs(os.path.join(tmpdir, "foobar", "plop", "toto"), exist_ok=True)
+
+######################################################################
+# File input/output
+# ~~~~~~~~~~~~~~~~~
+#
 
 filename = os.path.join(mytmpdir, "myfile.txt")
 print(filename)
@@ -741,16 +735,225 @@ with open(filename, 'r') as f:
     lines = [line for line in f]
 
 ######################################################################
-# Command execution
-# ~~~~~~~~~~~~~~~~~
+# Explore, list directories
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
+#
 
-# TODO
+######################################################################
+# Walk
+#
+import os
+
+WD = os.path.join(os.environ["HOME"], "git", "pystatsml", "datasets")
+
+for dirpath, dirnames, filenames in os.walk(WD):
+    print(dirpath, dirnames, filenames)
+
+######################################################################
+# glob, basename and file extension
+#
+
+import glob
+
+filenames = glob.glob(os.path.join(os.environ["HOME"], "git", "pystatsml",
+                                  "datasets", "*", "tissue-*.csv"))
+
+# take basename then remove extension
+basenames = [os.path.splitext(os.path.basename(f))[0] for f in filenames]
+print(basenames)
+
+######################################################################
+# shutil - High-level file operations
+#
+
+import shutil
+
+src = os.path.join(tmpdir, "foobar",  "myfile.txt")
+dst = os.path.join(tmpdir, "foobar",  "plop", "myfile.txt")
+print("copy %s to %s" % (src, dst))
+
+shutil.copy(src, dst)
+
+print("File %s exists ?" % dst, os.path.exists(dst))
+
+src = os.path.join(tmpdir, "foobar",  "plop")
+dst = os.path.join(tmpdir, "plop2")
+print("copy tree %s under %s" % (src, dst))
+
+try:
+    shutil.copytree(src, dst)
+
+    shutil.rmtree(dst)
+
+    shutil.move(src, dst)
+except (FileExistsError, FileNotFoundError) as e:
+    pass
+
+######################################################################
+# Command execution with subprocess
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# - For more advanced use cases, the underlying Popen interface can be used directly.
+# - Run the command described by args.
+# - Wait for command to complete
+# - return a CompletedProcess instance.
+# - Does not capture stdout or stderr by default. To do so, pass PIPE for the stdout and/or stderr arguments.
+
+import subprocess
+
+# doesn't capture output
+p = subprocess.run(["ls", "-l"])
+print(p.returncode)
+
+# Run through the shell.
+subprocess.run("ls -l", shell=True)
+
+# Capture output
+out = subprocess.run(["ls", "-a", "/"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+# out.stdout is a sequence of bytes that should be decoded into a utf-8 string
+print(out.stdout.decode('utf-8').split("\n")[:5])
+
 
 ######################################################################
 # Multiprocessing and multithreading
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+#    **Process**
+#
+#    A process is a name given to a program instance that has been loaded into memory
+#    and managed by the operating system.
+#
+#    Process = address space + execution context (thread of control)
+#
+#    Process address space (segments):
+#
+#    - Code.
+#    - Data (static/global).
+#    - Heap (dynamic memory allocation).
+#    - Stack.
+#
+#    Execution context:
+#
+#    - Data registers.
+#    - Stack pointer (SP).
+#    - Program counter (PC).
+#    - Working Registers.
+#
+#    OS Scheduling of processes: context switching (ie. save/load Execution context)
+#
+#    Pros/cons
+#
+#    - Context switching expensive.
+#    - (potentially) complex data sharing (not necessary true).
+#    - Cooperating processes - no need for memory protection (separate address spaces).
+#    - Relevant for parrallel computation with memory allocation.
+#
+#    **Threads**
+#
+#    - Threads share the same address space (Data registers): access to code, heap and (global) data.
+#    - Separate execution stack, PC and Working Registers.
+#
+#    Pros/cons
+#
+#    - Faster context switching only SP, PC and Working Registers.
+#    - Can exploit fine-grain concurrency
+#    - Simple data sharing through the shared address space.
+#    - Precautions have to be taken or two threads will write to the same memory at the same time. This is what the **global interpreter lock (GIL)** is for.
+#    - Relevant for GUI, I/O (Network, disk) concurrent operation
+#
+#    **In Python**
+#
+#    - The threading module uses threads
+#    - The multiprocessing module uses processes.
 
-# TODO
+######################################################################
+# Multithreading
+#
+
+import time
+import threading
+
+def list_append(count, sign=1, out_list=None):
+    if out_list is None:
+        out_list = list()
+    for i in range(count):
+        out_list.append(sign * i)
+        sum(out_list) # do some computation
+    return out_list
+
+size = 10000   # Number of numbers to add
+
+out_list = list() # result is a simple list
+thread1 = threading.Thread(target=list_append, args=(size, 1, out_list, ))
+thread2 = threading.Thread(target=list_append, args=(size, -1, out_list, ))
+
+startime = time.time()
+# Will execute both in parallel
+thread1.start()
+thread2.start()
+# Joins threads back to the parent process
+thread1.join()
+thread2.join()
+print("Threading ellapsed time ", time.time() - startime)
+
+print(out_list[:10])
+
+######################################################################
+# Multiprocessing
+#
+
+import multiprocessing
+
+# Sharing requires specific mecanism
+out_list1 = multiprocessing.Manager().list()
+p1 = multiprocessing.Process(target=list_append, args=(size, 1, None))
+out_list2 = multiprocessing.Manager().list()
+p2 = multiprocessing.Process(target=list_append, args=(size, -1, None))
+
+startime = time.time()
+p1.start()
+p2.start()
+p1.join()
+p2.join()
+print("Multiprocessing ellapsed time ", time.time() - startime)
+
+# print(out_list[:10]) is not availlable
+
+######################################################################
+# Sharing object between process with Managers
+#
+# Managers provide a way to create data which can be shared between
+# different processes, including sharing over a network between processes
+# running on different machines. A manager object controls a server process
+# which manages shared objects.
+
+import multiprocessing
+import time
+
+size = int(size / 100)   # Number of numbers to add
+
+# Sharing requires specific mecanism
+out_list = multiprocessing.Manager().list()
+p1 = multiprocessing.Process(target=list_append, args=(size, 1, out_list))
+p2 = multiprocessing.Process(target=list_append, args=(size, -1, out_list))
+
+startime = time.time()
+
+p1.start()
+p2.start()
+
+p1.join()
+p2.join()
+
+print(out_list[:10])
+
+print("Multiprocessing with shared object ellapsed time ", time.time() - startime)
+
+
+######################################################################
+# Srcipts and arggument parsing
+# -----------------------------
+#
 
 ######################################################################
 # Networking

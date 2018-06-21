@@ -23,7 +23,7 @@ IT/computing science tools
     - Data flow, data base, file I/O, etc.
     - Python:  the programming language.
     - Numpy: python library particularly useful for handling of raw numerical data (matrices, mathematical operations).
-    - Pandas: python library adept at handling sets of structured data: list, tables.
+    - Pandas: input/output, manipulation structured data (tables).
 
 Statistics and applied mathematics
 ----------------------------------
