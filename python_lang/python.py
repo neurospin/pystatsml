@@ -624,15 +624,43 @@ fruit_lengths = {fruit:len(fruit) for fruit in fruits}              # {'apple': 
 # Regular expression
 # ------------------
 #
-# Capture the pattern ```anyprefixsub-<subj id>_ses-<session id>_<modality>```
+# 1. Compile Regular expression with a patetrn
 
 import re
 
+# 1. compile Regular expression with a patetrn
 regex = re.compile("^.+(sub-.+)_(ses-.+)_(mod-.+)")
+
+######################################################################
+# 2. Match compiled RE on string
+#
+# Capture the pattern ```anyprefixsub-<subj id>_ses-<session id>_<modality>```
 
 strings = ["abcsub-033_ses-01_mod-mri", "defsub-044_ses-01_mod-mri", "ghisub-055_ses-02_mod-ctscan" ]
 print([regex.findall(s)[0] for s in strings])
 
+######################################################################
+# Match methods on compiled regular expression
+#
+# +------------------+----------------------------------------------------------------------------+
+# | Method/Attribute | Purpose                                                                    |
+# +==================+============================================================================+
+# | match(string)    | Determine if the RE matches at the beginning of the string.                |
+# +------------------+----------------------------------------------------------------------------+
+# | search(string)   | Scan through a string, looking for any location where this RE matches.     |
+# +------------------+----------------------------------------------------------------------------+
+# | findall(string)  | Find all substrings where the RE matches, and returns them as a list.      |
+# +------------------+----------------------------------------------------------------------------+
+# | finditer(string) | Find all substrings where the RE matches, and returns them as an iterator. |
+# +------------------+----------------------------------------------------------------------------+
+
+######################################################################
+# 2. Replace compiled RE on string
+
+regex = re.compile("(sub-[^_]+)") # match (sub-...)_
+print([regex.sub("SUB-", s) for s in strings])
+
+regex.sub("SUB-", "toto")
 ######################################################################
 # System programming
 # ------------------
@@ -951,7 +979,7 @@ print("Multiprocessing with shared object ellapsed time ", time.time() - startim
 
 
 ######################################################################
-# Srcipts and arggument parsing
+# Srcipts and argument parsing
 # -----------------------------
 #
 

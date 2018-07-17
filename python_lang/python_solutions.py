@@ -26,6 +26,13 @@ calc(10, 4)             # also returns 14: default for 'op' is 'add'
 calc(10, 4, 'sub')      # returns 6
 calc(10, 4, 'div')      # prints 'valid operations are add and sub'
 
+a, b, op = 2, 3, "+"
+
+def calc2(a, b, op='+'):
+    st = "%.f %s %.f" % (a, op, b)
+    return eval(st)
+
+calc2(3, 3, "+")
 
 '''
 Exercise 2: functions + list + loop
@@ -91,15 +98,13 @@ class Manager(Employee):
     def salary(self):
         return 2500 + 120 * self.years_of_service
 
-employees = dict()
 
 samples = [Employee("lucy", 3),
            Employee("john", 1),
            Manager('julie', 3),
            Manager('paul', 1)]
 
-for e in samples:
-    employees[e.name] = e
+employees = {e.name:e for e in samples}
 
 employees.keys()
 
