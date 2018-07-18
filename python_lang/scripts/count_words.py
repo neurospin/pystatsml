@@ -15,7 +15,6 @@ import re
 import pandas as pd
 
 if __name__ == "__main__":
-
     # parse command line options
     output = "word_count.csv"
     parser = argparse.ArgumentParser()
@@ -39,6 +38,8 @@ if __name__ == "__main__":
 
     count = dict()
     for filename in filenames:
+        # Debug purpose
+        # filename = '/tmp/licence.txt'
         fd = open(filename, "r")
         for line in fd:
             for word in regex.findall(line.lower()):
@@ -47,5 +48,16 @@ if __name__ == "__main__":
                 else:
                     count[word] += 1
 
+    fd = open(options.output, "w")
+
+    # Do it manually
+    """
+    with open(options.output, 'w') as f:
+        f.write(",".join(["word", "count"]) + '\n')
+        for k, val in count.items():
+            f.write(",".join([k, val]) + '\n')
+    """
+
+    # Pandas
     df = pd.DataFrame([[k, count[k]] for k in count], columns=["word", "count"])
     df.to_csv(options.output, index=False)

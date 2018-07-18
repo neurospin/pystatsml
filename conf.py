@@ -228,7 +228,8 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   (master_doc, 'StatisticsMachineLearningPython.tex', u'Statistics and Machine Learning in Python',
-   u'Edouard Duchesnay, Tommy Löfstedt', 'manual'),
+#  (master_doc, 'StatisticsMachineLearningPython.tex', u'Python fundamentals and advanced',
+   u'Edouard Duchesnay', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

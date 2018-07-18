@@ -891,8 +891,8 @@ print(out.stdout.decode('utf-8').split("\n")[:5])
 #
 #    **In Python**
 #
-#    - The threading module uses threads
-#    - The multiprocessing module uses processes.
+#    - The ``threading`` module uses threads.
+#    - The ``multiprocessing`` module uses processes.
 
 ######################################################################
 # Multithreading
@@ -1130,12 +1130,18 @@ except NotImplementedError as e:
 # Exercise 3: File I/O
 # ~~~~~~~~~~~~~~~~~~~~
 #
-# Copy/past the _BSD 4 clause license_ into a text file. Read, the file
-# (assuming this file could be huge) and count the occurrences of each
-# word within the file. Words are separated by whitespace or new line
-# characters.
-#
-
+# 1. Copy/paste the BSD 4 clause license (https://en.wikipedia.org/wiki/BSD_licenses) 
+# into a text file. Read, the file and count the occurrences of each
+# word within the file. Store the words' occurrence number in a dictionary.
+# 
+# 2. Write an executable python command ``count_words.py`` that parse 
+# a list of input files provided after ``--input`` parameter.
+# The dictionary of occurrence is save in a csv file provides by ``--output``.
+# with default value word_count.csv.
+# Use:
+# - open
+# - regular expression
+# - argparse (https://docs.python.org/3/howto/argparse.html)
 
 ######################################################################
 # Exercise 4: OOP
