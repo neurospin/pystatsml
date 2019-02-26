@@ -174,3 +174,19 @@ for line in fd:
             count[word] += 1
 
 print(count)
+
+"""
+Comment to deal with missing import of urllib2
+
+import urllib2
+url = "https://www.gnu.org/licenses/gpl-3.0.txt"
+f = urllib2.urlopen(url)
+content = f.read()
+f.close()
+content = content.replace("\n", " ")
+content = content.lower()
+c = content.split(' ')
+print(len(c))
+from collections import Counter
+print(Counter(c))
+"""

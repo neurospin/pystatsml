@@ -979,9 +979,53 @@ print("Multiprocessing with shared object ellapsed time ", time.time() - startim
 
 
 ######################################################################
-# Srcipts and argument parsing
+# Scripts and argument parsing
 # -----------------------------
 #
+# Example, the word count script ::
+#
+#        import os
+#        import os.path
+#        import argparse
+#        import re
+#        import pandas as pd
+#
+#        if __name__ == "__main__":
+#            # parse command line options
+#            output = "word_count.csv"
+#            parser = argparse.ArgumentParser()
+#            parser.add_argument('-i', '--input',
+#                                help='list of input files.',
+#                                nargs='+', type=str)
+#            parser.add_argument('-o', '--output',
+#                                help='output csv file (default %s)' % output,
+#                                type=str, default=output)
+#            options = parser.parse_args()
+#
+#            if options.input is None :
+#                parser.print_help()
+#                raise SystemExit("Error: input files are missing")
+#            else:
+#                filenames = [f for f in options.input if os.path.isfile(f)]
+#
+#            # Match words
+#            regex = re.compile("[a-zA-Z]+")
+#
+#            count = dict()
+#            for filename in filenames:
+#                fd = open(filename, "r")
+#                for line in fd:
+#                    for word in regex.findall(line.lower()):
+#                        if not word in count:
+#                            count[word] = 1
+#                        else:
+#                            count[word] += 1
+#
+#            fd = open(options.output, "w")
+#
+#            # Pandas
+#            df = pd.DataFrame([[k, count[k]] for k in count], columns=["word", "count"])
+#            df.to_csv(options.output, index=False)
 
 ######################################################################
 # Networking
@@ -1035,7 +1079,48 @@ urllib.request.urlretrieve(ftp_url, os.path.join(tmpdir, "readme2.rst"))
 # TODO
 
 ######################################################################
-# Object Oriented Programing (OOP)
+# Modules and packages
+# --------------------
+#
+# A module is a Python file. 
+# A package is a directory which MUST contain a special file called ``__init__.py``
+#
+# To import, extend variable `PYTHONPATH`::
+#
+#      export PYTHONPATH=path_to_parent_python_module:${PYTHONPATH}
+#
+# Or
+
+import sys
+sys.path.append("path_to_parent_python_module")
+
+
+######################################################################
+#
+# The ``__init__.py`` file can be empty. But you can set which modules the package exports as the API, while keeping other modules internal, by overriding the __all__ variable, like so:
+
+######################################################################
+# ``parentmodule/__init__.py`` file::
+#
+#     from . import submodule1
+#     from . import submodule2
+#     
+#     from .submodule3 import function1
+#     from .submodule3 import function2
+#     
+#     __all__ = ["submodule1", "submodule2",
+#                "function1", "function2"]
+#
+# User can import::
+#
+#     import parentmodule.submodule1
+#     import parentmodule.function1
+
+######################################################################
+# Python Unit Testing
+
+######################################################################
+# Object Oriented Programming (OOP)
 # --------------------------------
 #
 # **Sources**

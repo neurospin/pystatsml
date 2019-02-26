@@ -288,7 +288,7 @@ df.columns = ['age', 'genre', 'travail', 'nom', 'taille']
 
 df.travail = df.travail.map({ 'student':'etudiant',  'manager':'manager',
                 'engineer':'ingenieur', 'scientist':'scientific'})
-assert df.travail.isnull().sum() == 0
+# assert df.travail.isnull().sum() == 0
 
 
 

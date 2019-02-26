@@ -6,14 +6,19 @@ Introduction to Machine Learning
 Machine learning within data science
 ------------------------------------
 
-.. image:: images/Data_Science_VD.png
-   :scale: 50
+.. image:: images/data_science.png
+   :scale: 25
    :align: center
 
 Machine learning covers two main types of data analysis:
 
 1. Exploratory analysis: **Unsupervised learning**. Discover the structure within the data. E.g.: Experience (in years in a company) and salary are correlated.
 2. Predictive analysis: **Supervised learning**. This is sometimes described as **"learn from the past to predict the future"**. Scenario: a company wants to detect potential future clients among a base of prospects. Retrospective data analysis: we go through the data constituted of previous prospected companies, with their characteristics (size, domain, localization, etc...). Some of these companies became clients, others did not. The question is, can we possibly predict which of the new companies are more likely to become clients, based on their characteristics based on previous observations? In this example, the training data consists of a set of *n* training samples. Each sample, :math:`x_i`, is a vector of *p* input features (company characteristics) and a target feature (:math:`y_i \in \{Yes, No\}` (whether they became a client or not).
+
+
+.. image:: images/machine_learning.png
+   :scale: 50
+   :align: center
 
 
 IT/computing science tools

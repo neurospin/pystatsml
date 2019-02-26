@@ -8,7 +8,7 @@ a = c(2,1)
 b = c(1,1)
 
 euclidian <-function(x){
-  return(sqrt(x %*% x))
+  return(sqrt(x %*% x)[1])
 }
 
 euclidian(a)
