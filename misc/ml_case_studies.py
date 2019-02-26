@@ -49,7 +49,7 @@ from __future__ import print_function
 import pandas as pd
 import numpy as np
 
-url = 'https://raw.github.com/neurospin/pystatsml/master/data/default%20of%20credit%20card%20clients.xls'
+url = 'https://github.com/neurospin/pystatsml/tree/master/datasets/default%20of%20credit%20card%20clients.xls'
 data = pd.read_excel(url, skiprows=1, sheetname='Data')
 
 df = data.copy()
@@ -231,7 +231,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.grid_search import GridSearchCV
 import sklearn.metrics as metrics
 
-def balanced_acc(estimator, X, y):
+def balanced_acc(estimator, X, y, **kwargs):
     return metrics.recall_score(y, estimator.predict(X), average=None).mean()
 
 print("===============================================")
@@ -363,7 +363,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.grid_search import GridSearchCV
 import sklearn.metrics as metrics
 
-def balanced_acc(estimator, X, y):
+def balanced_acc(estimator, X, y, **kwargs):
     """
     Balanced acuracy scorer
     """

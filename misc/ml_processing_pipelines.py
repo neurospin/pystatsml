@@ -124,7 +124,7 @@ X, y = datasets.make_classification(n_samples=n_samples, n_features=n_features,
                          n_informative=5, random_state=42)
 
 
-def balanced_acc(estimator, X, y):
+def balanced_acc(estimator, X, y, **kwargs):
     '''
     Balanced accuracy scorer
     '''

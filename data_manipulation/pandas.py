@@ -418,7 +418,7 @@ pd.read_sql_query('select * from salary where education="Master";', conn)
 # Data Frame
 # ~~~~~~~~~~
 #
-# 1. Read the iris dataset at 'https://raw.github.com/neurospin/pystatsml/master/data/iris.csv'
+# 1. Read the iris dataset at 'https://github.com/neurospin/pystatsml/tree/master/datasets/iris.csv'
 #
 # 2. Print column names
 #
