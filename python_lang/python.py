@@ -661,6 +661,12 @@ regex = re.compile("(sub-[^_]+)") # match (sub-...)_
 print([regex.sub("SUB-", s) for s in strings])
 
 regex.sub("SUB-", "toto")
+
+######################################################################
+# Replace all non-alphanumeric characters in a string
+
+re.sub('[^0-9a-zA-Z]+', '', 'h^&ell`.,|o w]{+orld')
+
 ######################################################################
 # System programming
 # ------------------
