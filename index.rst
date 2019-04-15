@@ -11,22 +11,22 @@ Phantom
 .. toctree::
     :maxdepth: 2
 
-    rst/intro_python.rst
-    rst/intro_ml.rst
+    introduction/intro_python.rst
+    introduction/intro_ml.rst
     auto_gallery/python.rst
     auto_gallery/numpy.rst
     auto_gallery/pandas.rst
-    visualization/matplotlib.rst
+    scientific_python/matplotlib.rst
     statistics/stat_univ.rst
     statistics/stat_multiv.rst
-    time_series/time_series.rst
-    ml_unsupervised/ml_decomposition.rst
-    ml_unsupervised/ml_clustering.rst
-    ml_supervised/ml_linear_regression.rst
-    ml_supervised/ml_linear_classification.rst
-    ml_supervised/ml_non_linear_prediction.rst
-    ml_resampling/ml_resampling.rst
-    ml_sklearn/ml_processing_pipelines.rst
+    statistics/time_series.rst
+    machine_learning/decomposition.rst
+    machine_learning/clustering.rst
+    machine_learning/linear_regression.rst
+    machine_learning/linear_classification.rst
+    machine_learning/non_linear_prediction.rst
+    machine_learning/resampling.rst
+    machine_learning/processing_pipelines.rst
     python/ml_case_studies.rst
 
 ==================

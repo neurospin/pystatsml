@@ -299,7 +299,7 @@ texinfo_documents = [
 
 sphinx_gallery_conf = {
     # path to your examples scripts
-    'examples_dirs' : ['python_lang', 'data_manipulation'],
+    'examples_dirs' : ['python_lang', 'scientific_python'],
     'filename_pattern': '/',
     # path where to save gallery generated examples
     'gallery_dirs'  : ['auto_gallery', 'auto_gallery'],

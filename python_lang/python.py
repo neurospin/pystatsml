@@ -1049,18 +1049,18 @@ print("Multiprocessing with shared object ellapsed time ", time.time() - startim
 import ftplib
 ftp = ftplib.FTP("ftp.cea.fr")
 ftp.login()
-ftp.cwd('/pub/unati/people/educhesnay/pystatml/datasets')
+ftp.cwd('/pub/unati/people/educhesnay/pystatml')
 ftp.retrlines('LIST')
 
-fd = open(os.path.join(tmpdir, "readme1.rst"), "wb")
-ftp.retrbinary('RETR readme.rst', fd.write)
+fd = open(os.path.join(tmpdir, "README.md"), "wb")
+ftp.retrbinary('RETR README.md', fd.write)
 fd.close()
 ftp.quit()
 
 # File download urllib
 import urllib.request
-ftp_url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/datasets/readme.rst'
-urllib.request.urlretrieve(ftp_url, os.path.join(tmpdir, "readme2.rst"))
+ftp_url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/README.md'
+urllib.request.urlretrieve(ftp_url, os.path.join(tmpdir, "README2.md"))
 
 
 ######################################################################
@@ -1088,7 +1088,7 @@ urllib.request.urlretrieve(ftp_url, os.path.join(tmpdir, "readme2.rst"))
 # Modules and packages
 # --------------------
 #
-# A module is a Python file. 
+# A module is a Python file.
 # A package is a directory which MUST contain a special file called ``__init__.py``
 #
 # To import, extend variable `PYTHONPATH`::
@@ -1110,10 +1110,10 @@ sys.path.append("path_to_parent_python_module")
 #
 #     from . import submodule1
 #     from . import submodule2
-#     
+#
 #     from .submodule3 import function1
 #     from .submodule3 import function2
-#     
+#
 #     __all__ = ["submodule1", "submodule2",
 #                "function1", "function2"]
 #
@@ -1221,11 +1221,11 @@ except NotImplementedError as e:
 # Exercise 3: File I/O
 # ~~~~~~~~~~~~~~~~~~~~
 #
-# 1. Copy/paste the BSD 4 clause license (https://en.wikipedia.org/wiki/BSD_licenses) 
+# 1. Copy/paste the BSD 4 clause license (https://en.wikipedia.org/wiki/BSD_licenses)
 # into a text file. Read, the file and count the occurrences of each
 # word within the file. Store the words' occurrence number in a dictionary.
-# 
-# 2. Write an executable python command ``count_words.py`` that parse 
+#
+# 2. Write an executable python command ``count_words.py`` that parse
 # a list of input files provided after ``--input`` parameter.
 # The dictionary of occurrence is save in a csv file provides by ``--output``.
 # with default value word_count.csv.
