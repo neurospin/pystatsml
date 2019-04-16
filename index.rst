@@ -8,18 +8,55 @@
 Phantom
 =======
 
+
+============
+Introduction
+============
+
 .. toctree::
     :maxdepth: 2
 
-    introduction/intro_python.rst
-    introduction/intro_ml.rst
+    introduction/python_ecosystem.rst
+    introduction/machine_learning.rst
+
+===============
+Python language
+===============
+
+.. toctree::
+    :maxdepth: 2
+
     auto_gallery/python.rst
+
+=================
+Scientific Python
+=================
+
+.. toctree::
+    :maxdepth: 2
+
     auto_gallery/numpy.rst
     auto_gallery/pandas.rst
     scientific_python/matplotlib.rst
+
+==========
+Statistics
+==========
+
+.. toctree::
+    :maxdepth: 2
+
     statistics/stat_univ.rst
     statistics/stat_multiv.rst
     statistics/time_series.rst
+
+================
+Machine Learning
+================
+
+.. toctree::
+    :maxdepth: 2
+
     machine_learning/decomposition.rst
     machine_learning/clustering.rst
     machine_learning/linear_regression.rst

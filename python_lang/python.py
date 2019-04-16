@@ -1,6 +1,4 @@
 """
-Python language
-===============
 
 **Source** Kevin Markham https://github.com/justmarkham/python-reference
 

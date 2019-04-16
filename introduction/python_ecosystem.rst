@@ -1,11 +1,10 @@
-
-python ecosystem for data-science
-=================================
+Python ecosystem for data-science
+---------------------------------
 
 .. RST https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html
 
 Python language
----------------
+~~~~~~~~~~~~~~~
 
 - Interpreted
 - Garbage collector (do not prevent from memory leak)
@@ -13,12 +12,12 @@ Python language
 
 
 Anaconda
---------
+~~~~~~~~
 
 Anaconda is a python distribution that ships most of python tools and libraries
 
-Installation
-~~~~~~~~~~~~
+**Installation**
+
 
 1. Download anaconda (Python 3.x) http://continuum.io/downloads
 
@@ -32,8 +31,8 @@ Installation
 
     export PATH="${HOME}/anaconda3/bin:$PATH"
 
-Managing with ``conda``
-~~~~~~~~~~~~~~~~~~~~~
+**Managing with ``conda``**
+
 
 Update conda package and environment manager to current version
 
@@ -74,8 +73,8 @@ Search available packages
 
 
 
-Environments
-~~~~~~~~~~~~
+**Environments**
+
 
 - A conda environment is a directory that contains a specific collection of conda packages that you have installed.
 - Control packages environment for a specific purpose: collaborating with someone else, delivering an application to your client, 
@@ -101,8 +100,8 @@ List of all environments
     conda search -f numpy
     conda install numpy
 
-Miniconda
-~~~~~~~~~
+**Miniconda**
+
 Anaconda without the collection of (>700) packages.
 With Miniconda you download only the packages you want with the conda command: ``conda install PACKAGENAME``
 
@@ -137,7 +136,7 @@ With Miniconda you download only the packages you want with the conda command: `
 
 
 Commands
---------
+~~~~~~~~
 
 **python**: python interpreter. On the dos/unix command line execute wholes file::
 
@@ -190,7 +189,7 @@ Shortcuts:
 - ``F9`` run line/selection
 
 Libraries
----------
+~~~~~~~~~
 
 scipy.org: `<https://www.scipy.org/docs.html>`_
 

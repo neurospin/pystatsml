@@ -1,10 +1,10 @@
 
 Introduction to Machine Learning
-================================
+--------------------------------
 
 
 Machine learning within data science
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: images/data_science.png
    :scale: 25
@@ -22,7 +22,7 @@ Machine learning covers two main types of data analysis:
 
 
 IT/computing science tools
---------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     - High Performance Computing (HPC)
     - Data flow, data base, file I/O, etc.
@@ -31,7 +31,7 @@ IT/computing science tools
     - Pandas: input/output, manipulation structured data (tables).
 
 Statistics and applied mathematics
-----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     - Linear model.
     - Non parametric statistics.
