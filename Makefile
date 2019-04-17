@@ -7,6 +7,7 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
 NTBOOK        = $(shell ls scientific_python/*.ipynb statistics/*.ipynb  machine_learning/*.ipynb)
+#NTBOOK        = test.ipynb
 #SRC           = $(shell ls python/*.py)
 RST           = $(NTBOOK:.ipynb=.rst) $(SRC:.py=.rst)
 $(info $(NTBOOK))
@@ -50,7 +51,8 @@ help:
 
 # Rule to convert notebook to rst
 .ipynb.rst:
-	jupyter nbconvert --to rst $<
+	jupyter nbconvert --to rst --stdout $< | bin/filter_fix_rst.py > $@
+#	jupyter nbconvert --to rst $<
 #	jupyter nbconvert --to rst $< --output $@
 
 #.py.rst:

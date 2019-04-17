@@ -9,7 +9,6 @@ NumPy is an extension to the Python programming language, adding support for lar
 - Kevin Markham: https://github.com/justmarkham
 '''
 
-from __future__ import print_function
 import numpy as np
 
 ##############################################################################
