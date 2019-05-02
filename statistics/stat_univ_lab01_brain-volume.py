@@ -1,10 +1,6 @@
 '''
-
-.. THIS IS THE MASTER DOC CONVERT TO jupyter notebook using:
-.. sphx_glr_python_to_jupyter.py statistics/stat_univ_lab.py
-
-Brain volumes study
-===================
+Lab 1: Brain volumes study
+==========================
 
 The study provides the brain volumes of grey matter (gm), white matter (wm)
 and cerebrospinal fluid) (csf) of 808 anatomical MRI scans.
@@ -27,38 +23,37 @@ import urllib.request
 
 WD = os.path.join(tempfile.gettempdir(), "brainvol")
 os.makedirs(WD, exist_ok=True)
-os.chdir(WD)
+#os.chdir(WD)
 
 # use cookiecutter file organization
 # https://drivendata.github.io/cookiecutter-data-science/
-os.makedirs("data", exist_ok=True)
-os.makedirs("reports", exist_ok=True)
+os.makedirs(os.path.join(WD, "data"), exist_ok=True)
+#os.makedirs("reports", exist_ok=True)
 
 ###############################################################################
 # **Fetch data**
 #
-# * _Demographic data_ `demo.csv` (columns: `participant_id`, `site`, `group`, `age`, `sex`) and tissue volume data:
+# * Demographic data `demo.csv` (columns: `participant_id`, `site`, `group`, `age`, `sex`) and tissue volume data:
 #    `group` is Control or Patient.
 #    `site` is the recruiting site.
 #
-# * _Gray matter volume_ `gm.csv` (columns: `participant_id`, `session`, `gm_vol`)
+# * Gray matter volume `gm.csv` (columns: `participant_id`, `session`, `gm_vol`)
 #
-# * _White matter volume_ `wm.csv` (columns: `participant_id`, `session`, `wm_vol`)
+# * White matter volume `wm.csv` (columns: `participant_id`, `session`, `wm_vol`)
 #
-# * _Cerebrospinal Fluid_ `csf.csv` (columns: `participant_id`, `session`, `csf_vol`)
+# * Cerebrospinal Fluid `csf.csv` (columns: `participant_id`, `session`, `csf_vol`)
 
 base_url = 'https://raw.github.com/neurospin/pystatsml/master/datasets/brain_volumes/%s'
 data = dict()
 for file in ["demo.csv", "gm.csv", "wm.csv", "csf.csv"]:
-    urllib.request.urlretrieve(base_url % file, "data/%s" % file)
+    urllib.request.urlretrieve(base_url % file, os.path.join(WD, "data", file))
 
-demo = pd.read_csv("data/%s" % "demo.csv")
-gm = pd.read_csv("data/%s" % "gm.csv")
-wm = pd.read_csv("data/%s" % "wm.csv")
-csf = pd.read_csv("data/%s" % "csf.csv")
+demo = pd.read_csv(os.path.join(WD, "data", "demo.csv"))
+gm = pd.read_csv(os.path.join(WD, "data", "gm.csv"))
+wm = pd.read_csv(os.path.join(WD, "data", "wm.csv"))
+csf = pd.read_csv(os.path.join(WD, "data", "csf.csv"))
 
 print("tables can be merge using shared columns")
-print(demo.head())
 print(gm.head())
 
 ###############################################################################
@@ -84,7 +79,7 @@ brain_vol["wm_f"] = brain_vol["wm_vol"] / brain_vol["tiv_vol"]
 ###############################################################################
 # **Save in a excel file `brain_vol.xlsx`**
 
-brain_vol.to_excel("brain_vol.xlsx", sheet_name='data', index=False)
+brain_vol.to_excel(os.path.join(WD, "data", "brain_vol.xlsx"), sheet_name='data', index=False)
 
 
 ###############################################################################
@@ -100,7 +95,7 @@ import seaborn as sns
 import statsmodels.formula.api as smfrmla
 import statsmodels.api as sm
 
-brain_vol = pd.read_excel("brain_vol.xlsx", sheet_name='data')
+brain_vol = pd.read_excel(os.path.join(WD, "data", "brain_vol.xlsx"), sheet_name='data')
 # Round float at 2 decimals when printing
 pd.options.display.float_format = '{:,.2f}'.format
 
@@ -146,6 +141,7 @@ print(desc_group_num)
 # ----------
 #
 # Objectives:
+#
 # 1. Site effect of gray matter atrophy
 # 2. Test the association between the age and gray matter atrophy in the control
 #    and patient population independently.
@@ -154,19 +150,17 @@ print(desc_group_num)
 #    atrophy process in patient population faster than in the control population.
 # 5. The effect of the medication in the patient population.
 
-import statsmodels as sm
+#import statsmodels as sm
+import statsmodels.api as sm
 import statsmodels.formula.api as smfrmla
 import scipy.stats
 import seaborn as sns
 
-###############################################################################
-# Test the association between the age and gray matter atrophy in the control
-#    and patient population independently.
-
 
 ###############################################################################
-# **Effect of site on Grey Matter atrophy**: Model  is Oneway Anova gm_f ~ site
+# **1 Site effect on Grey Matter atrophy**
 #
+# The model  is Oneway Anova gm_f ~ site
 # The ANOVA test has important assumptions that must be satisfied in order for the associated p-value to be valid.
 # * The samples are independent.
 # * Each sample is from a normally distributed population.
@@ -178,12 +172,13 @@ import seaborn as sns
 sns.violinplot("site", "gm_f", data=brain_vol1)
 
 ###############################################################################
-# Stats with _Scipy_
-fstat, pval = scipy.stats.f_oneway(*[data.gm_f[data.site == s] for s in data.site.unique()])
+# Stats with scipy
+fstat, pval = scipy.stats.f_oneway(*[brain_vol1.gm_f[brain_vol1.site == s]
+    for s in brain_vol1.site.unique()])
 print("Oneway Anova gm_f ~ site F=%.2f, p-value=%E" % (fstat, pval))
 
 ###############################################################################
-# Stats with _statsmodels_
+# Stats with statsmodels
 anova = smfrmla.ols("gm_f ~ site", data=brain_vol1).fit()
 # print(anova.summary())
 print("Site explains %.2f%% of the grey matter fraction variance" % (anova.rsquared * 100))
@@ -191,7 +186,7 @@ print("Site explains %.2f%% of the grey matter fraction variance" % (anova.rsqua
 print(sm.stats.anova_lm(anova, typ=2))
 
 ###############################################################################
-# 2. Test the association between the age and gray matter atrophy in the control
+# **2. Test the association between the age and gray matter atrophy** in the control
 #    and patient population independently.
 
 ###############################################################################
@@ -202,8 +197,7 @@ brain_vol1_ctl = brain_vol1[brain_vol1.group == "Control"]
 brain_vol1_pat = brain_vol1[brain_vol1.group == "Patient"]
 
 ###############################################################################
-# Stats with _Scipy_
-
+# Stats with scipy
 
 print("--- In control population ---")
 beta, beta0, r_value, p_value, std_err = scipy.stats.linregress(x=brain_vol1_ctl.age,
@@ -223,7 +217,7 @@ print("Corr: %f, r-squared: %f, p-value: %f, std_err: %f"\
 print("Decrease seems faster in patient than in control population")
 
 ###############################################################################
-# Stats with _statsmodels_
+# Stats with statsmodels
 
 print("--- In control population ---")
 lr = smfrmla.ols("gm_f ~ age", data=brain_vol1_ctl).fit()
@@ -237,7 +231,7 @@ print("Age explains %.2f%% of the grey matter fraction variance" % (lr.rsquared 
 
 ###############################################################################
 # Before testing for differences of atrophy between the patients ans the controls
-# Preliminary tests of age $\times$ group (patients would be older or
+# **Preliminary tests of age $\times$ group** (patients would be older or
 # younger than Controls)
 
 ###############################################################################
@@ -245,18 +239,18 @@ print("Age explains %.2f%% of the grey matter fraction variance" % (lr.rsquared 
 sns.violinplot("group", "age", data=brain_vol1)
 
 ###############################################################################
-# Stats with _Scipy_
+# Stats with scipy
 
 print(scipy.stats.ttest_ind(brain_vol1_ctl.age, brain_vol1_pat.age))
 
 ###############################################################################
-# Stats with _statsmodels_
+# Stats with statsmodels
 
 print(smfrmla.ols("age ~ group", data=brain_vol1).fit().summary())
 print("No significant difference in age between patients and controls")
 
 ###############################################################################
-# Preliminary tests of sex $\times$ group (more/less males in patients than in Controls)
+# **Preliminary tests of sex $\times$ group** (more/less males in patients than in Controls)
 
 crosstab = pd.crosstab(brain_vol1.sex, brain_vol1.group)
 print("Obeserved contingency table")
@@ -270,7 +264,7 @@ print(expected)
 print("No significant difference in sex between patients and controls")
 
 ###############################################################################
-# 3. Test for differences of atrophy between the patients and the controls
+# **3. Test for differences of atrophy between the patients and the controls**
 
 print(sm.stats.anova_lm(smfrmla.ols("gm_f ~ group", data=brain_vol1).fit(), typ=2))
 print("No significant difference in age between patients and controls")
@@ -282,7 +276,7 @@ print(sm.stats.anova_lm(smfrmla.ols(
 print("No significant difference in age between patients and controls")
 
 ###############################################################################
-# 4. Test for interaction between age and clinical status, ie: is the brain
+# **4. Test for interaction between age and clinical status**, ie: is the brain
 #    atrophy process in patient population faster than in the control population.
 ancova = smfrmla.ols("gm_f ~ group:age + age + site", data=brain_vol1).fit()
 print(sm.stats.anova_lm(ancova, typ=2))

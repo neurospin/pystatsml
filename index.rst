@@ -35,8 +35,8 @@ Scientific Python
 .. toctree::
     :maxdepth: 2
 
-    auto_gallery/numpy.rst
-    auto_gallery/pandas.rst
+    auto_gallery/scipy_numpy.rst
+    auto_gallery/scipy_pandas.rst
     scientific_python/matplotlib.rst
 
 ==========
@@ -47,6 +47,7 @@ Statistics
     :maxdepth: 2
 
     statistics/stat_univ.rst
+    auto_gallery/stat_univ_lab01_brain-volume.rst
     statistics/stat_multiv.rst
     statistics/time_series.rst
 

@@ -32,7 +32,7 @@ np.dot(X, a / euclidian(a))
 '''
 
 N = 100
-mu = np.array([1, 1]) 
+mu = np.array([1, 1])
 Cov = np.array([[1, .8],
                 [.8, 1]])
 
@@ -48,9 +48,9 @@ np.mean(Xc, axis=0)
 S = 1 / (N - 1) * np.dot(Xc.T, Xc)
 print(S)
 
-import scipy
+#import scipy
 
-Sinv = scipy.linalg.inv(S)
+Sinv = np.linalg.inv(S)
 
 
 def mahalanobis(x, xbar, Sinv):
