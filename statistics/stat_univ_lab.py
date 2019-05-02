@@ -1,11 +1,14 @@
-# -*- coding: utf-8 -*-
-"""
+'''
+
+.. THIS IS THE MASTER DOC CONVERT TO jupyter notebook using:
+.. sphx_glr_python_to_jupyter.py statistics/stat_univ_lab.py
+
 Brain volumes study
 ===================
 
 The study provides the brain volumes of grey matter (gm), white matter (wm)
 and cerebrospinal fluid) (csf) of 808 anatomical MRI scans.
-"""
+'''
 
 ###############################################################################
 # Manipulate data
@@ -81,12 +84,12 @@ brain_vol["wm_f"] = brain_vol["wm_vol"] / brain_vol["tiv_vol"]
 ###############################################################################
 # **Save in a excel file `brain_vol.xlsx`**
 
-brain_vol.to_excel("brain_vol.xlsx", sheet_name='data')
+brain_vol.to_excel("brain_vol.xlsx", sheet_name='data', index=False)
 
 
 ###############################################################################
-# Statistics
-# ----------
+# Descriptive Statistics
+# ----------------------
 
 ###############################################################################
 # Load excel file `brain_vol.xlsx`
@@ -98,6 +101,8 @@ import statsmodels.formula.api as smfrmla
 import statsmodels.api as sm
 
 brain_vol = pd.read_excel("brain_vol.xlsx", sheet_name='data')
+# Round float at 2 decimals when printing
+pd.options.display.float_format = '{:,.2f}'.format
 
 
 ###############################################################################
@@ -132,49 +137,161 @@ desc_glob_cat = pd.DataFrame({col:brain_vol1[col].value_counts().to_dict() for c
 print(desc_glob_cat)
 
 ###############################################################################
+# Descriptives statistics of numerical variables per clinical status
+desc_group_num = brain_vol1.groupby("group").describe()
+print(desc_group_num)
+
+###############################################################################
+# Statistics
+# ----------
+#
+# Objectives:
+# 1. Site effect of gray matter atrophy
+# 2. Test the association between the age and gray matter atrophy in the control
+#    and patient population independently.
+# 3. Test for differences of atrophy between the patients and the controls
+# 4. Test for interaction between age and clinical status, ie: is the brain
+#    atrophy process in patient population faster than in the control population.
+# 5. The effect of the medication in the patient population.
+
+import statsmodels as sm
+import statsmodels.formula.api as smfrmla
+import scipy.stats
+import seaborn as sns
+
+###############################################################################
+# Test the association between the age and gray matter atrophy in the control
+#    and patient population independently.
+
+
+###############################################################################
+# **Effect of site on Grey Matter atrophy**: Model  is Oneway Anova gm_f ~ site
+#
+# The ANOVA test has important assumptions that must be satisfied in order for the associated p-value to be valid.
+# * The samples are independent.
+# * Each sample is from a normally distributed population.
+# * The population standard deviations of the groups are all equal. This property is known as homoscedasticity.
 #
 
 ###############################################################################
-# Visualize site effect of gm ratio using violin plot: site $\times$ gm.
+# Plot
+sns.violinplot("site", "gm_f", data=brain_vol1)
 
 ###############################################################################
-# Visualize age effect of gm ratio using scatter plot : age $\times$ gm.
-#
-#8. Linear model (Ancova): gm_ratio ~ age + group + site).
+# Stats with _Scipy_
+fstat, pval = scipy.stats.f_oneway(*[data.gm_f[data.site == s] for s in data.site.unique()])
+print("Oneway Anova gm_f ~ site F=%.2f, p-value=%E" % (fstat, pval))
+
+###############################################################################
+# Stats with _statsmodels_
+anova = smfrmla.ols("gm_f ~ site", data=brain_vol1).fit()
+# print(anova.summary())
+print("Site explains %.2f%% of the grey matter fraction variance" % (anova.rsquared * 100))
+
+print(sm.stats.anova_lm(anova, typ=2))
+
+###############################################################################
+# 2. Test the association between the age and gray matter atrophy in the control
+#    and patient population independently.
+
+###############################################################################
+# Plot
+sns.lmplot("age", "gm_f", hue="group", data=brain_vol1)
+
+brain_vol1_ctl = brain_vol1[brain_vol1.group == "Control"]
+brain_vol1_pat = brain_vol1[brain_vol1.group == "Patient"]
+
+###############################################################################
+# Stats with _Scipy_
 
 
+print("--- In control population ---")
+beta, beta0, r_value, p_value, std_err = scipy.stats.linregress(x=brain_vol1_ctl.age,
+                                                    y=brain_vol1_ctl.gm_f)
+print("gm_f = %f * age + %f" % (beta, beta0))
+print("Corr: %f, r-squared: %f, p-value: %f, std_err: %f"\
+      % (r_value, r_value**2, p_value, std_err))
 
-# Global Descriptive statistics of numerical variable
+print("--- In patient population ---")
+beta, beta0, r_value, p_value, std_err = scipy.stats.linregress(x=brain_vol1_pat.age,
+                                                    y=brain_vol1_pat.gm_f)
 
+print("gm_f = %f * age + %f" % (beta, beta0))
+print("Corr: %f, r-squared: %f, p-value: %f, std_err: %f"\
+      % (r_value, r_value**2, p_value, std_err))
 
+print("Decrease seems faster in patient than in control population")
 
+###############################################################################
+# Stats with _statsmodels_
 
+print("--- In control population ---")
+lr = smfrmla.ols("gm_f ~ age", data=brain_vol1_ctl).fit()
+print(lr.summary())
+print("Age explains %.2f%% of the grey matter fraction variance" % (lr.rsquared * 100))
 
-brain_vol1[["site", "group", "sex"]].value_counts()
+print("--- In patient population ---")
+lr = smfrmla.ols("gm_f ~ age", data=brain_vol1_pat).fit()
+print(lr.summary())
+print("Age explains %.2f%% of the grey matter fraction variance" % (lr.rsquared * 100))
 
-#
-grp_desc = brain_vol1[["site", "group", "sex"]].groupby("site").describe(include='all')
+###############################################################################
+# Before testing for differences of atrophy between the patients ans the controls
+# Preliminary tests of age $\times$ group (patients would be older or
+# younger than Controls)
 
-# 5. Descriptive analysis per site in excel file.
-with pd.ExcelWriter(os.path.join("reports", "stats_descriptive.xlsx")) as writer:
-    glob_desc.to_excel(writer, sheet_name='glob_desc')
-    grp_desc.to_excel(writer, sheet_name='grp_desc')
+###############################################################################
+# Plot
+sns.violinplot("group", "age", data=brain_vol1)
 
-# 4. Visualize site effect of gm ratio using violin plot: site $\times$ gm.
-sns.violinplot("site", "gm_f", hue="group", data=brain_vol)
+###############################################################################
+# Stats with _Scipy_
 
-# 5. Visualize age effect of gm ratio using scatter plot : age $\times$ gm.
-sns.lmplot("age", "gm_f", hue="group", data=brain_vol[brain_vol.group.notnull()])
+print(scipy.stats.ttest_ind(brain_vol1_ctl.age, brain_vol1_pat.age))
 
-# 6. Linear model (Ancova): gm_f ~ age + group + site
-twoway = smfrmla.ols('gm_f ~ age + group + site', brain_vol).fit()
-aov = sm.stats.anova_lm(twoway, typ=2) # Type 2 ANOVA DataFrame
+###############################################################################
+# Stats with _statsmodels_
 
-print("= Anova =")
-print(aov)
+print(smfrmla.ols("age ~ group", data=brain_vol1).fit().summary())
+print("No significant difference in age between patients and controls")
+
+###############################################################################
+# Preliminary tests of sex $\times$ group (more/less males in patients than in Controls)
+
+crosstab = pd.crosstab(brain_vol1.sex, brain_vol1.group)
+print("Obeserved contingency table")
+print(crosstab)
+
+chi2, pval, dof, expected = scipy.stats.chi2_contingency(crosstab)
+
+print("Chi2 = %f, pval = %f" % (chi2, pval))
+print("Expected contingency table under the null hypothesis")
+print(expected)
+print("No significant difference in sex between patients and controls")
+
+###############################################################################
+# 3. Test for differences of atrophy between the patients and the controls
+
+print(sm.stats.anova_lm(smfrmla.ols("gm_f ~ group", data=brain_vol1).fit(), typ=2))
+print("No significant difference in age between patients and controls")
+
+###############################################################################
+# This model is simplistic we should adjust for age and site
+print(sm.stats.anova_lm(smfrmla.ols(
+        "gm_f ~ group + age + site", data=brain_vol1).fit(), typ=2))
+print("No significant difference in age between patients and controls")
+
+###############################################################################
+# 4. Test for interaction between age and clinical status, ie: is the brain
+#    atrophy process in patient population faster than in the control population.
+ancova = smfrmla.ols("gm_f ~ group:age + age + site", data=brain_vol1).fit()
+print(sm.stats.anova_lm(ancova, typ=2))
 
 print("= Parameters =")
-print(twoway.params)
+print(ancova.params)
 
-print("%.2f%% of grey matter loss per year (almost %.0f%% per decade)" %\
-      (twoway.params.age * 100, twoway.params.age * 100 * 10))
+print("%.3f%% of grey matter loss per year (almost %.1f%% per decade)" %\
+      (ancova.params.age * 100, ancova.params.age * 100 * 10))
+
+print("grey matter loss in patients is accelerated by %.3f%% per decade" %
+      (ancova.params['group[T.Patient]:age'] * 100 * 10))
