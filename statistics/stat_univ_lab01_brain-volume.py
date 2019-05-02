@@ -107,6 +107,8 @@ pd.options.display.float_format = '{:,.2f}'.format
 # Select on rows from session one "ses-01"
 
 brain_vol1 = brain_vol[brain_vol.session == "ses-01"]
+# Check that there are no dublicates
+assert len(brain_vol1.participant_id.unique()) == len(brain_vol1.participant_id)
 
 ###############################################################################
 # Global descriptives statistics of numerical variables
@@ -154,7 +156,6 @@ print(desc_group_num)
 #    atrophy process in patient population faster than in the control population.
 # 5. The effect of the medication in the patient population.
 
-#import statsmodels as sm
 import statsmodels.api as sm
 import statsmodels.formula.api as smfrmla
 import scipy.stats
@@ -180,7 +181,7 @@ sns.violinplot("site", "gm_f", data=brain_vol1)
 ###############################################################################
 # Stats with scipy
 fstat, pval = scipy.stats.f_oneway(*[brain_vol1.gm_f[brain_vol1.site == s]
-    for s in brain_vol1.site.unique()])
+                                   for s in brain_vol1.site.unique()])
 print("Oneway Anova gm_f ~ site F=%.2f, p-value=%E" % (fstat, pval))
 
 ###############################################################################
