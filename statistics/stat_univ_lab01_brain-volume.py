@@ -33,9 +33,9 @@ os.makedirs(os.path.join(WD, "data"), exist_ok=True)
 ###############################################################################
 # **Fetch data**
 #
-# * Demographic data `demo.csv` (columns: `participant_id`, `site`, `group`, `age`, `sex`) and tissue volume data:
-#    `group` is Control or Patient.
-#    `site` is the recruiting site.
+# * Demographic data `demo.csv` (columns: `participant_id`, `site`, `group`,
+#   `age`, `sex`) and tissue volume data: `group` is Control or Patient.
+#   `site` is the recruiting site.
 #
 # * Gray matter volume `gm.csv` (columns: `participant_id`, `session`, `gm_vol`)
 #
@@ -79,8 +79,8 @@ brain_vol["wm_f"] = brain_vol["wm_vol"] / brain_vol["tiv_vol"]
 ###############################################################################
 # **Save in a excel file `brain_vol.xlsx`**
 
-brain_vol.to_excel(os.path.join(WD, "data", "brain_vol.xlsx"), sheet_name='data', index=False)
-
+brain_vol.to_excel(os.path.join(WD, "data", "brain_vol.xlsx"),
+                   sheet_name='data', index=False)
 
 ###############################################################################
 # Descriptive Statistics
@@ -95,7 +95,8 @@ import seaborn as sns
 import statsmodels.formula.api as smfrmla
 import statsmodels.api as sm
 
-brain_vol = pd.read_excel(os.path.join(WD, "data", "brain_vol.xlsx"), sheet_name='data')
+brain_vol = pd.read_excel(os.path.join(WD, "data", "brain_vol.xlsx"),
+                          sheet_name='data')
 # Round float at 2 decimals when printing
 pd.options.display.float_format = '{:,.2f}'.format
 
@@ -103,7 +104,7 @@ pd.options.display.float_format = '{:,.2f}'.format
 ###############################################################################
 # **Descriptive statistics**
 # Most of participants have several MRI sessions (column `session`)
-# Select on rows from session one `"ses-01"
+# Select on rows from session one "ses-01"
 
 brain_vol1 = brain_vol[brain_vol.session == "ses-01"]
 
@@ -119,8 +120,9 @@ print(desc_glob_num)
 desc_glob_cat = brain_vol1[["site", "group", "sex"]].describe(include='all')
 print(desc_glob_cat)
 
-# I prefer to get count by level
-desc_glob_cat = pd.DataFrame({col:brain_vol1[col].value_counts().to_dict() for col in ["site", "group", "sex"]})
+print("Get count by level")
+desc_glob_cat = pd.DataFrame({col: brain_vol1[col].value_counts().to_dict()
+                             for col in ["site", "group", "sex"]})
 print(desc_glob_cat)
 
 ###############################################################################
@@ -128,13 +130,15 @@ print(desc_glob_cat)
 
 brain_vol = brain_vol[brain_vol.site != "S6"]
 brain_vol1 = brain_vol[brain_vol.session == "ses-01"]
-desc_glob_cat = pd.DataFrame({col:brain_vol1[col].value_counts().to_dict() for col in ["site", "group", "sex"]})
+desc_glob_cat = pd.DataFrame({col: brain_vol1[col].value_counts().to_dict()
+                             for col in ["site", "group", "sex"]})
 print(desc_glob_cat)
 
 ###############################################################################
 # Descriptives statistics of numerical variables per clinical status
-desc_group_num = brain_vol1.groupby("group").describe()
+desc_group_num = brain_vol1[["group", 'gm_vol']].groupby("group").describe()
 print(desc_group_num)
+
 
 ###############################################################################
 # Statistics
@@ -156,15 +160,17 @@ import statsmodels.formula.api as smfrmla
 import scipy.stats
 import seaborn as sns
 
-
 ###############################################################################
 # **1 Site effect on Grey Matter atrophy**
 #
 # The model  is Oneway Anova gm_f ~ site
-# The ANOVA test has important assumptions that must be satisfied in order for the associated p-value to be valid.
+# The ANOVA test has important assumptions that must be satisfied in order
+# for the associated p-value to be valid.
+#
 # * The samples are independent.
 # * Each sample is from a normally distributed population.
-# * The population standard deviations of the groups are all equal. This property is known as homoscedasticity.
+# * The population standard deviations of the groups are all equal.
+#   This property is known as homoscedasticity.
 #
 
 ###############################################################################
@@ -181,13 +187,14 @@ print("Oneway Anova gm_f ~ site F=%.2f, p-value=%E" % (fstat, pval))
 # Stats with statsmodels
 anova = smfrmla.ols("gm_f ~ site", data=brain_vol1).fit()
 # print(anova.summary())
-print("Site explains %.2f%% of the grey matter fraction variance" % (anova.rsquared * 100))
+print("Site explains %.2f%% of the grey matter fraction variance" %
+      (anova.rsquared * 100))
 
 print(sm.stats.anova_lm(anova, typ=2))
 
 ###############################################################################
-# **2. Test the association between the age and gray matter atrophy** in the control
-#    and patient population independently.
+# **2. Test the association between the age and gray matter atrophy** in the
+# control and patient population independently.
 
 ###############################################################################
 # Plot
@@ -200,15 +207,16 @@ brain_vol1_pat = brain_vol1[brain_vol1.group == "Patient"]
 # Stats with scipy
 
 print("--- In control population ---")
-beta, beta0, r_value, p_value, std_err = scipy.stats.linregress(x=brain_vol1_ctl.age,
-                                                    y=brain_vol1_ctl.gm_f)
+beta, beta0, r_value, p_value, std_err = \
+    scipy.stats.linregress(x=brain_vol1_ctl.age, y=brain_vol1_ctl.gm_f)
+
 print("gm_f = %f * age + %f" % (beta, beta0))
 print("Corr: %f, r-squared: %f, p-value: %f, std_err: %f"\
       % (r_value, r_value**2, p_value, std_err))
 
 print("--- In patient population ---")
-beta, beta0, r_value, p_value, std_err = scipy.stats.linregress(x=brain_vol1_pat.age,
-                                                    y=brain_vol1_pat.gm_f)
+beta, beta0, r_value, p_value, std_err = \
+    scipy.stats.linregress(x=brain_vol1_pat.age, y=brain_vol1_pat.gm_f)
 
 print("gm_f = %f * age + %f" % (beta, beta0))
 print("Corr: %f, r-squared: %f, p-value: %f, std_err: %f"\
@@ -222,16 +230,18 @@ print("Decrease seems faster in patient than in control population")
 print("--- In control population ---")
 lr = smfrmla.ols("gm_f ~ age", data=brain_vol1_ctl).fit()
 print(lr.summary())
-print("Age explains %.2f%% of the grey matter fraction variance" % (lr.rsquared * 100))
+print("Age explains %.2f%% of the grey matter fraction variance" %
+      (lr.rsquared * 100))
 
 print("--- In patient population ---")
 lr = smfrmla.ols("gm_f ~ age", data=brain_vol1_pat).fit()
 print(lr.summary())
-print("Age explains %.2f%% of the grey matter fraction variance" % (lr.rsquared * 100))
+print("Age explains %.2f%% of the grey matter fraction variance" %
+      (lr.rsquared * 100))
 
 ###############################################################################
 # Before testing for differences of atrophy between the patients ans the controls
-# **Preliminary tests of age $\times$ group** (patients would be older or
+# **Preliminary tests for age x group effect** (patients would be older or
 # younger than Controls)
 
 ###############################################################################
@@ -250,7 +260,8 @@ print(smfrmla.ols("age ~ group", data=brain_vol1).fit().summary())
 print("No significant difference in age between patients and controls")
 
 ###############################################################################
-# **Preliminary tests of sex $\times$ group** (more/less males in patients than in Controls)
+# **Preliminary tests for sex x group** (more/less males in patients than
+# in Controls)
 
 crosstab = pd.crosstab(brain_vol1.sex, brain_vol1.group)
 print("Obeserved contingency table")

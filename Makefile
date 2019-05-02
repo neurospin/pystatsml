@@ -7,11 +7,13 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
 NTBOOK        = $(shell ls scientific_python/*.ipynb statistics/*.ipynb  machine_learning/*.ipynb)
-#NTBOOK        = test.ipynb
+#NTBOOK        = $(shell ls statistics/*.ipynb)
+NTBOOK_FILES  = $(NTBOOK:.ipynb=_files)
 #SRC           = $(shell ls python/*.py)
 RST           = $(NTBOOK:.ipynb=.rst) $(SRC:.py=.rst)
-$(info $(NTBOOK))
+#$(info $(NTBOOK))
 #$(info $(RST))
+#$(info $(NTBOOK_FILES))
 #$(info $(PYTORST))
 
 # User-friendly check for sphinx-build
@@ -50,13 +52,15 @@ help:
 	@echo "  coverage   to run coverage check of the documentation (if enabled)"
 
 # Rule to convert notebook to rst
-.ipynb.rst:
-	jupyter nbconvert --to rst --stdout $< | bin/filter_fix_rst.py > $@
-#	jupyter nbconvert --to rst $<
-#	jupyter nbconvert --to rst $< --output $@
+#.ipynb.rst:
+%.rst : %.ipynb
+	jupyter nbconvert --to rst $<
+	mv $@ $@.filtered
+	cat $@.filtered|bin/filter_fix_rst.py > $@
+	rm -f $@.filtered
 
-#.py.rst:
-#	$(PYTORST) $<
+#	jupyter nbconvert --to rst --stdout $< | bin/filter_fix_rst.py > $@
+#	jupyter nbconvert --to rst $< --output $@
 
 debug:
 	@echo $(RST)
@@ -68,6 +72,8 @@ clean:
 	rm -rf $(BUILDDIR)/*
 	rm -rf auto_gallery/
 	rm -f $(RST)
+	rm -rf $(NTBOOK_FILES)
+	for nb in $(NTBOOK) ; do jupyter nbconvert --clear-output $$nb; done
 
 exe:
 	@echo "Execute notebooks" 

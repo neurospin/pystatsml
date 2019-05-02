@@ -34,6 +34,11 @@ Build the html files:
 make html
 ```
 
+Clean everything and  strip output from Jupyter notebook (useless if you installed the nbstripout hook, ):
+```
+make html
+```
+
 Dependencies
 ------------
 The easier is to install Anaconda at https://www.continuum.io with python >= 3. Anaconda provides
