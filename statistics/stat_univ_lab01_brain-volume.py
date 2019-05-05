@@ -57,11 +57,16 @@ print("tables can be merge using shared columns")
 print(gm.head())
 
 ###############################################################################
-# **Merge tables** according to `participant_id`. Drop row with missing values.
+# **Merge tables** according to `participant_id`
 
 brain_vol = pd.merge(pd.merge(pd.merge(demo, gm), wm), csf)
 assert brain_vol.shape == (808, 9)
+
+###############################################################################
+# **Drop rows with missing values**
+
 brain_vol = brain_vol.dropna()
+assert brain_vol.shape == (766, 9)
 
 ###############################################################################
 # **Compute Total Intra-cranial volume**
@@ -70,14 +75,14 @@ brain_vol = brain_vol.dropna()
 brain_vol["tiv_vol"] = brain_vol["gm_vol"] + brain_vol["wm_vol"] + brain_vol["csf_vol"]
 
 ###############################################################################
-# ** Compute tissue fractions**
+# **Compute tissue fractions**
 # `gm_f = gm_vol / tiv_vol`, `wm_f  = wm_vol / tiv_vol`.
 
 brain_vol["gm_f"] = brain_vol["gm_vol"] / brain_vol["tiv_vol"]
 brain_vol["wm_f"] = brain_vol["wm_vol"] / brain_vol["tiv_vol"]
 
 ###############################################################################
-# **Save in a excel file `brain_vol.xlsx`**
+# **Save in a excel file** `brain_vol.xlsx`
 
 brain_vol.to_excel(os.path.join(WD, "data", "brain_vol.xlsx"),
                    sheet_name='data', index=False)
