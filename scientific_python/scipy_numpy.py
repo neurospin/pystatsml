@@ -90,6 +90,57 @@ print(arr)
 
 
 ##############################################################################
+# Summary on axis, reshaping/flattening and selection
+# ---------------------------------------------------
+#
+# Numpy internals: By default Numpy use C convention, ie, Row-major language:
+# The matrix is stored by rows. In C, the last index changes most rapidly as one moves through the array as stored in memory.
+#
+# For 2D arrays, sequential move in the memory will:
+#
+# - iterate over rows (axis 0)
+#    - iterate over columns (axis 1)
+#
+# For 3D arrays, sequential move in the memory will:
+#
+# - iterate over plans (axis 0)
+#    - iterate over rows (axis 1)
+#        - iterate over columns (axis 2)
+# 
+#
+# .. figure:: ../images/numpy_array3d.png
+
+x = np.arange(2 * 3 * 4)
+print(x)
+
+##############################################################################
+# Reshape into 3D (axis 0, axis 1, axis 2)
+
+x = x.reshape(2, 3, 4)
+print(x)
+
+##############################################################################
+# Selection get first plan
+
+print(x[0, :, :])
+
+##############################################################################
+# Selection get first rows
+
+print(x[:, 0, :])
+
+##############################################################################
+# Selection get first columns
+
+print(x[:, :, 0])
+
+##############################################################################
+# Ravel
+
+print(x.ravel())
+
+
+##############################################################################
 # Stack arrays
 # ------------
 #
