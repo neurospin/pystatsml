@@ -1,8 +1,6 @@
 Statistics and Machine Learning in Python
 =========================================
 
-This is a draft version !!
-
 Structure
 ---------
 
@@ -15,6 +13,39 @@ Courses are available in three formats:
 3. ReStructuredText files.
 
 All notebooks and python files are converted into `rst` format and then assembled together using sphinx.
+
+Directories and main files:
+
+    introduction/
+    ├── machine_learning.rst
+    └── python_ecosystem.rst
+
+    python_lang/                        # (Python language)
+    ├── python.py # (main file)
+    ├── python_solutions.py
+    ├── scripts
+        ├── count_words.py
+        ├── replace.py
+        └── word_count.csv
+
+    statistics/                         # (Statistics)
+    ├── stat_multiv.ipynb               # (multivariate statistics)
+    ├── stat_multiv_solutions.py
+    ├── stat_univ.ipynb                 # (univariate statistics)
+    ├── stat_univ_lab01_brain-volume.py # (lab)
+    ├── stat_univ_solutions.ipynb
+    └── time_series.ipynb
+
+    machine_learning/                   # (Machine learning)
+    ├── clustering.ipynb
+    ├── decomposition.ipynb
+    ├── decomposition_solutions.ipynb
+    ├── linear_classification.ipynb
+    ├── linear_regression.ipynb
+    ├── non_linear_prediction.ipynb
+    ├── resampling.ipynb
+    ├── resampling_solution.py
+    └── sklearn.ipynb
 
 Build
 -----
