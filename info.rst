@@ -109,15 +109,6 @@ http://docutils.sourceforge.net/rst.html
 http://docutils.sourceforge.net/docs/ref/rst/
 
 
-Python 2.7 to python 3
-----------------------
-
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
-
 R vs Python
 -----------
 
@@ -133,7 +124,14 @@ ftp://ftp.cea.fr//pub/unati/people/educhesnay/pystatml/StatisticsMachineLearning
 Below the link to github:
 https://github.com/neurospin/pystatsml
 
-Basically, it uses ipython notebook (now Jupyter)  and pure python, everything is converted to rst and assembled to html or pdf using sphynx.
+Or
+
+https://github.com/duchesnay/pystatsml
+
+git clone https://github.com/duchesnay/pystatsml.git
+
+
+Basically, it uses Jupyter notebook and pure python, everything is converted to rst and assembled to html or pdf using sphynx.
 
 It is a draft version, not finished yet with many spelling mistakes.
 
