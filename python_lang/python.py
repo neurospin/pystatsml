@@ -776,10 +776,13 @@ with open(filename, 'r') as f:
 #
 import os
 
-WD = os.path.join(os.environ["HOME"], "git", "pystatsml", "datasets")
+try:
+    WD = os.path.join(os.environ["HOME"], "git", "pystatsml", "datasets")
 
-for dirpath, dirnames, filenames in os.walk(WD):
-    print(dirpath, dirnames, filenames)
+    for dirpath, dirnames, filenames in os.walk(WD):
+        print(dirpath, dirnames, filenames)
+except:
+    pass
 
 ######################################################################
 # glob, basename and file extension
