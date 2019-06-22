@@ -17,9 +17,6 @@ small, but important, aspect of data manipulation and cleaning with Pandas.
 
 - **DataFrame** is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a dict of Series objects. It stems from the `R data.frame()` object.
 '''
-
-from __future__ import print_function
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -152,12 +149,12 @@ print(df)  # df is not modified
 # ix supports mixed integer and label based access.
 
 df = users.copy()
-df.ix[0]         # first row
-df.ix[0, "age"]  # first item of first row
-df.ix[0, "age"] = 55
+df.loc[0]         # first row
+df.loc[0, "age"]  # first item of first row
+df.loc[0, "age"] = 55
 
 for i in range(df.shape[0]):
-    df.ix[i, "age"] *= 10
+    df.loc[i, "age"] *= 10
 
 print(df)  # df is modified
 
@@ -274,7 +271,7 @@ df.dropna(how='all')    # drop a row only if ALL values are missing
 
 df.height.mean()
 df = users.copy()
-df.ix[df.height.isnull(), "height"] = df["height"].mean()
+df.loc[df.height.isnull(), "height"] = df["height"].mean()
 
 print(df)
 

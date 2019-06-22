@@ -431,6 +431,8 @@ if x > 0: print('positive')
 # known as a 'ternary operator'
 'positive' if x > 0 else 'zero or negative'
 
+'positive' if x > 0 else 'zero or negative'
+
 ######################################################################
 # Loops
 # ~~~~~
@@ -445,7 +447,7 @@ range(0, 3)     # returns [0, 1, 2]: includes first value but excludes second va
 range(3)        # same thing: starting at zero is the default
 range(0, 5, 2)  # returns [0, 2, 4]: third argument specifies the 'stride'
 
-# for loop (not recommended)
+# for loop
 fruits = ['apple', 'banana', 'cherry']
 for i in range(len(fruits)):
     print(fruits[i].upper())
@@ -455,8 +457,20 @@ for fruit in fruits:
     print(fruit.upper())
 
 # use range when iterating over a large sequence to avoid actually creating the integer list in memory
-for i in range(10**6):
-    pass
+v = 0
+for i in range(10 ** 6):
+    v += 1
+
+
+quote = """
+our incomes are like our shoes; if too small they gall and pinch us
+but if too large they cause us to stumble and to trip
+"""
+
+count = {k:0 for k in set(quote.split())}
+for word in quote.split():
+    count[word] += 1
+
 
 # iterate through two things at once (using tuple unpacking)
 family = {'dad':'homer', 'mom':'marge', 'size':6}
@@ -521,6 +535,16 @@ def print_this(x):
 print_this(3)       # prints 3
 n = print_this(3)   # prints 3, but doesn't assign 3 to n
                     #   because the function has no return statement
+
+#
+def add(a, b):
+    return a + b
+
+add(2, 3)
+
+add("deux", "trois")
+
+add(["deux", "trois"], [2, 3])
 
 # define a function with one argument and one return value
 def square_this(x):
@@ -784,12 +808,14 @@ for dirpath, dirnames, filenames in os.walk(WD):
 
 ######################################################################
 # glob, basename and file extension
-#
-
+# TODO FIXME
+import tempfile
 import glob
 
-filenames = glob.glob(os.path.join(os.environ["HOME"], "git", "pystatsml",
-                                  "datasets", "*", "tissue-*.csv"))
+tmpdir = tempfile.gettempdir()
+
+filenames = glob.glob(os.path.join(tmpdir, "*", "*.txt"))
+print(filenames)
 
 # take basename then remove extension
 basenames = [os.path.splitext(os.path.basename(f))[0] for f in filenames]
