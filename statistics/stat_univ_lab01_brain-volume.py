@@ -100,10 +100,6 @@ import seaborn as sns
 import statsmodels.formula.api as smfrmla
 import statsmodels.api as sm
 
-xlsx_filename = '/tmp/gitclone/pystatsml-master/pystatsml/datasets/brain_volumes/brain_volumes.xlsx'
-brain_vol = pd.read_excel(xlsx_filename, sheet_name='data')
-
-
 brain_vol = pd.read_excel(os.path.join(WD, "data", "brain_vol.xlsx"),
                           sheet_name='data')
 # Round float at 2 decimals when printing
