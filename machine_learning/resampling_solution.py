@@ -47,5 +47,5 @@ pval = np.sum(scores_perm >= scores_perm[0, :], axis=0) / nperm
 print("ACC:%.2f(P=%.3f); SPC:%.2f(P=%.3f); SEN:%.2f(P=%.3f)" %\
       (scores_perm[0, 0], pval[0],
        scores_perm[0, 1], pval[1],
-       scores_perm[0, 2], pval[2]) )
+       scores_perm[0, 2], pval[2]))
 
