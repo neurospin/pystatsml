@@ -2,19 +2,20 @@
 
 ## 1. Optimisation: Gradient descent and Backpropagation
 
-
-- [Lab dl_optim-backprop_numpy-pytorch-sklearn.ipynb](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_optim-backprop_numpy-pytorch-sklearn.ipynb)
+- [Lab `dl_optim-backprop_numpy-pytorch-sklearn.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_optim-backprop_numpy-pytorch-sklearn.ipynb)
 
 ## 2. Multi-Layer Perceptron
 
-- Slides: `lectures-labs/slides/02_backprop/index.html`
+- [Slides](https://m2dsupsdlclass.github.io/lectures-labs/slides/02_backprop/index.html)
 
-- [Lab dl_mlp_mnist_pytorch.ipynb](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_mlp_mnist_pytorch.ipynb))
-- 
+- [Lab `dl_mlp_mnist_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_mlp_mnist_pytorch.ipynb))
+
 
 ## 3. Convolutional Neural Networks (CNN)
 
--  [Lab, dl_cnn_mnist_pytorch.ipynb](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_cnn_mnist_pytorch.ipynb))
+- [Slides](https://m2dsupsdlclass.github.io/lectures-labs/slides/04_conv_nets/index.html)
+
+-  [Lab `dl_cnn_mnist_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_cnn_mnist_pytorch.ipynb))
 
 
 ## 4. Transfer Learning
@@ -30,15 +31,15 @@ Copy [transfer_learning_tutorial with pytorch](https://github.com/pytorch/tutori
 
 ## Deep Learning class
 
-[Deep Learning class](https://github.com/m2dsupsdlclass/lectures-labs)
+[Deep Learning class, Master Datascience Paris Saclay](https://github.com/m2dsupsdlclass/lectures-labs)
 
 ## Stanford ML courses
 
-[Deep learning - cs-231n @stanford.edu](http://cs231n.stanford.edu/)
+- [Deep learning - cs-231n @stanford.edu](http://cs231n.stanford.edu/)
 
-[Deep Learning Cheatsheet - cs-230 @stanford.edu](https://stanford.edu/~shervine/teaching/cs-230/)
+- [Deep Learning Cheatsheet - cs-230 @stanford.edu](https://stanford.edu/~shervine/teaching/cs-230/)
 
-[Machine Learning Cheatsheet - cs-229 @stanford.edu](https://stanford.edu/~shervine/teaching/cs-229/)
+- [Machine Learning Cheatsheet - cs-229 @stanford.edu](https://stanford.edu/~shervine/teaching/cs-229/)
 
 
 ## Anaconda
