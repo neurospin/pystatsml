@@ -1,12 +1,16 @@
 # Course
 
+## Introduction to Deep Learning
+
+- [Slides:](https://m2dsupsdlclass.github.io/lectures-labs/slides/01_intro_to_deep_learning/index.html)
+
 ## 1. Optimisation: Gradient descent and Backpropagation
+
+- [Slides:](https://m2dsupsdlclass.github.io/lectures-labs/slides/02_backprop/index.html)
 
 - [Lab: `dl_optim-backprop_numpy-pytorch-sklearn.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_optim-backprop_numpy-pytorch-sklearn.ipynb)
 
 ## 2. Multi-Layer Perceptron
-
-- [Slides:](https://m2dsupsdlclass.github.io/lectures-labs/slides/02_backprop/index.html)
 
 - [Lab: `dl_mlp_mnist_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_mlp_mnist_pytorch.ipynb)
 
