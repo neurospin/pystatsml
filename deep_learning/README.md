@@ -2,34 +2,29 @@
 
 ## 1. Optimisation: Gradient descent and Backpropagation
 
-- [Lab `dl_optim-backprop_numpy-pytorch-sklearn.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_optim-backprop_numpy-pytorch-sklearn.ipynb)
+- [Lab: `dl_optim-backprop_numpy-pytorch-sklearn.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_optim-backprop_numpy-pytorch-sklearn.ipynb)
 
 ## 2. Multi-Layer Perceptron
 
-- [Slides](https://m2dsupsdlclass.github.io/lectures-labs/slides/02_backprop/index.html)
+- [Slides:](https://m2dsupsdlclass.github.io/lectures-labs/slides/02_backprop/index.html)
 
-- [Lab `dl_mlp_mnist_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_mlp_mnist_pytorch.ipynb))
+- [Lab: `dl_mlp_mnist_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_mlp_mnist_pytorch.ipynb)
 
 
 ## 3. Convolutional Neural Networks (CNN)
 
-- [Slides](https://m2dsupsdlclass.github.io/lectures-labs/slides/04_conv_nets/index.html)
+- [Slides:](https://m2dsupsdlclass.github.io/lectures-labs/slides/04_conv_nets/index.html)
 
--  [Lab `dl_cnn_mnist_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_cnn_mnist_pytorch.ipynb))
+-  [Lab: `dl_cnn_mnist_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_cnn_mnist_pytorch.ipynb)
 
 
 ## 4. Transfer Learning
 
-- Lab, classify ants and bees with Transfer Learning: dl_transfer-learning_ants-bees_pytorch.ipynb
-
-Copy [transfer_learning_tutorial with pytorch](https://github.com/pytorch/tutorials/blob/master/beginner_source/transfer_learning_tutorial.py)
-
-    wget https://raw.githubusercontent.com/pytorch/tutorials/master/beginner_source/transfer_learning_tutorial.py
-
+-  [Lab: `dl_transfer-learning_ants-bees_pytorch.ipynb`](https://github.com/duchesnay/pystatsml/tree/master/deep_learning/dl_transfer-learning_ants-bees_pytorch.ipynb)
 
 # Ressources
 
-## Deep Learning class
+## Deep Learning class, Master Datascience Paris Saclay
 
 [Deep Learning class, Master Datascience Paris Saclay](https://github.com/m2dsupsdlclass/lectures-labs)
 
@@ -85,12 +80,10 @@ Check if torch can be loaded. If CUDA is not available, we will use CPU instead 
     conda install pytorch torchvision cudatoolkit=10.0 -c pytorch
 
 
-## Deep Learning class (optional install Keras)
+## Optional install Keras for Deep Learning class, Master Datascience Paris Saclay
 
 [Deep Learning class](https://github.com/m2dsupsdlclass/lectures-labs)
 
-
-### Optional
 
 [installation instructions](https://github.com/m2dsupsdlclass/lectures-labs/blob/master/installation_instructions.md)
 
