@@ -51,11 +51,6 @@ Update conda
 
     conda update -n base -c defaults conda
 
-Create an new environement called ``py36`` where we will install python 3.6 for Keras and tensor flow
-
-    conda create --name py36
-    conda activate py36
-
 ## Pytorch
 
 
@@ -87,6 +82,11 @@ Check if torch can be loaded. If CUDA is not available, we will use CPU instead 
 ## Optional install Keras for Deep Learning class, Master Datascience Paris Saclay
 
 [Deep Learning class](https://github.com/m2dsupsdlclass/lectures-labs)
+
+Create an new environement called ``py36`` where we will install python 3.6 for Keras and tensor flow
+
+    conda create --name py36
+    conda activate py36
 
 
 [installation instructions](https://github.com/m2dsupsdlclass/lectures-labs/blob/master/installation_instructions.md)
