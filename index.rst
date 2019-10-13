@@ -64,6 +64,8 @@ Machine Learning
     machine_learning/linear_classification.rst
     machine_learning/non_linear_prediction.rst
     machine_learning/resampling.rst
+    machine_learning/ensemble_learning.rst
+    optimization/optim_gradient_descent.rst
     machine_learning/processing_pipelines.rst
     python/ml_case_studies.rst
 

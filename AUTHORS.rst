@@ -12,3 +12,5 @@ Chapter authors
 Listed by alphabetical order.
 
 - Tommy Löfstedt (lofstedt.tommy@gmail.com)
+
+- Feki Younes (younesfkih@gmail.com)
