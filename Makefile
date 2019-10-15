@@ -6,7 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
-NTBOOK        = $(shell ls scientific_python/*.ipynb statistics/*.ipynb  machine_learning/*.ipynb optimization/*.ipynb)
+NTBOOK        = $(shell ls scientific_python/*.ipynb statistics/*.ipynb  machine_learning/*.ipynb optimization/*.ipynb deep_learning/*.ipynb)
 #NTBOOK        = $(shell ls statistics/*.ipynb)
 NTBOOK_FILES  = $(NTBOOK:.ipynb=_files)
 #SRC           = $(shell ls python/*.py)

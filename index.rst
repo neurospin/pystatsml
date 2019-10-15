@@ -69,6 +69,17 @@ Machine Learning
     machine_learning/processing_pipelines.rst
     python/ml_case_studies.rst
 
+=============
+Deep Learning
+=============
+
+.. toctree::
+    :maxdepth: 2
+
+    deep_learning/dl_backprop_numpy-pytorch-sklearn.rst
+    deep_learning/dl_mlp_mnist_pytorch.rst
+    deep_learning/dl_cnn_cifar10_pytorch.rst
+    
 ==================
 Indices and tables
 ==================
