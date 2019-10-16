@@ -79,7 +79,8 @@ Deep Learning
     deep_learning/dl_backprop_numpy-pytorch-sklearn.rst
     deep_learning/dl_mlp_mnist_pytorch.rst
     deep_learning/dl_cnn_cifar10_pytorch.rst
-    
+    deep_learning/dl_transfer-learning_cifar10-ants-bees_pytorch.rst
+
 ==================
 Indices and tables
 ==================

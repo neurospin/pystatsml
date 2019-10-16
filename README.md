@@ -1,6 +1,8 @@
 Statistics and Machine Learning in Python
 =========================================
 
+[pdf version](ftp://unati@ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf)
+
 Structure
 ---------
 
@@ -22,16 +24,19 @@ Directories and main files:
 
     python_lang/                        # (Python language)
     ├── python.py # (main file)
-    ├── python_solutions.py
-    ├── scripts
-        ├── count_words.py
-        ├── replace.py
-        └── word_count.csv
+    └── python_solutions.py
+
+    scientific_python/
+    ├── matplotlib.ipynb
+    ├── scipy_numpy.py
+    ├── scipy_numpy_solutions.py
+    ├── scipy_pandas.py
+    └── scipy_pandas_solutions.py
 
     statistics/                         # (Statistics)
     ├── stat_multiv.ipynb               # (multivariate statistics)
-    ├── stat_multiv_solutions.py
     ├── stat_univ.ipynb                 # (univariate statistics)
+    ├── stat_univ_solutions.ipynb
     ├── stat_univ_lab01_brain-volume.py # (lab)
     ├── stat_univ_solutions.ipynb
     └── time_series.ipynb
@@ -46,6 +51,17 @@ Directories and main files:
     ├── resampling.ipynb
     ├── resampling_solution.py
     └── sklearn.ipynb
+
+optimization
+    ├── optim_gradient_descent.ipynb
+    └── optim_gradient_descent_lab.ipynb
+
+ deep_learning
+    ├── dl_backprop_numpy-pytorch-sklearn.ipynb
+    ├── dl_cnn_cifar10_pytorch.ipynb
+    ├── dl_mlp_mnist_pytorch.ipynb
+    └── dl_transfer-learning_cifar10-ants-
+
 
 Build
 -----

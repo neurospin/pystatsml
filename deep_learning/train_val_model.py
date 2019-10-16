@@ -3,12 +3,9 @@ import torch
 import time
 import copy
 
-from pathlib import Path
-# Device configuration
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-
-def train_val_model(model, criterion, optimizer, dataloaders, num_epochs=25, scheduler=None):
+def train_val_model(model, criterion, optimizer, dataloaders, num_epochs=25,
+        scheduler=None, log_interval=None):
     since = time.time()
 
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -18,8 +15,9 @@ def train_val_model(model, criterion, optimizer, dataloaders, num_epochs=25, sch
     losses, accuracies = dict(train=[], val=[]), dict(train=[], val=[])
     
     for epoch in range(num_epochs):
-        print('Epoch {}/{}'.format(epoch, num_epochs - 1))
-        print('-' * 10)
+        if log_interval is not None and epoch % log_interval == 0:
+            print('Epoch {}/{}'.format(epoch, num_epochs - 1))
+            print('-' * 10)
 
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
@@ -66,15 +64,16 @@ def train_val_model(model, criterion, optimizer, dataloaders, num_epochs=25, sch
 
             losses[phase].append(epoch_loss)
             accuracies[phase].append(epoch_acc)
-            print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                phase, epoch_loss, epoch_acc))
+            if log_interval is not None and epoch % log_interval == 0:
+                print('{} Loss: {:.4f} Acc: {:.4f}'.format(
+                    phase, epoch_loss, epoch_acc))
 
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
                 best_model_wts = copy.deepcopy(model.state_dict())
-
-        print()
+        if log_interval is not None and epoch % log_interval == 0:
+            print()
 
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
