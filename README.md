@@ -1,7 +1,9 @@
 Statistics and Machine Learning in Python
 =========================================
 
-[pdf version](ftp://unati@ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf)
+Latest PDF:
+
+    ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf
 
 Structure
 ---------
@@ -52,15 +54,15 @@ Directories and main files:
     ├── resampling_solution.py
     └── sklearn.ipynb
 
-optimization
-    ├── optim_gradient_descent.ipynb
-    └── optim_gradient_descent_lab.ipynb
+    optimization/
+    ├── optim_gradient_descent.ipynb
+    └── optim_gradient_descent_lab.ipynb
 
- deep_learning
-    ├── dl_backprop_numpy-pytorch-sklearn.ipynb
-    ├── dl_cnn_cifar10_pytorch.ipynb
-    ├── dl_mlp_mnist_pytorch.ipynb
-    └── dl_transfer-learning_cifar10-ants-
+    deep_learning/
+    ├── dl_backprop_numpy-pytorch-sklearn.ipynb
+    ├── dl_cnn_cifar10_pytorch.ipynb
+    ├── dl_mlp_mnist_pytorch.ipynb
+    └── dl_transfer-learning_cifar10-ants-
 
 
 Build
