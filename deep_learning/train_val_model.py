@@ -65,8 +65,8 @@ def train_val_model(model, criterion, optimizer, dataloaders, num_epochs=25,
             losses[phase].append(epoch_loss)
             accuracies[phase].append(epoch_acc)
             if log_interval is not None and epoch % log_interval == 0:
-                print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                    phase, epoch_loss, epoch_acc))
+                print('{} Loss: {:.4f} Acc: {:.2f}%'.format(
+                    phase, epoch_loss, 100 * epoch_acc))
 
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
@@ -78,7 +78,7 @@ def train_val_model(model, criterion, optimizer, dataloaders, num_epochs=25,
     time_elapsed = time.time() - since
     print('Training complete in {:.0f}m {:.0f}s'.format(
         time_elapsed // 60, time_elapsed % 60))
-    print('Best val Acc: {:4f}'.format(best_acc))
+    print('Best val Acc: {:.2f}%'.format(100 * best_acc))
 
     # load best model weights
     model.load_state_dict(best_model_wts)
