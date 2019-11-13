@@ -7,6 +7,9 @@ SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
 NTBOOK        = $(shell ls scientific_python/*.ipynb statistics/*.ipynb  machine_learning/*.ipynb optimization/*.ipynb deep_learning/*.ipynb)
+# Notebook to execute. Exclude DL file (requires GPU)
+NTBOOK_TO_EXE = $(shell ls scientific_python/*.ipynb statistics/*.ipynb  machine_learning/*.ipynb optimization/*.ipynb)
+
 #NTBOOK        = $(shell ls statistics/*.ipynb)
 NTBOOK_FILES  = $(NTBOOK:.ipynb=_files)
 #SRC           = $(shell ls python/*.py)
@@ -38,13 +41,16 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
+	@echo "  pdf        to make LaTeX files and run them through pdflatex"
 	@echo "  html       to make standalone HTML files"
+	@echo "  exe        to run jupyter notebooks except those in deep_learning that requires GPU."
+	@echo "  clean      rm BUILDDIR, auto_gallery, rst files"
+	@echo "  cleanall   rm BUILDDIR, auto_gallery, rst files and clear output of notebooks"
 	@echo "  dirhtml    to make HTML files named index.html in directories"
 	@echo "  singlehtml to make a single large HTML file"
 	@echo "  epub       to make an epub"
 	@echo "  latex      to make LaTeX files, you can set PAPER=a4 or PAPER=letter"
 	@echo "  latexpdf   to make LaTeX files and run them through pdflatex"
-	@echo "  pdf        to make LaTeX files and run them through pdflatex"
 	@echo "  text       to make text files"
 	@echo "  changes    to make an overview of all changed/added/deprecated items"
 	@echo "  linkcheck  to check all external links for integrity"
@@ -83,7 +89,7 @@ cleanall:
 
 exe:
 	@echo "Execute notebooks" 
-	for nb in $(NTBOOK) ; do jupyter nbconvert --to notebook --execute $$nb --output $$(basename $$nb); done
+	for nb in $(NTBOOK_TO_EXE) ; do jupyter nbconvert --to notebook --execute $$nb --output $$(basename $$nb); done
 #	$(EXEIPYNB) $(NTBOOK)
 #	@echo toto nbconvert --to notebook --execute $< --output $(basename $<)
 

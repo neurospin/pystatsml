@@ -51,7 +51,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'Statistics and Machine Learning in Python'
 copyright = u'2019, Edouard Duchesnay, NeuroSpin CEA Université Paris-Saclay, France'
-author = u'Edouard Duchesnay, Tommy Löfstedt, Feki Younes'
+author = u'Edouard Duchesnay, Tommy Löfstedt, Younes Feki'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
