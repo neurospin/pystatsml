@@ -4,7 +4,7 @@
 
 """
 
-######################################################################
+###############################################################################
 # Import libraries
 # ----------------
 #
@@ -29,7 +29,7 @@ import numpy as np
 # show all functions in math module
 content = dir(math)
 
-######################################################################
+###############################################################################
 # Basic operations
 # ----------------
 #
@@ -61,7 +61,7 @@ not False
 False or not False and True     # evaluation order: not, and, or
 
 
-######################################################################
+###############################################################################
 # Data types
 # ----------
 #
@@ -95,14 +95,14 @@ bool('two')
 bool([2])
 
 
-######################################################################
+###############################################################################
 # Lists
 # ~~~~~
 #
 # Different objects categorized along a certain ordered sequence, lists
 # are ordered, iterable, mutable (adding or removing objects changes the
-# list size), can contain multiple data types
-# .. chunk-chap13-001
+# list size), can contain multiple data types.
+
 
 # create an empty list (two ways)
 empty_list = []
@@ -177,7 +177,7 @@ num == new_num          # returns True (their contents are equivalent)
 ["a"] * 2 + ["b"] * 3
 
 
-######################################################################
+###############################################################################
 # Tuples
 # ~~~~~~
 #
@@ -209,7 +209,7 @@ digits = digits + (3, 4)
 bart = ('male', 10, 'simpson')  # create a tuple
 
 
-######################################################################
+###############################################################################
 # Strings
 # ~~~~~~~
 #
@@ -270,23 +270,23 @@ s5.strip()          # returns 'ham and cheese'
 
 
 
-######################################################################
+###############################################################################
 # Strings 2/2
 # ~~~~~~~~~~~
 
-######################################################################
+###############################################################################
 # Normal strings allow for escaped characters
 #
 
 print('first line\nsecond line')
 
-######################################################################
+###############################################################################
 # raw strings treat backslashes as literal characters
 #
 
 print(r'first line\nfirst line')
 
-######################################################################
+###############################################################################
 #sequece of bytes are not strings, should be decoded before some operations
 #
 s = b'first line\nsecond line'
@@ -295,7 +295,7 @@ print(s)
 print(s.decode('utf-8').split())
 
 
-######################################################################
+###############################################################################
 # Dictionaries
 # ~~~~~~~~~~~~
 #
@@ -355,7 +355,7 @@ family['kids'].remove('lisa')       # removes 'lisa'
 'youngest child is %(baby)s' % family   # returns 'youngest child is maggie'
 
 
-######################################################################
+###############################################################################
 # Sets
 # ~~~~
 #
@@ -385,10 +385,12 @@ snakes - languages          # returns set difference: {'cobra', 'viper'}
 languages.add('sql')        # add a new element
 languages.add('r')          # try to add an existing element (ignored, no error)
 languages.remove('java')    # remove an element
+
 try:
     languages.remove('c')       # try to remove a non-existing element (throws an error)
 except  KeyError as e:
     print("Error", e)
+
 languages.discard('c')      # removes an element if present, but ignored otherwise
 languages.pop()             # removes and returns an arbitrary element
 languages.clear()           # removes all elements
@@ -397,12 +399,12 @@ languages.update('go', 'spark') # add multiple elements (can also pass a list or
 # get a sorted list of unique elements from a list
 sorted(set([9, 0, 2, 1, 0]))    # returns [0, 1, 2, 9]
 
-######################################################################
+###############################################################################
 # Execution control statements
 # ----------------------------
 #
 
-######################################################################
+###############################################################################
 # Conditional statements
 # ~~~~~~~~~~~~~~~~~~~~~~
 x = 3
@@ -429,11 +431,10 @@ if x > 0: print('positive')
 
 # single-line if/else statement (sometimes discouraged)
 # known as a 'ternary operator'
-'positive' if x > 0 else 'zero or negative'
+sign = 'positive' if x > 0 else 'zero or negative'
 
-'positive' if x > 0 else 'zero or negative'
 
-######################################################################
+###############################################################################
 # Loops
 # ~~~~~
 #
@@ -461,6 +462,10 @@ v = 0
 for i in range(10 ** 6):
     v += 1
 
+###############################################################################
+# Exercice: count words in a sentence
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
 
 quote = """
 our incomes are like our shoes; if too small they gall and pinch us
@@ -496,7 +501,7 @@ while count < 5:
     print("This will print 5 times")
     count += 1      # equivalent to 'count = count + 1'
 
-######################################################################
+###############################################################################
 # Exceptions handling
 # ~~~~~~~~~~~~~~~~~~~
 #
@@ -512,7 +517,7 @@ except:
 
 print(dct)
 
-######################################################################
+###############################################################################
 # Functions
 # ---------
 #
@@ -581,7 +586,7 @@ min_max_num = min_max(nums)         # min_max_num = (1, 3)
 # return values can be assigned into multiple variables using tuple unpacking
 min_num, max_num = min_max(nums)    # min_num = 1, max_num = 3
 
-######################################################################
+###############################################################################
 # List comprehensions, iterators, etc.
 # ------------------------------------
 #
@@ -642,18 +647,26 @@ unique_lengths = {len(fruit) for fruit in fruits}   # {5, 6}
 # dictionary comprehension
 fruit_lengths = {fruit:len(fruit) for fruit in fruits}              # {'apple': 5, 'banana': 6, 'cherry': 6}
 
-######################################################################
+
+###############################################################################
+# Exercise: upper-case names and add 1 year to all simpsons
+
+simpsons = {'Homer':45, 'Marge':45, 'Bart':10, 'Lisa':10}
+
+{k.upper(): v + 1 for k, v in simpsons.items()}
+
+
+###############################################################################
 # Regular expression
 # ------------------
 #
-# 1. Compile Regular expression with a patetrn
 
 import re
 
-# 1. compile Regular expression with a patetrn
+# 1. Compile regular expression with a patetrn
 regex = re.compile("^.+(sub-.+)_(ses-.+)_(mod-.+)")
 
-######################################################################
+###############################################################################
 # 2. Match compiled RE on string
 #
 # Capture the pattern ```anyprefixsub-<subj id>_ses-<session id>_<modality>```
@@ -661,7 +674,7 @@ regex = re.compile("^.+(sub-.+)_(ses-.+)_(mod-.+)")
 strings = ["abcsub-033_ses-01_mod-mri", "defsub-044_ses-01_mod-mri", "ghisub-055_ses-02_mod-ctscan" ]
 print([regex.findall(s)[0] for s in strings])
 
-######################################################################
+###############################################################################
 # Match methods on compiled regular expression
 #
 # +------------------+----------------------------------------------------------------------------+
@@ -676,7 +689,7 @@ print([regex.findall(s)[0] for s in strings])
 # | finditer(string) | Find all substrings where the RE matches, and returns them as an iterator. |
 # +------------------+----------------------------------------------------------------------------+
 
-######################################################################
+###############################################################################
 # 2. Replace compiled RE on string
 
 regex = re.compile("(sub-[^_]+)") # match (sub-...)_
@@ -684,19 +697,19 @@ print([regex.sub("SUB-", s) for s in strings])
 
 regex.sub("SUB-", "toto")
 
-######################################################################
+###############################################################################
 # Replace all non-alphanumeric characters in a string
 
 re.sub('[^0-9a-zA-Z]+', '', 'h^&ell`.,|o w]{+orld')
 
-######################################################################
+###############################################################################
 # System programming
 # ------------------
 #
 
 
 
-######################################################################
+###############################################################################
 # Operating system interfaces (os)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -704,7 +717,7 @@ re.sub('[^0-9a-zA-Z]+', '', 'h^&ell`.,|o w]{+orld')
 
 import os
 
-######################################################################
+###############################################################################
 # Current working directory
 #
 
@@ -715,7 +728,7 @@ print(cwd)
 # Set the current working directory
 os.chdir(cwd)
 
-######################################################################
+###############################################################################
 # Temporary directory
 #
 
@@ -723,7 +736,7 @@ import tempfile
 
 tmpdir = tempfile.gettempdir()
 
-######################################################################
+###############################################################################
 # Join paths
 #
 
@@ -733,7 +746,7 @@ mytmpdir = os.path.join(tmpdir, "foobar")
 os.listdir(tmpdir)
 
 
-######################################################################
+###############################################################################
 # Create a directory
 
 if not os.path.exists(mytmpdir):
@@ -741,7 +754,7 @@ if not os.path.exists(mytmpdir):
 
 os.makedirs(os.path.join(tmpdir, "foobar", "plop", "toto"), exist_ok=True)
 
-######################################################################
+###############################################################################
 # File input/output
 # ~~~~~~~~~~~~~~~~~
 #
@@ -790,12 +803,12 @@ f.close()
 with open(filename, 'r') as f:
     lines = [line for line in f]
 
-######################################################################
+###############################################################################
 # Explore, list directories
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 
-######################################################################
+###############################################################################
 # Walk
 #
 import os
@@ -806,9 +819,9 @@ for dirpath, dirnames, filenames in os.walk(WD):
     print(dirpath, dirnames, filenames)
 
 
-######################################################################
+###############################################################################
 # glob, basename and file extension
-# TODO FIXME
+
 import tempfile
 import glob
 
@@ -821,7 +834,8 @@ print(filenames)
 basenames = [os.path.splitext(os.path.basename(f))[0] for f in filenames]
 print(basenames)
 
-######################################################################
+
+###############################################################################
 # shutil - High-level file operations
 #
 
@@ -848,7 +862,7 @@ try:
 except (FileExistsError, FileNotFoundError) as e:
     pass
 
-######################################################################
+###############################################################################
 # Command execution with subprocess
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -873,7 +887,7 @@ out = subprocess.run(["ls", "-a", "/"], stdout=subprocess.PIPE, stderr=subproces
 print(out.stdout.decode('utf-8').split("\n")[:5])
 
 
-######################################################################
+###############################################################################
 # Multiprocessing and multithreading
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -925,7 +939,7 @@ print(out.stdout.decode('utf-8').split("\n")[:5])
 #    - The ``threading`` module uses threads.
 #    - The ``multiprocessing`` module uses processes.
 
-######################################################################
+###############################################################################
 # Multithreading
 #
 
@@ -957,7 +971,7 @@ print("Threading ellapsed time ", time.time() - startime)
 
 print(out_list[:10])
 
-######################################################################
+###############################################################################
 # Multiprocessing
 #
 
@@ -978,7 +992,7 @@ print("Multiprocessing ellapsed time ", time.time() - startime)
 
 # print(out_list[:10]) is not availlable
 
-######################################################################
+###############################################################################
 # Sharing object between process with Managers
 #
 # Managers provide a way to create data which can be shared between
@@ -1009,7 +1023,7 @@ print(out_list[:10])
 print("Multiprocessing with shared object ellapsed time ", time.time() - startime)
 
 
-######################################################################
+###############################################################################
 # Scripts and argument parsing
 # -----------------------------
 #
@@ -1058,14 +1072,14 @@ print("Multiprocessing with shared object ellapsed time ", time.time() - startim
 #            df = pd.DataFrame([[k, count[k]] for k in count], columns=["word", "count"])
 #            df.to_csv(options.output, index=False)
 
-######################################################################
+###############################################################################
 # Networking
 # ----------
 #
 
 # TODO
 
-######################################################################
+###############################################################################
 # FTP
 # ~~~
 #
@@ -1088,28 +1102,28 @@ ftp_url = 'ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/README.md'
 urllib.request.urlretrieve(ftp_url, os.path.join(tmpdir, "README2.md"))
 
 
-######################################################################
+###############################################################################
 # HTTP
 # ~~~~
 #
 
 # TODO
 
-######################################################################
+###############################################################################
 # Sockets
 # ~~~~~~~
 #
 
 # TODO
 
-######################################################################
+###############################################################################
 # xmlrpc
 # ~~~~~~
 #
 
 # TODO
 
-######################################################################
+###############################################################################
 # Modules and packages
 # --------------------
 #
@@ -1126,11 +1140,13 @@ import sys
 sys.path.append("path_to_parent_python_module")
 
 
-######################################################################
+###############################################################################
 #
-# The ``__init__.py`` file can be empty. But you can set which modules the package exports as the API, while keeping other modules internal, by overriding the __all__ variable, like so:
+# The ``__init__.py`` file can be empty. But you can set which modules the
+# package exports as the API, while keeping other modules internal,
+# by overriding the __all__ variable, like so:
 
-######################################################################
+###############################################################################
 # ``parentmodule/__init__.py`` file::
 #
 #     from . import submodule1
@@ -1147,10 +1163,10 @@ sys.path.append("path_to_parent_python_module")
 #     import parentmodule.submodule1
 #     import parentmodule.function1
 
-######################################################################
+###############################################################################
 # Python Unit Testing
 
-######################################################################
+###############################################################################
 # Object Oriented Programming (OOP)
 # ---------------------------------
 #
@@ -1210,13 +1226,80 @@ except NotImplementedError as e:
     print("NotImplementedError")
 
 
-######################################################################
+###############################################################################
+# Style guide for Python programming
+# ----------------------------------
+#
+# See `PEP 8 <https://www.python.org/dev/peps/pep-0008/>`_
+#
+# - Spaces (four) are the preferred indentation method.
+# - Two blank lines for top level function or classes definition.
+# - One blank line to indicate logical sections.
+# - Never use: ``from lib import *``
+# - Bad: ``Capitalized_Words_With_Underscores``
+# - Function and Variable Names: ``lower_case_with_underscores``
+# - Class Names: ``CapitalizedWords`` (aka: ``CamelCase``)
+
+
+###############################################################################
+# Documenting
+# -----------
+#
+# See `Documenting Python <https://realpython.com/documenting-python-code//>`_
+# Documenting = comments + docstrings (Python documentation string)
+#
+# - `Docstrings <https://www.datacamp.com/community/tutorials/docstrings-python>`_
+#   are use as documentation for the class, module, and packages.
+#   See it as "living documentation".
+# - Comments are  used to explain non-obvious portions of the code. "Dead documentation".
+#
+# Docstrings for functions (same for classes and methods):
+
+def my_function(a, b=2):
+    """
+    This function ...
+
+    Parameters
+    ----------
+    a : float
+        First operand.
+    b : float, optional
+        Second operand. The default is 2.
+
+    Returns
+    -------
+    Sum of operands.
+
+    Example
+    -------
+    >>> my_function(3)
+    5
+    """
+    # Add a with b (this is a comment)
+    return a + b
+
+print(help(my_function))
+
+###############################################################################
+# Docstrings for scripts:
+#
+# At the begining of a script add a pream::
+#
+#        """
+#        Created on Thu Nov 14 12:08:41 CET 2019
+#
+#        @author: firstname.lastname@email.com
+#
+#        Some description
+#        """
+
+###############################################################################
 # Exercises
 # ---------
 #
 
 
-######################################################################
+###############################################################################
 # Exercise 1: functions
 # ~~~~~~~~~~~~~~~~~~~~~
 #
@@ -1228,7 +1311,7 @@ except NotImplementedError as e:
 #
 
 
-######################################################################
+###############################################################################
 # Exercise 2: functions + list + loop
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -1242,7 +1325,7 @@ except NotImplementedError as e:
 #
 
 
-######################################################################
+###############################################################################
 # Exercise 3: File I/O
 # ~~~~~~~~~~~~~~~~~~~~
 #
@@ -1259,7 +1342,8 @@ except NotImplementedError as e:
 # - regular expression
 # - argparse (https://docs.python.org/3/howto/argparse.html)
 
-######################################################################
+
+###############################################################################
 # Exercise 4: OOP
 # ~~~~~~~~~~~~~~~
 #

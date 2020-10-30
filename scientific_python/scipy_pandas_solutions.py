@@ -47,7 +47,7 @@ stats = list()
 for grp, d in df.groupby("species"):
     print(grp)
     #print()
-    stats.append( [grp] + d.ix[:, num_cols].mean(axis=0).tolist())
+    stats.append( [grp] + d.loc[:, num_cols].mean(axis=0).tolist())
 
 stats = pd.DataFrame(stats, columns=["species"] + num_cols.tolist())
 print(stats)
@@ -57,7 +57,7 @@ df.groupby("species").mean()
 
 ##
 
-df.ix[[0, 1] ,"petal_width"] = None
+df.loc[[0, 1] ,"petal_width"] = None
 
 df.petal_width
 

@@ -437,8 +437,8 @@ pd.read_sql_query('select * from salary where education="Master";', conn)
 # Add some missing data to the previous table ``users``:
 
 df = users.copy()
-df.ix[[0, 2], "age"] = None
-df.ix[[1, 3], "gender"] = None
+df.loc[[0, 2], "age"] = None
+df.loc[[1, 3], "gender"] = None
 
 ##############################################################################
 # 1. Write a function ``fillmissing_with_mean(df)`` that fill all missing value of numerical column with the mean of the current columns.
