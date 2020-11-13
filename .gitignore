@@ -7,7 +7,6 @@
 *.bbl
 *.blg
 *.log
-*.pdf
 .*.swp
 .ipynb_checkpoints
 notebooks/*.rst
