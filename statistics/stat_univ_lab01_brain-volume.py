@@ -43,7 +43,7 @@ os.makedirs(os.path.join(WD, "data"), exist_ok=True)
 #
 # * Cerebrospinal Fluid `csf.csv` (columns: `participant_id`, `session`, `csf_vol`)
 
-base_url = 'https://raw.github.com/neurospin/pystatsml/master/datasets/brain_volumes/%s'
+base_url = 'https://github.com/duchesnay/pystatsml/raw/master/datasets/brain_volumes/%s'
 data = dict()
 for file in ["demo.csv", "gm.csv", "wm.csv", "csf.csv"]:
     urllib.request.urlretrieve(base_url % file, os.path.join(WD, "data", file))

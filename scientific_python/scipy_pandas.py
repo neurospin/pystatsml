@@ -424,7 +424,7 @@ other = pd.read_csv(csv_filename)
 # Read csv from url
 # ~~~~~~~~~~~~~~~~~
 
-url = 'https://raw.github.com/neurospin/pystatsml/master/datasets/salary_table.csv'
+url = 'https://github.com/duchesnay/pystatsml/raw/master/datasets/salary_table.csv'
 salary = pd.read_csv(url)
 
 ##############################################################################
@@ -461,7 +461,7 @@ conn = sqlite3.connect(db_filename)
 ##############################################################################
 # Creating tables with pandas
 
-url = 'https://raw.github.com/neurospin/pystatsml/master/datasets/salary_table.csv'
+url = 'https://github.com/duchesnay/pystatsml/raw/master/datasets/salary_table.csv'
 salary = pd.read_csv(url)
 
 salary.to_sql("salary", conn, if_exists="replace")

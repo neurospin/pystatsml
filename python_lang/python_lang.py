@@ -742,17 +742,14 @@ tmpdir = tempfile.gettempdir()
 
 mytmpdir = os.path.join(tmpdir, "foobar")
 
-# list containing the names of the entries in the directory given by path.
-os.listdir(mytmpdir)
-
 
 ###############################################################################
 # Create a directory
 
-if not os.path.exists(mytmpdir):
-    os.mkdir(mytmpdir)
-
 os.makedirs(os.path.join(tmpdir, "foobar", "plop", "toto"), exist_ok=True)
+
+# list containing the names of the entries in the directory given by path.
+os.listdir(mytmpdir)
 
 ###############################################################################
 # File input/output

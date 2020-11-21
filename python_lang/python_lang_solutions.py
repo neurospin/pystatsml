@@ -5,12 +5,17 @@ Created on Sat Jan 16 10:03:29 2016
 @author: edouard.duchesnay@gmail.com
 """
 
-'''
-## Exercise 1: functions
+###############################################################################
+# Exercise 1: functions
+# ~~~~~~~~~~~~~~~~~~~~~
+#
+# Create a function that acts as a simple calulator If the operation is
+# not specified, default to addition If the operation is misspecified,
+# return an prompt message Ex: ``calc(4,5,"multiply")`` returns 20 Ex:
+# ``calc(3,5)`` returns 8 Ex: ``calc(1, 2, "something")`` returns error
+# message
+#
 
-define a function with two 'positional arguments' (no default values) and
-one 'keyword argument' (has a default value)
-'''
 def calc(a, b, op='add'):
     if op == 'add':
         return a + b
@@ -18,6 +23,7 @@ def calc(a, b, op='add'):
         return a - b
     else:
         print('valid operations are add and sub')
+
 
 # call the function
 calc(10, 4, op='add')   # returns 14
@@ -28,23 +34,28 @@ calc(10, 4, 'div')      # prints 'valid operations are add and sub'
 
 a, b, op = 2, 3, "+"
 
+
 def calc2(a, b, op='+'):
     st = "%.f %s %.f" % (a, op, b)
     return eval(st)
 
+
 calc2(3, 3, "+")
 
-'''
-Exercise 2: functions + list + loop
 
-Given a list of numbers, return a list where
-all adjacent duplicate elements have been reduced to a single element.
-Ex: `[1, 2, 2, 3, 2]` returns `[1, 2, 3, 2]`.
-You may create a new list or modify the passed in list.
+###############################################################################
+# Exercise 2: functions + list + loop
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# Given a list of numbers, return a list where all adjacent duplicate
+# elements have been reduced to a single element. Ex: ``[1, 2, 2, 3, 2]``
+# returns ``[1, 2, 3, 2]``. You may create a new list or modify the passed
+# in list.
+#
+# Remove all duplicate values (adjacent or not) Ex: ``[1, 2, 2, 3, 2]``
+# returns ``[1, 2, 3]``
+#
 
-Remove all duplicate values (adjacent or not)
-Ex: `[1, 2, 2, 3, 2]` returns `[1, 2, 3]`
-'''
 
 def remove_adjacent_duplicates(original_list):
     new_list = []
@@ -72,55 +83,24 @@ def remove_duplicates(original_list):
 
 remove_duplicates([3, 2, 2, 1, 2])
 
-'''
-Exercise 4: OOP
 
-    Create a class Employee with 2 attributes provided in the constructor: name, years_of_service. With one method salary with is obtained by 1500 + 100 * years_of_service.
+###############################################################################
+# Exercise 3: File I/O
+# ~~~~~~~~~~~~~~~~~~~~
+#
+# 1. Copy/paste the BSD 4 clause license (https://en.wikipedia.org/wiki/BSD_licenses)
+# into a text file. Read, the file and count the occurrences of each
+# word within the file. Store the words' occurrence number in a dictionary.
+#
+# 2. Write an executable python command ``count_words.py`` that parse
+# a list of input files provided after ``--input`` parameter.
+# The dictionary of occurrence is save in a csv file provides by ``--output``.
+# with default value word_count.csv.
+# Use:
+# - open
+# - regular expression
+# - argparse (https://docs.python.org/3/howto/argparse.html)
 
-    Create a subclass Manager which redefine salary method 2500 + 120 * years_of_service.
-
-    Create a small dictionary-based database where the key is the employee's name. Populate the database with: Employee("lucy", 3), Employee("john", 1), Manager('julie', 10), Manager('paul', 3)
-
-    Return a table of made name, salary rows, i.e. a list of list  [[name, salary]]
-
-    Compute the average salary
-'''
-
-class Employee:
-    def __init__(self, name, years_of_service):
-        self.name = name
-        self.years_of_service = years_of_service
-
-    def salary(self):
-        return 1500 + 100 * self.years_of_service
-
-class Manager(Employee):
-    def salary(self):
-        return 2500 + 120 * self.years_of_service
-
-
-samples = [Employee("lucy", 3),
-           Employee("john", 1),
-           Manager('julie', 3),
-           Manager('paul', 1)]
-
-employees = {e.name:e for e in samples}
-
-employees.keys()
-
-[[name, employees[name].salary()] for name
-      in employees]
-
-sum([e.salary() for e in employees.values()]) / len(employees)
-
-
-'''
-Exercise 3: File I/O
-
-Copy/paste the bsd 4 clause license into a text file. Read, the file
-(assuming this file could be huge) and count the occurrences of each word
-within the file. Words are separated by whitespace or new line characters.
-'''
 
 bsd_4clause = """
 Copyright (c) <year>, <copyright holder>
@@ -190,3 +170,52 @@ print(len(c))
 from collections import Counter
 print(Counter(c))
 """
+
+###############################################################################
+# Exercise 4: OOP
+# ~~~~~~~~~~~~~~~
+#
+# 1. Create a class ``Employee`` with 2 attributes provided in the
+#    constructor: ``name``, ``years_of_service``. With one method
+#    ``salary`` with is obtained by ``1500 + 100 * years_of_service``.
+#
+# 2. Create a subclass ``Manager`` which redefine ``salary`` method
+#    ``2500 + 120 * years_of_service``.
+#
+# 3. Create a small dictionary-nosed database where the key is the
+#    employee's name. Populate the database with: samples =
+#    Employee('lucy', 3), Employee('john', 1), Manager('julie', 10),
+#    Manager('paul', 3)
+#
+# 4. Return a table of made name, salary rows, i.e. a list of list [[name,
+#    salary]]
+#
+# 5. Compute the average salary
+
+
+class Employee:
+    def __init__(self, name, years_of_service):
+        self.name = name
+        self.years_of_service = years_of_service
+
+    def salary(self):
+        return 1500 + 100 * self.years_of_service
+
+class Manager(Employee):
+    def salary(self):
+        return 2500 + 120 * self.years_of_service
+
+
+samples = [Employee("lucy", 3),
+           Employee("john", 1),
+           Manager('julie', 3),
+           Manager('paul', 1)]
+
+employees = {e.name:e for e in samples}
+
+employees.keys()
+
+[[name, employees[name].salary()] for name
+      in employees]
+
+sum([e.salary() for e in employees.values()]) / len(employees)
