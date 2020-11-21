@@ -1,16 +1,6 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Sep  7 11:26:05 2016
-
-@author: edouard.duchesnay@cea.fr
-"""
-
-from __future__ import print_function
-
-'''
-
-Exercises
----------
+Exercises: Pandas: data manipulation
+------------------------------------
 
 Data Frame
 ~~~~~~~~~~
@@ -31,7 +21,8 @@ Data Frame
     2   virginica         6.588        2.974         5.552        2.026
 
 
-'''
+"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

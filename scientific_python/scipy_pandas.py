@@ -17,9 +17,9 @@ small, but important, aspect of data manipulation and cleaning with Pandas.
 
 - **DataFrame** is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a dict of Series objects. It stems from the `R data.frame()` object.
 '''
+
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 ##############################################################################
 # Create DataFrame
@@ -29,11 +29,11 @@ columns = ['name', 'age', 'gender', 'job']
 
 user1 = pd.DataFrame([['alice', 19, "F", "student"],
                       ['john', 26, "M", "student"]],
-    columns=columns)
+                     columns=columns)
 
 user2 = pd.DataFrame([['eric', 22, "M", "student"],
                       ['paul', 58, "F", "manager"]],
-    columns=columns)
+                     columns=columns)
 
 user3 = pd.DataFrame(dict(name=['peter', 'julie'],
                           age=[33, 44], gender=['M', 'F'],
@@ -96,8 +96,7 @@ print(staked.pivot(index='name', columns='variable', values='value'))
 ##############################################################################
 # Summarizing
 # -----------
-
-# examine the users data
+#
 
 users                   # print the first 30 and last 30 rows
 type(users)             # DataFrame
@@ -105,13 +104,19 @@ users.head()            # print the first 5 rows
 users.tail()            # print the last 5 rows
 
 
-users.index             # "the index" (aka "the labels")
-users.columns           # column names (which is "an index")
-users.dtypes            # data types of each column
-users.shape             # number of rows and columns
-users.values            # underlying numpy array
-users.info()            # concise summary (includes memory usage as of pandas 0.15.0)
+##############################################################################
+# Descriptive statistics
 
+users.describe(include="all")
+
+##############################################################################
+# Meta-information
+
+users.index             # "Row names"
+users.columns           # column names
+users.dtypes            # data types of each column
+users.values            # underlying numpy array
+users.shape             # number of rows and columns
 
 ##############################################################################
 # Columns selection
@@ -132,38 +137,99 @@ type(users[my_cols])            # DataFrame
 # ----------------------
 
 ##############################################################################
-# iloc is strictly integer position based
+# `iloc` is strictly integer position based
 
 df = users.copy()
 df.iloc[0]     # first row
+df.iloc[0, :]  # first row
 df.iloc[0, 0]  # first item of first row
 df.iloc[0, 0] = 55
 
-for i in range(users.shape[0]):
-    row = df.iloc[i]
-    row.age *= 100 # setting a copy, and not the original frame data.
-
-print(df)  # df is not modified
-
 ##############################################################################
-# ix supports mixed integer and label based access.
+# `loc` supports mixed integer and label based access.
 
-df = users.copy()
 df.loc[0]         # first row
+df.loc[0, :]      # first row
 df.loc[0, "age"]  # first item of first row
 df.loc[0, "age"] = 55
 
-for i in range(df.shape[0]):
-    df.loc[i, "age"] *= 10
+##############################################################################
+# Selection and index
+#
+# Select females into a new DataFrame
 
-print(df)  # df is modified
+df = users[users.gender == "F"]
+print(df)
+
+##############################################################################
+# Get the two first rows using `iloc` (strictly integer position)
+
+df.iloc[[0, 1], :]  # Ok, but watch the index: 0, 3
+
+##############################################################################
+# Use `loc`
+
+try:
+    df.loc[[0, 1], :]  # Failed
+except KeyError as err:
+    print(err)
+
+##############################################################################
+# Reset index
+
+df = df.reset_index(drop=True)  # Watch the index
+print(df)
+print(df.loc[[0, 1], :])
+
+
+##############################################################################
+# Sorting
+# -------
+
+##############################################################################
+# Rows iteration
+# --------------
+
+df = users[:2].copy()
+
+##############################################################################
+# `iterrows()`: slow, get series, **read-only**
+#
+# - Returns (index, Series) pairs.
+# - Slow because iterrows boxes the data into a Series.
+# - Retrieve fields with column name
+# - **Don't modify something you are iterating over**. Depending on the data types,
+#   the iterator returns a copy and not a view, and writing to it will have no
+#   effect.
+
+for idx, row in df.iterrows():
+    print(row["name"], row["age"])
+
+##############################################################################
+# `itertuples()`: fast, get namedtuples, **read-only**
+#
+# - Returns namedtuples of the values and which is generally faster than iterrows.
+# - Fast, because itertuples does not box the data into a Series.
+# - Retrieve fields with integer index starting from 0.
+# - Names will be renamed to positional names if they are invalid Python
+# identifier
+
+for tup in df.itertuples():
+    print(tup[1], tup[2])
+
+##############################################################################
+# iter using `loc[i, ...]`: read and **write**
+
+for i in range(df.shape[0]):
+    df.loc[i, "age"] *= 10  # df is modified
+
 
 ##############################################################################
 # Rows selection (filtering)
 # --------------------------
 
 ##############################################################################
-# simple logical filtering
+# simple logical filtering on numerical values
 
 users[users.age < 20]        # only show users with age < 20
 young_bool = users.age < 20  # or, create a Series of booleans...
@@ -171,12 +237,21 @@ young = users[young_bool]            # ...and use that Series to filter rows
 users[users.age < 20].job    # select one column from the filtered results
 print(young)
 
+
+##############################################################################
+# simple logical filtering on categorial values
+
+users[users.job == 'student']
+users[users.job.isin(['student', 'engineer'])]
+users[users['job'].str.contains("stu|scient")]
+
+
 ##############################################################################
 # Advanced logical filtering
 
 users[users.age < 20][['age', 'job']]           # select multiple columns
 users[(users.age > 20) & (users.gender == 'M')]   # use multiple conditions
-users[users.job.isin(['student', 'engineer'])]  # filter specific values
+
 
 ##############################################################################
 # Sorting
@@ -241,6 +316,7 @@ df.age.duplicated()                    # check a single column for duplicates
 df.duplicated(['age', 'gender']).sum() # specify columns for finding duplicates
 df = df.drop_duplicates()              # drop duplicate rows
 
+
 ##############################################################################
 # Missing data
 # ~~~~~~~~~~~~
@@ -248,7 +324,7 @@ df = df.drop_duplicates()              # drop duplicate rows
 # Missing values are often just excluded
 df = users.copy()
 
-df.describe(include='all')              # excludes missing values
+df.describe(include='all')
 
 # find missing values in a Series
 df.height.isnull()           # True if NaN, False otherwise
@@ -260,11 +336,13 @@ df.height.isnull().sum()     # count the missing values
 df.isnull()             # DataFrame of booleans
 df.isnull().sum()       # calculate the sum of each column
 
+
 ##############################################################################
 # Strategy 1: drop missing values
 
 df.dropna()             # drop a row if ANY values are missing
 df.dropna(how='all')    # drop a row only if ALL values are missing
+
 
 ##############################################################################
 # Strategy 2: fill in missing values
@@ -275,21 +353,21 @@ df.loc[df.height.isnull(), "height"] = df["height"].mean()
 
 print(df)
 
+
 ##############################################################################
-# Rename values
-# -------------
+# Renaming
+# --------
+#
+# Rename columns
 
 df = users.copy()
-print(df.columns)
-df.columns = ['age', 'genre', 'travail', 'nom', 'taille']
+df.rename(columns={'name': 'NAME'})
 
-df.travail = df.travail.map({ 'student':'etudiant',  'manager':'manager',
-                'engineer':'ingenieur', 'scientist':'scientific'})
-# assert df.travail.isnull().sum() == 0
+##############################################################################
+# Rename values
 
-
-
-df['travail'].str.contains("etu|inge")
+df.job = df.job.map({'student': 'etudiant', 'manager': 'manager',
+                     'engineer': 'ingenieur', 'scientist': 'scientific'})
 
 
 ##############################################################################
@@ -336,6 +414,7 @@ print(size_outlr_mad.mean(), size_outlr_mad.median())
 # ~~~
 
 import tempfile, os.path
+
 tmpdir = tempfile.gettempdir()
 csv_filename = os.path.join(tmpdir, "users.csv")
 users.to_csv(csv_filename, index=False)
@@ -441,7 +520,9 @@ df.loc[[0, 2], "age"] = None
 df.loc[[1, 3], "gender"] = None
 
 ##############################################################################
-# 1. Write a function ``fillmissing_with_mean(df)`` that fill all missing value of numerical column with the mean of the current columns.
+# 1. Write a function ``fillmissing_with_mean(df)`` that fill all missing
+# value of numerical column with the mean of the current columns.
 #
-# 2. Save the original users and "imputed" frame in a single excel file "users.xlsx" with 2 sheets: original, imputed.
+# 2. Save the original users and "imputed" frame in a single excel file
+# "users.xlsx" with 2 sheets: original, imputed.
 

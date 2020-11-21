@@ -26,7 +26,7 @@ Python language
 .. toctree::
     :maxdepth: 2
 
-    auto_gallery/python.rst
+    auto_gallery/python_lang.rst
 
 =================
 Scientific Python

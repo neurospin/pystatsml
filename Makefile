@@ -125,7 +125,7 @@ latexpdf: rst
 	@echo "Running LaTeX files through pdflatex..."
 	$(MAKE) -C $(BUILDDIR)/latex all-pdf
 	@echo "pdflatex finished; the PDF files are in $(BUILDDIR)/latex."
-	cp build/latex/StatisticsMachineLearningPython.pdf StatisticsMachineLearningPythonDraft.pdf
+	cp build/latex/StatisticsMachineLearningPython.pdf StatisticsMachineLearningPython.pdf
 
 pdf: latexpdf
 

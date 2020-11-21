@@ -3,7 +3,7 @@ Statistics and Machine Learning in Python
 
 Latest PDF:
 
-    ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf
+    ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf
 
 Structure
 ---------

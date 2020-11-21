@@ -119,7 +119,7 @@ Mail to share the course
 ------------------------
 
 Please find the link to my Machine Learning course in Python, it is a draft version:
-ftp://ftp.cea.fr//pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPythonDraft.pdf
+ftp://ftp.cea.fr//pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf
 
 Below the link to github:
 https://github.com/neurospin/pystatsml
