@@ -59,6 +59,7 @@ Machine Learning
     :maxdepth: 2
 
     machine_learning/decomposition.rst
+    machine_learning/manifold.rst
     machine_learning/clustering.rst
     machine_learning/linear_regression.rst
     machine_learning/linear_classification.rst
