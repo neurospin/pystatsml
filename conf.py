@@ -32,6 +32,7 @@ import shlex
 extensions = [
     'sphinx.ext.mathjax',
     'sphinx_gallery.gen_gallery',
+    'docxbuilder',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

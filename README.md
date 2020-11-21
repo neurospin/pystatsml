@@ -25,8 +25,8 @@ Directories and main files:
     └── python_ecosystem.rst
 
     python_lang/                        # (Python language)
-    ├── python.py # (main file)
-    └── python_solutions.py
+    ├── python_lang.py # (main file)
+    └── python_lang_solutions.py
 
     scientific_python/
     ├── matplotlib.ipynb
@@ -142,10 +142,28 @@ b. Now make sure .gitattributes is tracked:
 ```
 git add .gitattributes
 ```
+
 4. LaTeX (optional for pdf)
 
 For Linux debian like:
 
 ```
 sudo apt-get install latexmk texlive-latex-extra
+```
+
+5. MS docx (optional)
+
+[docxbuilder](https://docxbuilder.readthedocs.io/en/latest/docxbuilder.html)
+
+a. Install
+
+```
+pip install docxbuilder
+pip install docxbuilder[math]
+```
+
+b. Build
+
+```
+make docx
 ```

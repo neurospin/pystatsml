@@ -108,6 +108,11 @@ singlehtml: rst
 	@echo
 	@echo "Build finished. The HTML page is in $(BUILDDIR)/singlehtml."
 
+docx: rst
+	$(SPHINXBUILD) -b docx $(ALLSPHINXOPTS) $(BUILDDIR)/docx
+	@echo
+	@echo "Build finished. The docx page is in $(BUILDDIR)/docx."
+
 epub: rst
 	$(SPHINXBUILD) -b epub $(ALLSPHINXOPTS) $(BUILDDIR)/epub
 	@echo

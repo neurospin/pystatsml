@@ -743,7 +743,7 @@ tmpdir = tempfile.gettempdir()
 mytmpdir = os.path.join(tmpdir, "foobar")
 
 # list containing the names of the entries in the directory given by path.
-os.listdir(tmpdir)
+os.listdir(mytmpdir)
 
 
 ###############################################################################
