@@ -8,14 +8,19 @@ small, but important, aspect of data manipulation and cleaning with Pandas.
 **Sources**:
 
 - Kevin Markham: https://github.com/justmarkham
-
 - Pandas doc: http://pandas.pydata.org/pandas-docs/stable/index.html
 
 **Data structures**
 
-- **Series** is a one-dimensional labeled array capable of holding any data type (integers, strings, floating point numbers, Python objects, etc.). The axis labels are collectively referred to as the index. The basic method to create a Series is to call `pd.Series([1,3,5,np.nan,6,8])`
+- **Series** is a one-dimensional labeled array capable of holding any data
+  type (integers, strings, floating point numbers, Python objects, etc.).
+  The axis labels are collectively referred to as the index. The basic method
+  to create a Series is to call `pd.Series([1,3,5,np.nan,6,8])`
 
-- **DataFrame** is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table, or a dict of Series objects. It stems from the `R data.frame()` object.
+- **DataFrame** is a 2-dimensional labeled data structure with columns of
+  potentially different types. You can think of it like a spreadsheet or SQL
+  table, or a dict of Series objects. It stems from the `R data.frame()`
+  object.
 '''
 
 import pandas as pd
@@ -53,6 +58,7 @@ user1.append(user2)
 users = pd.concat([user1, user2, user3])
 print(users)
 
+
 ##############################################################################
 # Join DataFrame
 # ~~~~~~~~~~~~~~
@@ -65,7 +71,7 @@ print(user4)
 ##############################################################################
 # Use intersection of keys from both frames
 
-merge_inter = pd.merge(users, user4, on="name")
+merge_inter = pd.merge(users, user4)
 
 print(merge_inter)
 
@@ -150,7 +156,7 @@ df.iloc[0, 0] = 55
 
 df.loc[0]         # first row
 df.loc[0, :]      # first row
-df.loc[0, "age"]  # first item of first row
+df.loc[0, "age"]  # age item of first row
 df.loc[0, "age"] = 55
 
 ##############################################################################
@@ -217,6 +223,7 @@ for idx, row in df.iterrows():
 for tup in df.itertuples():
     print(tup[1], tup[2])
 
+
 ##############################################################################
 # iter using `loc[i, ...]`: read and **write**
 
@@ -249,8 +256,8 @@ users[users['job'].str.contains("stu|scient")]
 ##############################################################################
 # Advanced logical filtering
 
-users[users.age < 20][['age', 'job']]           # select multiple columns
-users[(users.age > 20) & (users.gender == 'M')]   # use multiple conditions
+users[users.age < 20][['age', 'job']]            # select multiple columns
+users[(users.age > 20) & (users.gender == 'M')]  # use multiple conditions
 
 
 ##############################################################################
@@ -306,7 +313,8 @@ for grp, data in df.groupby("job"):
 # Remove duplicate data
 # ~~~~~~~~~~~~~~~~~~~~~
 
-df = users.append(df.iloc[0], ignore_index=True)
+
+df = users.append(users.iloc[0], ignore_index=True)
 
 print(df.duplicated())                 # Series of booleans
 # (True if a row is identical to a previous row)
@@ -427,6 +435,7 @@ other = pd.read_csv(csv_filename)
 url = 'https://github.com/duchesnay/pystatsml/raw/master/datasets/salary_table.csv'
 salary = pd.read_csv(url)
 
+
 ##############################################################################
 # Excel
 # ~~~~~
@@ -443,6 +452,7 @@ with pd.ExcelWriter(xls_filename) as writer:
 
 pd.read_excel(xls_filename, sheet_name='users')
 pd.read_excel(xls_filename, sheet_name='salary')
+
 
 ##############################################################################
 # SQL (SQLite)

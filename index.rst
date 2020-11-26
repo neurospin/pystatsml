@@ -37,7 +37,7 @@ Scientific Python
 
     auto_gallery/scipy_numpy.rst
     auto_gallery/scipy_pandas.rst
-    scientific_python/matplotlib.rst
+    scientific_python/scipy_matplotlib.rst
 
 ==========
 Statistics

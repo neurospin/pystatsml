@@ -13,7 +13,8 @@ and cerebrospinal fluid) (csf) of 808 anatomical MRI scans.
 ###############################################################################
 # Set the working directory within a directory called "brainvol"
 #
-# Create 2 subdirectories: `data` that will contain downloaded data and `reports` for results of the analysis.
+# Create 2 subdirectories: `data` that will contain downloaded data and
+# `reports` for results of the analysis.
 
 import os
 import os.path
@@ -33,15 +34,12 @@ os.makedirs(os.path.join(WD, "data"), exist_ok=True)
 ###############################################################################
 # **Fetch data**
 #
-# * Demographic data `demo.csv` (columns: `participant_id`, `site`, `group`,
+# - Demographic data `demo.csv` (columns: `participant_id`, `site`, `group`,
 #   `age`, `sex`) and tissue volume data: `group` is Control or Patient.
 #   `site` is the recruiting site.
-#
-# * Gray matter volume `gm.csv` (columns: `participant_id`, `session`, `gm_vol`)
-#
-# * White matter volume `wm.csv` (columns: `participant_id`, `session`, `wm_vol`)
-#
-# * Cerebrospinal Fluid `csf.csv` (columns: `participant_id`, `session`, `csf_vol`)
+# - Gray matter volume `gm.csv` (columns: `participant_id`, `session`, `gm_vol`)
+# - White matter volume `wm.csv` (columns: `participant_id`, `session`, `wm_vol`)
+# - Cerebrospinal Fluid `csf.csv` (columns: `participant_id`, `session`, `csf_vol`)
 
 base_url = 'https://github.com/duchesnay/pystatsml/raw/master/datasets/brain_volumes/%s'
 data = dict()
@@ -115,11 +113,13 @@ brain_vol1 = brain_vol[brain_vol.session == "ses-01"]
 # Check that there are no duplicates
 assert len(brain_vol1.participant_id.unique()) == len(brain_vol1.participant_id)
 
+
 ###############################################################################
 # Global descriptives statistics of numerical variables
 
 desc_glob_num = brain_vol1.describe()
 print(desc_glob_num)
+
 
 ###############################################################################
 # Global Descriptive statistics of categorical variable
@@ -132,6 +132,7 @@ desc_glob_cat = pd.DataFrame({col: brain_vol1[col].value_counts().to_dict()
                              for col in ["site", "group", "sex"]})
 print(desc_glob_cat)
 
+
 ###############################################################################
 # Remove the single participant from site 6
 
@@ -140,6 +141,7 @@ brain_vol1 = brain_vol[brain_vol.session == "ses-01"]
 desc_glob_cat = pd.DataFrame({col: brain_vol1[col].value_counts().to_dict()
                              for col in ["site", "group", "sex"]})
 print(desc_glob_cat)
+
 
 ###############################################################################
 # Descriptives statistics of numerical variables per clinical status
@@ -173,24 +175,26 @@ import seaborn as sns
 # The ANOVA test has important assumptions that must be satisfied in order
 # for the associated p-value to be valid.
 #
-# * The samples are independent.
-# * Each sample is from a normally distributed population.
-# * The population standard deviations of the groups are all equal.
+# - The samples are independent.
+# - Each sample is from a normally distributed population.
+# - The population standard deviations of the groups are all equal.
 #   This property is known as homoscedasticity.
 #
 
 ###############################################################################
 # Plot
-sns.violinplot("site", "gm_f", data=brain_vol1)
+sns.violinplot(x="site", y="gm_f", data=brain_vol1)
 
 ###############################################################################
 # Stats with scipy
+
 fstat, pval = scipy.stats.f_oneway(*[brain_vol1.gm_f[brain_vol1.site == s]
                                    for s in brain_vol1.site.unique()])
 print("Oneway Anova gm_f ~ site F=%.2f, p-value=%E" % (fstat, pval))
 
 ###############################################################################
 # Stats with statsmodels
+
 anova = smfrmla.ols("gm_f ~ site", data=brain_vol1).fit()
 # print(anova.summary())
 print("Site explains %.2f%% of the grey matter fraction variance" %
@@ -204,7 +208,8 @@ print(sm.stats.anova_lm(anova, typ=2))
 
 ###############################################################################
 # Plot
-sns.lmplot("age", "gm_f", hue="group", data=brain_vol1)
+
+sns.lmplot(x="age", y="gm_f", hue="group", data=brain_vol1)
 
 brain_vol1_ctl = brain_vol1[brain_vol1.group == "Control"]
 brain_vol1_pat = brain_vol1[brain_vol1.group == "Patient"]
@@ -252,7 +257,8 @@ print("Age explains %.2f%% of the grey matter fraction variance" %
 
 ###############################################################################
 # Plot
-sns.violinplot("group", "age", data=brain_vol1)
+
+sns.violinplot(x="group", y="age", data=brain_vol1)
 
 ###############################################################################
 # Stats with scipy
@@ -276,32 +282,33 @@ print(crosstab)
 chi2, pval, dof, expected = scipy.stats.chi2_contingency(crosstab)
 
 print("Chi2 = %f, pval = %f" % (chi2, pval))
-print("Expected contingency table under the null hypothesis")
-print(expected)
 print("No significant difference in sex between patients and controls")
 
 ###############################################################################
 # **3. Test for differences of atrophy between the patients and the controls**
 
-print(sm.stats.anova_lm(smfrmla.ols("gm_f ~ group", data=brain_vol1).fit(), typ=2))
-print("No significant difference in age between patients and controls")
+print(sm.stats.anova_lm(smfrmla.ols("gm_f ~ group", data=brain_vol1).fit(),
+                        typ=2))
+print("No significant difference in atrophy between patients and controls")
 
 ###############################################################################
 # This model is simplistic we should adjust for age and site
+
 print(sm.stats.anova_lm(smfrmla.ols(
         "gm_f ~ group + age + site", data=brain_vol1).fit(), typ=2))
-print("No significant difference in age between patients and controls")
+print("No significant difference in GM between patients and controls")
 
 ###############################################################################
 # **4. Test for interaction between age and clinical status**, ie: is the brain
-#    atrophy process in patient population faster than in the control population.
+# atrophy process in patient population faster than in the control population.
+
 ancova = smfrmla.ols("gm_f ~ group:age + age + site", data=brain_vol1).fit()
 print(sm.stats.anova_lm(ancova, typ=2))
 
 print("= Parameters =")
 print(ancova.params)
 
-print("%.3f%% of grey matter loss per year (almost %.1f%% per decade)" %\
+print("%.3f%% of grey matter loss per year (almost %.1f%% per decade)" %
       (ancova.params.age * 100, ancova.params.age * 100 * 10))
 
 print("grey matter loss in patients is accelerated by %.3f%% per decade" %

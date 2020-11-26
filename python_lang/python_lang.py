@@ -128,6 +128,7 @@ simpsons[0] = 'krusty'                  # replace element 0
 neighbors = simpsons + ['ned','rod','todd']
 
 # find elements in a list
+'lisa' in simpsons
 simpsons.count('lisa')      # counts the number of instances
 simpsons.index('itchy')     # returns index of first instance
 
@@ -287,7 +288,7 @@ print('first line\nsecond line')
 print(r'first line\nfirst line')
 
 ###############################################################################
-#sequece of bytes are not strings, should be decoded before some operations
+# Sequence of bytes are not strings, should be decoded before some operations
 #
 s = b'first line\nsecond line'
 print(s)
@@ -407,6 +408,7 @@ sorted(set([9, 0, 2, 1, 0]))    # returns [0, 1, 2, 9]
 ###############################################################################
 # Conditional statements
 # ~~~~~~~~~~~~~~~~~~~~~~
+
 x = 3
 # if statement
 if x > 0:
@@ -462,129 +464,6 @@ v = 0
 for i in range(10 ** 6):
     v += 1
 
-###############################################################################
-# Exercice: count words in a sentence
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#
-
-quote = """
-our incomes are like our shoes; if too small they gall and pinch us
-but if too large they cause us to stumble and to trip
-"""
-
-count = {k:0 for k in set(quote.split())}
-for word in quote.split():
-    count[word] += 1
-
-
-# iterate through two things at once (using tuple unpacking)
-family = {'dad':'homer', 'mom':'marge', 'size':6}
-for key, value in family.items():
-    print(key, value)
-
-# use enumerate if you need to access the index value within the loop
-for index, fruit in enumerate(fruits):
-    print(index, fruit)
-
-# for/else loop
-for fruit in fruits:
-    if fruit == 'banana':
-        print("Found the banana!")
-        break   # exit the loop and skip the 'else' block
-    else:
-        # this block executes ONLY if the for loop completes without hitting 'break'
-        print("Can't find the banana")
-
-# while loop
-count = 0
-while count < 5:
-    print("This will print 5 times")
-    count += 1      # equivalent to 'count = count + 1'
-
-###############################################################################
-# Exceptions handling
-# ~~~~~~~~~~~~~~~~~~~
-#
-
-dct = dict(a=[1, 2], b=[4, 5])
-
-key = 'c'
-try:
-    dct[key]
-except:
-    print("Key %s is missing. Add it with empty value" % key)
-    dct['c'] = []
-
-print(dct)
-
-###############################################################################
-# Functions
-# ---------
-#
-# Functions are sets of instructions launched when called upon, they can
-# have multiple input values and a return value
-#
-
-# define a function with no arguments and no return values
-def print_text():
-    print('this is text')
-
-# call the function
-print_text()
-
-# define a function with one argument and no return values
-def print_this(x):
-    print(x)
-
-# call the function
-print_this(3)       # prints 3
-n = print_this(3)   # prints 3, but doesn't assign 3 to n
-                    #   because the function has no return statement
-
-#
-def add(a, b):
-    return a + b
-
-add(2, 3)
-
-add("deux", "trois")
-
-add(["deux", "trois"], [2, 3])
-
-# define a function with one argument and one return value
-def square_this(x):
-    return x ** 2
-
-# include an optional docstring to describe the effect of a function
-def square_this(x):
-    """Return the square of a number."""
-    return x ** 2
-
-# call the function
-square_this(3)          # prints 9
-var = square_this(3)    # assigns 9 to var, but does not print 9
-
-# default arguments
-def power_this(x, power=2):
-    return x ** power
-
-power_this(2)    # 4
-power_this(2, 3) # 8
-
-# use 'pass' as a placeholder if you haven't written the function body
-def stub():
-    pass
-
-# return two values from a single function
-def min_max(nums):
-    return min(nums), max(nums)
-
-# return values can be assigned to a single variable as a tuple
-nums = [1, 2, 3]
-min_max_num = min_max(nums)         # min_max_num = (1, 3)
-
-# return values can be assigned into multiple variables using tuple unpacking
-min_num, max_num = min_max(nums)    # min_num = 1, max_num = 3
 
 ###############################################################################
 # List comprehensions, iterators, etc.
@@ -638,22 +517,148 @@ for row in matrix:
 
 # equivalent list comprehension
 items = [item for row in matrix
-              for item in row]      # [1, 2, 3, 4]
+              for item in row] # [1, 2, 3, 4]
 
 # set comprehension
 fruits = ['apple', 'banana', 'cherry']
 unique_lengths = {len(fruit) for fruit in fruits}   # {5, 6}
 
 # dictionary comprehension
-fruit_lengths = {fruit:len(fruit) for fruit in fruits}              # {'apple': 5, 'banana': 6, 'cherry': 6}
+fruit_lengths = {fruit:len(fruit) for fruit in fruits} # {'apple': 5, 'banana': 6, 'cherry': 6}
 
 
 ###############################################################################
 # Exercise: upper-case names and add 1 year to all simpsons
 
-simpsons = {'Homer':45, 'Marge':45, 'Bart':10, 'Lisa':10}
+simpsons = {'Homer': 45, 'Marge': 45, 'Bart': 10, 'Lisa': 10}
 
-{k.upper(): v + 1 for k, v in simpsons.items()}
+simpsons_older = {k.upper(): v + 1 for k, v in simpsons.items()}
+print(simpsons_older)
+
+
+###############################################################################
+# Exercice: count words in a sentence
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+
+
+quote = """Tick-tow
+our incomes are like our shoes; if too small they gall and pinch us
+but if too large they cause us to stumble and to trip
+"""
+
+count = {word: 0 for word in set(quote.split())}
+for word in quote.split():
+    count[word] += 1
+
+# iterate through two things at once (using tuple unpacking)
+family = {'dad': 'homer', 'mom': 'marge', 'size': 6}
+for key, value in family.items():
+    print(key, value)
+
+# use enumerate if you need to access the index value within the loop
+for index, fruit in enumerate(fruits):
+    print(index, fruit)
+
+# for/else loop
+for fruit in fruits:
+    if fruit == 'banana':
+        print("Found the banana!")
+        break   # exit the loop and skip the 'else' block
+    else:
+        # this block executes ONLY if the for loop completes without hitting
+        # 'break'
+        print("Can't find the banana")
+
+# while loop
+count = 0
+while count < 5:
+    print("This will print 5 times")
+    count += 1      # equivalent to 'count = count + 1'
+
+###############################################################################
+# Exceptions handling
+# ~~~~~~~~~~~~~~~~~~~
+#
+
+dct = dict(a=[1, 2], b=[4, 5])
+
+key = 'c'
+try:
+    dct[key]
+except:
+    print("Key %s is missing. Add it with empty value" % key)
+    dct['c'] = []
+
+print(dct)
+
+###############################################################################
+# Functions
+# ---------
+#
+# Functions are sets of instructions launched when called upon, they can
+# have multiple input values and a return value
+#
+
+# define a function with no arguments and no return values
+def print_text():
+    print('this is text')
+
+# call the function
+print_text()
+
+# define a function with one argument and no return values
+def print_this(x):
+    print(x)
+
+# call the function
+print_this(3)       # prints 3
+n = print_this(3)   # prints 3, but doesn't assign 3 to n
+                    # because the function has no return statement
+
+def add(a, b):
+    return a + b
+
+add(2, 3)
+
+add("deux", "trois")
+
+add(["deux", "trois"], [2, 3])
+
+# define a function with one argument and one return value
+def square_this(x):
+    return x ** 2
+
+# include an optional docstring to describe the effect of a function
+def square_this(x):
+    """Return the square of a number."""
+    return x ** 2
+
+# call the function
+square_this(3)          # prints 9
+var = square_this(3)    # assigns 9 to var, but does not print 9
+
+# default arguments
+def power_this(x, power=2):
+    return x ** power
+
+power_this(2)    # 4
+power_this(2, 3) # 8
+
+# use 'pass' as a placeholder if you haven't written the function body
+def stub():
+    pass
+
+# return two values from a single function
+def min_max(nums):
+    return min(nums), max(nums)
+
+# return values can be assigned to a single variable as a tuple
+nums = [1, 2, 3]
+min_max_num = min_max(nums)         # min_max_num = (1, 3)
+
+# return values can be assigned into multiple variables using tuple unpacking
+min_num, max_num = min_max(nums)    # min_num = 1, max_num = 3
 
 
 ###############################################################################
@@ -671,7 +676,7 @@ regex = re.compile("^.+(sub-.+)_(ses-.+)_(mod-.+)")
 #
 # Capture the pattern ```anyprefixsub-<subj id>_ses-<session id>_<modality>```
 
-strings = ["abcsub-033_ses-01_mod-mri", "defsub-044_ses-01_mod-mri", "ghisub-055_ses-02_mod-ctscan" ]
+strings = ["abcsub-033_ses-01_mod-mri", "defsub-044_ses-01_mod-mri", "ghisub-055_ses-02_mod-ctscan"]
 print([regex.findall(s)[0] for s in strings])
 
 ###############################################################################
@@ -698,7 +703,7 @@ print([regex.sub("SUB-", s) for s in strings])
 regex.sub("SUB-", "toto")
 
 ###############################################################################
-# Replace all non-alphanumeric characters in a string
+# Remove all non-alphanumeric characters in a string
 
 re.sub('[^0-9a-zA-Z]+', '', 'h^&ell`.,|o w]{+orld')
 
@@ -708,12 +713,10 @@ re.sub('[^0-9a-zA-Z]+', '', 'h^&ell`.,|o w]{+orld')
 #
 
 
-
 ###############################################################################
 # Operating system interfaces (os)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-
 
 import os
 
@@ -1162,6 +1165,9 @@ sys.path.append("path_to_parent_python_module")
 
 ###############################################################################
 # Python Unit Testing
+#
+# TODO
+
 
 ###############################################################################
 # Object Oriented Programming (OOP)
@@ -1190,11 +1196,13 @@ sys.path.append("path_to_parent_python_module")
 
 import math
 
+
 class Shape2D:
     def area(self):
         raise NotImplementedError()
 
 # __init__ is a special method called the constructor
+
 
 # Inheritance + Encapsulation
 class Square(Shape2D):
@@ -1204,12 +1212,14 @@ class Square(Shape2D):
     def area(self):
         return self.width ** 2
 
+
 class Disk(Shape2D):
     def __init__(self, radius):
         self.radius = radius
 
     def area(self):
         return math.pi * self.radius ** 2
+
 
 shapes = [Square(2), Disk(3)]
 
@@ -1220,7 +1230,7 @@ s = Shape2D()
 try:
     s.area()
 except NotImplementedError as e:
-    print("NotImplementedError")
+    print("NotImplementedError", e)
 
 
 ###############################################################################

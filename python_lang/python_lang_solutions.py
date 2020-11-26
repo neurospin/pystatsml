@@ -135,14 +135,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import os
 import tempfile
 
-tmpfile = os.path.join(tempfile.gettempdir(),
+tmpfilename = os.path.join(tempfile.gettempdir(),
                        "bsd.txt")
 
-fd = open(tmpfile, "w")
+fd = open(tmpfilename, "w")
 fd.write(bsd_4clause)
 fd.close()
 
-fd = open(tmpfile, "r")
+fd = open(tmpfilename, "r")
 
 count = dict()
 for line in fd:
@@ -182,7 +182,7 @@ print(Counter(c))
 # 2. Create a subclass ``Manager`` which redefine ``salary`` method
 #    ``2500 + 120 * years_of_service``.
 #
-# 3. Create a small dictionary-nosed database where the key is the
+# 3. Create a small dictionary database where the key is the
 #    employee's name. Populate the database with: samples =
 #    Employee('lucy', 3), Employee('john', 1), Manager('julie', 10),
 #    Manager('paul', 3)
@@ -192,6 +192,8 @@ print(Counter(c))
 #
 # 5. Compute the average salary
 
+import pandas as pd
+
 
 class Employee:
     def __init__(self, name, years_of_service):
@@ -200,6 +202,7 @@ class Employee:
 
     def salary(self):
         return 1500 + 100 * self.years_of_service
+
 
 class Manager(Employee):
     def salary(self):
@@ -211,9 +214,12 @@ samples = [Employee("lucy", 3),
            Manager('julie', 3),
            Manager('paul', 1)]
 
-employees = {e.name:e for e in samples}
+employees = {e.name: e for e in samples}
 
 employees.keys()
+
+df = pd.DataFrame([[name, obj.salary()] for name, obj in employees.items()],
+             columns=['name', 'salary'])
 
 [[name, employees[name].salary()] for name
       in employees]

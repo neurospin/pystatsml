@@ -18,18 +18,14 @@ print(X)
 np.argmin(X, axis=0)
 
 '''
-- Write a function ``standardize(X)`` that return an array whose columns are centered and scaled (by std-dev).
+- Write a function ``scale(X)`` that return an array whose columns are centered and scaled (by std-dev).
 '''
 
-def standardize(X, inplace=False):
-    if inplace:
-        X -= X.mean(axis=0)
-        return X / X.std(axis=0)
-    else:
-        Xc = X - X.mean(axis=0)
-        return Xc / X.std(axis=0)
+def scale(X):
+    return (X - X.mean(axis=0)) / X.std(axis=0)
 
-Xs = standardize(X)
+X = np.random.randn(5, 3)
+Xs = scale(X)
 
 Xs.mean(axis=0)
 Xs.std(axis=0)

@@ -7,9 +7,18 @@ NumPy is an extension to the Python programming language, adding support for lar
 **Sources**:
 
 - Kevin Markham: https://github.com/justmarkham
-'''
 
-import numpy as np
+Computation time:
+
+    import numpy as np
+
+    l = [v for v in range(10 ** 8)]
+    s = 0
+    %time for v in l: s += v
+
+    arr = np.arange(10 ** 8)
+    %time arr.sum()
+'''
 
 ##############################################################################
 # Create arrays
@@ -18,11 +27,14 @@ import numpy as np
 # Create ndarrays from lists.
 # note: every element must be the same type (will be converted if possible)
 
+import numpy as np
+
 data1 = [1, 2, 3, 4, 5]             # list
 arr1 = np.array(data1)              # 1d array
 data2 = [range(1, 5), range(5, 9)]  # list of lists
 arr2 = np.array(data2)              # 2d array
 arr2.tolist()                       # convert array back to list
+
 
 ##############################################################################
 # create special arrays
@@ -44,7 +56,6 @@ float_array = int_array.astype(float)
 # ----------------
 
 arr1.dtype      # float64
-arr2.dtype      # int32
 arr2.ndim       # 2
 arr2.shape      # (2, 4) - axis 0 is rows, axis 1 is columns
 arr2.size       # 8 - total number of elements
@@ -106,7 +117,7 @@ print(arr)
 # - iterate over plans (axis 0)
 #    - iterate over rows (axis 1)
 #        - iterate over columns (axis 2)
-# 
+#
 #
 # .. figure:: ../images/numpy_array3d.png
 
@@ -135,6 +146,20 @@ print(x[:, 0, :])
 print(x[:, :, 0])
 
 ##############################################################################
+# Simple example with 2 array
+#
+# Exercise:
+#
+# - Get second line
+# - Get third column
+
+arr = np.arange(10, dtype=float).reshape((2, 5))
+print(arr)
+
+arr[1, :]
+arr[:, 2]
+
+##############################################################################
 # Ravel
 
 print(x.ravel())
@@ -144,23 +169,31 @@ print(x.ravel())
 # Stack arrays
 # ------------
 #
-# Stack flat arrays in columns
 
 a = np.array([0, 1])
 b = np.array([2, 3])
 
-ab = np.stack((a, b)).T
-print(ab)
+##############################################################################
+# Horizontal stacking
 
-# or
-np.hstack((a[:, None], b[:, None]))
+np.hstack([a, b])
 
+##############################################################################
+# Vertical stacking
+
+np.vstack([a, b])
+
+##############################################################################
+# Default Vertical
+
+np.stack([a, b])
 
 ##############################################################################
 # Selection
 # ---------
 #
 # Single item
+
 arr = np.arange(10, dtype=float).reshape((2, 5))
 
 arr[0]         # 0th element (slices like a list)
@@ -178,11 +211,14 @@ arr[0, :]      # row 0: returns 1d array ([1, 2, 3, 4])
 arr[:, 0]      # column 0: returns 1d array ([1, 5])
 arr[:, :2]     # columns strictly before index 2 (2 first columns)
 arr[:, 2:]     # columns after index 2 included
-arr2 = arr[:, 1:4]    # columns between index 1 (included) and 4 (excluded)
+arr2 = arr[:, 1:4]  # columns between index 1 (included) and 4 (excluded)
 print(arr2)
+
 
 ##############################################################################
 # Slicing returns a view (not a copy)
+# Modification
+
 arr2[0, 0] = 33
 print(arr2)
 print(arr)
@@ -201,7 +237,7 @@ print(arr[0, ::-1])
 #
 # Integer array indexing
 
-arr2 = arr[:, [1,2,3]]  # return a copy
+arr2 = arr[:, [1, 2, 3]]  # return a copy
 print(arr2)
 arr2[0, 0] = 44
 print(arr2)
@@ -217,6 +253,7 @@ print(arr2)
 arr2[0] = 44
 print(arr2)
 print(arr)
+
 
 ##############################################################################
 # However, In the context of lvalue indexing (left hand side value of an assignment)
@@ -307,6 +344,17 @@ a = np.array([[ 0,  0,  0],
 b = np.array([0, 1, 2])
 
 print(a + b)
+
+##############################################################################
+# Center data column-wise
+
+a - a.mean(axis=0)
+
+##############################################################################
+# Scale (center, normalise) data column-wise
+
+(a - a.mean(axis=0)) / a.std(axis=0)
+
 
 
 ##############################################################################
