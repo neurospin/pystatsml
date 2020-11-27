@@ -1,3 +1,40 @@
+gh-pages
+--------
+Publishing sphinx-generated docs on github:
+
+https://daler.github.io/sphinxdoc-test/includeme.html
+
+
+
+Upload to github
+----------------
+
+
+"$WD/build/html" contains the pystsamsl website. Now we start to upload to github server. Clone from github to a temporary directory, and checkout gh-pages branch
+
+```
+WD=~/git/pystatsml
+cd /tmp
+git clone git@github.com:duchesnay/pystatsml.git pystatsml_doc
+cd pystatsml_doc
+git symbolic-ref HEAD refs/heads/gh-pages
+rm .git/index
+git clean -fdx
+cp -r $WD/build/html/* ./
+cp -r $WD/auto_gallery ./
+git add .
+git add -f auto_gallery
+git add -f _sources
+git add -f _static
+git add -f _images
+touch .nojekyll
+git commit -am "gh-pages First commit"
+git push origin gh-pages
+firefox  $WD/build/html/index.html
+```
+
+Now, you can visit your updated website at https://duchesnay.github.io/pystatsml.
+
 
 ML Resources
 ------------
@@ -108,34 +145,7 @@ rst
 http://docutils.sourceforge.net/rst.html
 http://docutils.sourceforge.net/docs/ref/rst/
 
-gh-pages
---------
 
-Build pages
-
-.. code-block:: bash
-   WD=~/git/pylearn-parsimony
-   cd $WD
-   make html
-   mkdir -p ./_build/html/epydoc_api
-   epydoc -v --html parsimony -o ./_build/html/epydoc_api
-
-Upload to github
-
-`"$WD/doc/source/_build/html"` contains the pystatsml website. Now we start to upload to github server. Clone pystatsml from github to a temporary directory, and checkout gh-pages branch
-
-.. code-block:: bash
-
-   cd /tmp
-   git clone git@github.com:duchesnay/pystatsml.git pystatsml_doc
-   cd parsimony_doc
-   git fetch origin
-   git checkout -b gh-pages origin/gh-pages
-
-cp -r $WD/doc/source/_build/html/* ./
-git add .
-git commit -a -m "DOC: update pages"
-git push origin gh-pages
 
 R vs Python
 -----------
