@@ -1,6 +1,6 @@
 '''
-Lab 1: Brain volumes study
-==========================
+Lab: Brain volumes study
+=======================
 
 The study provides the brain volumes of grey matter (gm), white matter (wm)
 and cerebrospinal fluid) (csf) of 808 anatomical MRI scans.

@@ -47,7 +47,7 @@ Statistics
     :maxdepth: 2
 
     statistics/stat_univ.rst
-    auto_gallery/stat_univ_lab01_brain-volume.rst
+    auto_gallery/stat_univ_lab_brain-volume.rst
     statistics/stat_multiv.rst
     statistics/time_series.rst
 
@@ -68,7 +68,7 @@ Machine Learning
     machine_learning/ensemble_learning.rst
     optimization/optim_gradient_descent.rst
     machine_learning/processing_pipelines.rst
-    python/ml_case_studies.rst
+    auto_gallery/ml_lab_face_recognition.rst
 
 =============
 Deep Learning

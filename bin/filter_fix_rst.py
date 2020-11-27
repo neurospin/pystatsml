@@ -24,7 +24,9 @@ if __name__ == "__main__":
     """
     #in_str = sys.stdin.read()
     lines = sys.stdin.readlines()
-    ## FILTER 1:
+
+    # %%
+    # FILTER 1:
     #    CONVERT
     #    :raw-latex:`\begin{align}
     #    \dot{x} & = \sigma(y-x) \\

@@ -300,10 +300,10 @@ texinfo_documents = [
 
 sphinx_gallery_conf = {
     # path to your examples scripts
-    'examples_dirs' : ['python_lang', 'scientific_python', 'statistics'],
+    'examples_dirs' : ['python_lang', 'scientific_python', 'statistics', 'labs'],
     'filename_pattern': '/',
     # path where to save gallery generated examples
-    'gallery_dirs'  : ['auto_gallery', 'auto_gallery', 'auto_gallery'],
+    'gallery_dirs'  : ['auto_gallery', 'auto_gallery', 'auto_gallery', 'auto_gallery'],
     'backreferences_dir': False}
 
 

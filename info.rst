@@ -108,6 +108,34 @@ rst
 http://docutils.sourceforge.net/rst.html
 http://docutils.sourceforge.net/docs/ref/rst/
 
+gh-pages
+--------
+
+Build pages
+
+.. code-block:: bash
+   WD=~/git/pylearn-parsimony
+   cd $WD
+   make html
+   mkdir -p ./_build/html/epydoc_api
+   epydoc -v --html parsimony -o ./_build/html/epydoc_api
+
+Upload to github
+
+`"$WD/doc/source/_build/html"` contains the pystatsml website. Now we start to upload to github server. Clone pystatsml from github to a temporary directory, and checkout gh-pages branch
+
+.. code-block:: bash
+
+   cd /tmp
+   git clone git@github.com:duchesnay/pystatsml.git pystatsml_doc
+   cd parsimony_doc
+   git fetch origin
+   git checkout -b gh-pages origin/gh-pages
+
+cp -r $WD/doc/source/_build/html/* ./
+git add .
+git commit -a -m "DOC: update pages"
+git push origin gh-pages
 
 R vs Python
 -----------
@@ -122,11 +150,8 @@ Please find the link to my Machine Learning course in Python, it is a draft vers
 ftp://ftp.cea.fr//pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf
 
 Below the link to github:
-https://github.com/neurospin/pystatsml
-
-Or
-
 https://github.com/duchesnay/pystatsml
+
 
 git clone https://github.com/duchesnay/pystatsml.git
 
