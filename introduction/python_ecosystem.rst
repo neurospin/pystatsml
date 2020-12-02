@@ -3,7 +3,7 @@ Python ecosystem for data-science
 
 .. RST https://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html
 
-.. image:: images/python_ecosystem.pdf
+.. image:: images/python_ecosystem.png
    :scale: 100
    :align: center
 

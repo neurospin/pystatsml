@@ -34,6 +34,8 @@ Pipelines:
 import numpy as np
 from time import time
 import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
@@ -43,21 +45,20 @@ from sklearn.metrics import confusion_matrix
 # Preprocesing
 from sklearn import preprocessing
 from sklearn.pipeline import make_pipeline
+from sklearn.pipeline import Pipeline
+from sklearn.feature_selection import SelectKBest, f_classif
 
+# Dataset
 from sklearn.datasets import fetch_lfw_people
 
 # Models
 from sklearn.decomposition import PCA
+import sklearn.manifold as manifold
 import sklearn.linear_model as lm
 import sklearn.svm as svm
 from sklearn.neural_network import MLPClassifier
 # from sklearn.ensemble import RandomForestClassifier
 # from sklearn.ensemble import GradientBoostingClassifier
-
-# For pipelines
-from sklearn.pipeline import Pipeline
-from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import f_classif
 
 # Pytorch Models
 import torch
@@ -172,9 +173,31 @@ print("done in %0.3fs" % (time() - t0))
 
 eigenfaces = pca.components_.reshape((n_components, h, w))
 
+print("Explained variance", pca.explained_variance_ratio_[:2])
+
+# %%
+# T-SNE
+
+tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
+X_tsne = tsne.fit_transform(X_train)
+
+
+# %%
+#
+
 print("Projecting the input data on the eigenfaces orthonormal basis")
 X_train_pca = pca.transform(X_train)
 X_test_pca = pca.transform(X_test)
+df = pd.DataFrame(dict(lab=y_train,
+                       PC1=X_train_pca[:, 0],
+                       PC2=X_train_pca[:, 1],
+                       TSNE1=X_tsne[:, 0],
+                       TSNE2=X_tsne[:, 1]))
+
+sns.relplot(x="PC1", y="PC2", hue="lab", data=df)
+
+sns.relplot(x="TSNE1", y="TSNE2", hue="lab", data=df)
+
 
 # %%
 # Plot eigenfaces:

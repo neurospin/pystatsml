@@ -46,6 +46,10 @@ data = dict()
 for file in ["demo.csv", "gm.csv", "wm.csv", "csf.csv"]:
     urllib.request.urlretrieve(base_url % file, os.path.join(WD, "data", file))
 
+# Read all CSV in one line
+# dicts = {k: pd.read_csv(os.path.join(WD, "data", "%s.csv" % k))
+#          for k in ["demo", "gm", "wm", "csf"]}
+
 demo = pd.read_csv(os.path.join(WD, "data", "demo.csv"))
 gm = pd.read_csv(os.path.join(WD, "data", "gm.csv"))
 wm = pd.read_csv(os.path.join(WD, "data", "wm.csv"))
@@ -184,6 +188,7 @@ import seaborn as sns
 ###############################################################################
 # Plot
 sns.violinplot(x="site", y="gm_f", data=brain_vol1)
+# sns.violinplot(x="site", y="wm_f", data=brain_vol1)
 
 ###############################################################################
 # Stats with scipy
@@ -297,6 +302,9 @@ print("No significant difference in atrophy between patients and controls")
 print(sm.stats.anova_lm(smfrmla.ols(
         "gm_f ~ group + age + site", data=brain_vol1).fit(), typ=2))
 print("No significant difference in GM between patients and controls")
+
+###############################################################################
+# Observe age effect
 
 ###############################################################################
 # **4. Test for interaction between age and clinical status**, ie: is the brain

@@ -1,5 +1,12 @@
 gh-pages
 --------
+
+TODO: do it with: circleci
+
+- https://circleci.com/blog/deploying-documentation-to-github-pages-with-continuous-integration/
+- https://github.com/jklukas/docs-on-gh-pages
+
+
 Publishing sphinx-generated docs on github:
 
 https://daler.github.io/sphinxdoc-test/includeme.html
@@ -29,6 +36,43 @@ git add -f _static
 git add -f _images
 touch .nojekyll
 git commit -am "gh-pages First commit"
+git push origin gh-pages
+firefox  $WD/build/html/index.html
+```
+
+Then
+```
+gedit index.html
+
+Replace:
+```
+  <div class="section" id="phantom">
+<h1>Phantom<a class="headerlink" href="#phantom" title="Permalink to this headline">¶</a></h1>
+</div>
+```
+by
+
+```
+<div class="section" id="phantom">
+<h1 style="font-weight:bold;">Statistics and Machine Learning in
+Python<a class="headerlink" href="#phantom" title="Permalink to this headline">¶</a></h1>
+</div>
+
+<hr>
+
+<p><a href="https://duchesnay.github.io/">Edouard Duchesnay</a>, <a href="https://www.umu.se/en/staff/toklot02/">Tommy Löfstedt</a>, Feki Younes</p>
+
+Links:
+<ul>
+  <li><a href="https://github.com/duchesnay/pystatsml">Github</a></li>
+  <li><a href="ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf">Pdf</a></li>
+</ul>
+```
+
+Then
+
+```
+git commit -am "Title and authors"
 git push origin gh-pages
 firefox  $WD/build/html/index.html
 ```
