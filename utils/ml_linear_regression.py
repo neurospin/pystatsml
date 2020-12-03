@@ -48,115 +48,6 @@ ax.set_xlabel('TV')
 ax.set_ylabel('Radio')
 ax.set_zlabel('Sales')
 
-'''
-Overfitting
-===========
-'''
-
-'''
-High dimensionality
--------------------
-'''
-
-def fit_on_increasing_size(model):
-    n_samples = 100
-    n_features_ = np.arange(10, 800, 20)
-    r2_train, r2_test, snr = [], [], []
-    for n_features in n_features_:
-        # Sample the dataset (* 2 nb of samples)
-        n_features_info = int(n_features/10)
-        np.random.seed(42)  # Make reproducible
-        X = np.random.randn(n_samples * 2, n_features)
-        beta = np.zeros(n_features)
-        beta[:n_features_info] = 1
-        Xbeta = np.dot(X, beta)
-        eps = np.random.randn(n_samples * 2)
-        y =  Xbeta + eps
-        # Split the dataset into train and test sample
-        Xtrain, Xtest = X[:n_samples, :], X[n_samples:, :], 
-        ytrain, ytest = y[:n_samples], y[n_samples:]
-        # fit/predict
-        lr = model.fit(Xtrain, ytrain)
-        y_pred_train = lr.predict(Xtrain)
-        y_pred_test = lr.predict(Xtest)
-        snr.append(Xbeta.std() / eps.std())
-        r2_train.append(metrics.r2_score(ytrain, y_pred_train))
-        r2_test.append(metrics.r2_score(ytest, y_pred_test))
-    return n_features_, np.array(r2_train), np.array(r2_test), np.array(snr)
-
-def plot_r2_snr(n_features_, r2_train, r2_test, xvline, snr, ax):
-    """
-    Two scales plot. Left y-axis: train test r-squared. Right y-axis SNR.
-    """
-    ax.plot(n_features_, r2_train, label="Train r-squared", linewidth=2)
-    ax.plot(n_features_, r2_test, label="Test r-squared", linewidth=2)
-    ax.axvline(x=xvline, linewidth=2, color='k', ls='--')
-    ax.axhline(y=0, linewidth=1, color='k', ls='--')
-    ax.set_ylim(-0.2, 1.1)
-    ax.set_xlabel("Number of input features")
-    ax.set_ylabel("r-squared")
-    ax.legend(loc='best')
-    ax.set_title("Prediction perf.")
-    ax_right = ax.twinx()
-    ax_right.plot(n_features_, snr, 'r-', label="SNR", linewidth=1)
-    ax_right.set_ylabel("SNR", color='r')
-    for tl in ax_right.get_yticklabels():
-        tl.set_color('r')
-
-'''
-No penalization
-~~~~~~~~~~~~~~~
-'''
-
-# Model = linear regression
-lr = lm.LinearRegression()
-
-# Fit models on dataset
-n_features, r2_train, r2_test, snr = fit_on_increasing_size(model=lr)
-
-argmax = n_features[np.argmax(r2_test)]
-
-# plot
-fig, axis = plt.subplots(1, 2, figsize=(9, 3))
-
-# Left pane: all features
-plot_r2_snr(n_features, r2_train, r2_test, argmax, snr, axis[0])
-
-# Right pane: Zoom on 100 first features
-plot_r2_snr(n_features[n_features <= 100], 
-            r2_train[n_features <= 100], r2_test[n_features <= 100],
-            argmax,
-            snr[n_features <= 100],
-            axis[1])
-plt.tight_layout()
-
-'''
-L2 penalization
-~~~~~~~~~~~~~~~
-'''
-
-# Model = linear regression
-ridge = lm.Ridge(alpha=10)
-
-# Fit models on dataset
-n_features, r2_train, r2_test, snr = fit_on_increasing_size(model=ridge)
-
-argmax = n_features[np.argmax(r2_test)]
-
-# plot
-fig, axis = plt.subplots(1, 2, figsize=(9, 3))
-
-# Left pane: all features
-plot_r2_snr(n_features, r2_train, r2_test, argmax, snr, axis[0])
-
-# Right pane: Zoom on 100 first features
-plot_r2_snr(n_features[n_features <= 100], 
-            r2_train[n_features <= 100], r2_test[n_features <= 100],
-            argmax,
-            snr[n_features <= 100],
-            axis[1])
-plt.tight_layout()
-
 
 '''
 Multicollinearity
@@ -178,10 +69,10 @@ beta_star = np.array([.1, 0])  # true solution
 Since tax and b are correlated, there is an infinite number of linear combinations
 leading to the same prediction.
 '''
- 
-# 10 times the bv then subtract it 9 times using the tax variable: 
+
+# 10 times the bv then subtract it 9 times using the tax variable:
 beta_medium = np.array([.1 * 10, -.1 * 9 * (1/.2)])
-# 100 times the bv then subtract it 99 times using the tax variable: 
+# 100 times the bv then subtract it 99 times using the tax variable:
 beta_large = np.array([.1 * 100, -.1 * 99 * (1/.2)])
 
 # Check that all model lead to the same result
@@ -204,7 +95,7 @@ ax.plot_wireframe(xx1, xx2, yy_1.reshape(xx1.shape), color="blue",
                   label=r"$||\beta||_2^2=%.2f$" % np.sum(beta_star ** 2))
 ax.plot_wireframe(xx1, xx2, yy_2.reshape(xx1.shape), color="green",
                   label=r"$||\beta||_2^2=%.2f$" % np.sum(beta_medium ** 2))
-ax.plot_wireframe(xx1, xx2, yy_3.reshape(xx1.shape), color="red", 
+ax.plot_wireframe(xx1, xx2, yy_3.reshape(xx1.shape), color="red",
                   label=r"$||\beta||_2^2=%.2f$" % np.sum(beta_large ** 2))
 
 ax.scatter(X[:, 0], X[:, 1], zs=bp, c='k', marker='o', s=100, depthshade=True)
@@ -308,7 +199,7 @@ L2 = (Betas ** 2).sum(axis=1)
 assert L2[L2.argmin()] == 0
 
 
-fig = plt.figure(figsize=(9, 3)) 
+fig = plt.figure(figsize=(9, 3))
 
 # OLS
 ax=fig.add_subplot(231, projection='3d')
@@ -378,7 +269,7 @@ fig, axis = plt.subplots(1, 2, figsize=(9, 3))
 plot_r2_snr(n_features, r2_train, r2_test, argmax, snr, axis[0])
 
 # Right pane: Zoom on 200 first features
-plot_r2_snr(n_features[n_features <= 200], 
+plot_r2_snr(n_features[n_features <= 200],
             r2_train[n_features <= 200], r2_test[n_features <= 200],
             argmax,
             snr[n_features <= 200],
@@ -431,7 +322,7 @@ cax = plt.matshow(MSE.reshape(beta1.shape),
 frame = plt.gca()
 frame.get_xaxis().set_visible(False)
 frame.get_yaxis().set_visible(False)
- 
+
 plt.savefig("/tmp/toto.svg")
 plt.close()
 
@@ -459,7 +350,7 @@ fig, axis = plt.subplots(1, 2, figsize=(9, 3))
 plot_r2_snr(n_features, r2_train, r2_test, argmax, snr, axis[0])
 
 # Right pane: Zoom on 100 first features
-plot_r2_snr(n_features[n_features <= 100], 
+plot_r2_snr(n_features[n_features <= 100],
             r2_train[n_features <= 100], r2_test[n_features <= 100],
             argmax,
             snr[n_features <= 100],
@@ -507,7 +398,7 @@ def fit_on_increasing_size(model):
         eps = np.random.randn(n_samples * 2) * 3.
         y =  Xbeta + eps
         # Split the dataset into train and test sample
-        Xtrain, Xtest = X[:n_samples, :], X[n_samples:, :], 
+        Xtrain, Xtest = X[:n_samples, :], X[n_samples:, :],
         ytrain, ytest = y[:n_samples], y[n_samples:]
         # fit/predict
         #try:
@@ -543,7 +434,7 @@ fig, axis = plt.subplots(1, 2, figsize=(9, 3))
 plot_r2_snr(n_features, r2_train, r2_test, argmax, snr, axis[0])
 
 # Right pane: Zoom on 200 first features
-plot_r2_snr(n_features[n_features <= 200], 
+plot_r2_snr(n_features[n_features <= 200],
             r2_train[n_features <= 200], r2_test[n_features <= 200],
             argmax,
             snr[n_features <= 200],

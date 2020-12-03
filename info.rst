@@ -19,11 +19,12 @@ Upload to github
 
 "$WD/build/html" contains the pystsamsl website. Now we start to upload to github server. Clone from github to a temporary directory, and checkout gh-pages branch
 
+First time
 ```
 WD=~/git/pystatsml
-cd /tmp
-git clone git@github.com:duchesnay/pystatsml.git pystatsml_doc
-cd pystatsml_doc
+cd ~/git
+mv pystatsml_gh-pages pystatsml_gh-pages.bak
+git clone git@github.com:duchesnay/pystatsml.git pystatsml_gh-pages
 git symbolic-ref HEAD refs/heads/gh-pages
 rm .git/index
 git clean -fdx
@@ -35,9 +36,28 @@ git add -f _sources
 git add -f _static
 git add -f _images
 touch .nojekyll
+gedit index.html # see blow
 git commit -am "gh-pages First commit"
 git push origin gh-pages
-firefox  $WD/build/html/index.html
+firefox  index.html
+```
+
+Update
+```
+WD=~/git/pystatsml
+cd ~/git/pystatsml_gh-pages
+git checkout gh-pages
+rsync -avu $WD/build/html/* ./
+rsync -avu $WD/auto_gallery ./
+git add .
+git add -f auto_gallery
+git add -f _sources
+git add -f _static
+git add -f _images
+gedit index.html # see blow
+git commit -am "gh-pages update commit"
+git push origin gh-pages
+firefox  index.html
 ```
 
 Then
@@ -115,21 +135,11 @@ ML Resources
     http://www.kdnuggets.com/2016/04/top-10-ipython-nb-tutorials.html
 
 
-A gallery of interesting IPython Notebooks
-------------------------------------------
-
-https://github.com/ipython/ipython/wiki/A-gallery-of-interesting-IPython-Notebooks
-
-IPython notebooks
+Jupyter Notebooks
 -----------------
 
-- https://ipython.org/ipython-doc/3/notebook/index.html
+https://jupyterbook.org/advanced/advanced.html#jupyter-cell-tags
 
-- http://nbviewer.ipython.org/github/ipython/ipython/tree/1.x/examples/
-
-- http://www.kevinsheppard.com/Python_Course/IPython_Notebooks
-
-- Shortcuts: http://johnlaudun.org/20131228-ipython-notebook-keyboard-shortcuts/
 
 Markdown
 --------
