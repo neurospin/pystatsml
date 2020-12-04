@@ -17,37 +17,6 @@ import sklearn.linear_model as lm
 import sklearn.metrics as metrics
 #%matplotlib inline
 
-# Fit Ordinary Least Squares: OLS
-csv = pd.read_csv('http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv', index_col=0)
-
-X = csv[['TV', 'Radio']]
-y =  csv['Sales']
-
-lr = lm.LinearRegression().fit(X, y)
-y_pred = lr.predict(X)
-
-print("R-squared=", metrics.r2_score(y, y_pred))
-
-
-# Plot
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-
-ax.scatter(csv['TV'], csv['Radio'], csv['Sales'], c='r', marker='o')
-
-xx1, xx2 = np.meshgrid(
-    np.linspace(csv['TV'].min(), csv['TV'].max(), num=10),
-    np.linspace(csv['Radio'].min(), csv['Radio'].max(), num=10))
-
-
-XX = np.column_stack([xx1.ravel(), xx2.ravel()])
-
-yy = lr.predict(XX)
-ax.plot_surface(xx1, xx2, yy.reshape(xx1.shape), color='None')
-ax.set_xlabel('TV')
-ax.set_ylabel('Radio')
-ax.set_zlabel('Sales')
-
 
 '''
 Multicollinearity

@@ -103,6 +103,9 @@ Now, you can visit your updated website at https://duchesnay.github.io/pystatsml
 ML Resources
 ------------
 
+- **my_tech_resources**
+    https://github.com/JamesLavin/my_tech_resources
+
 - **Practical Machine Learning Course Notes (in R)**
     https://sux13.github.io/DataScienceSpCourseNotes/8_PREDMACHLEARN/Practical_Machine_Learning_Course_Notes.html
 
