@@ -63,7 +63,7 @@ Machine Learning
     machine_learning/clustering.rst
     machine_learning/linear_regression.rst
     machine_learning/linear_classification.rst
-    machine_learning/non_linear_prediction.rst
+    auto_gallery/ml_supervized_nonlinear.rst
     machine_learning/resampling.rst
     machine_learning/ensemble_learning.rst
     optimization/optim_gradient_descent.rst

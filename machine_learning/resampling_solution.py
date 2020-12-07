@@ -16,16 +16,17 @@ Given the logistic regression presented above and its validation given a 5 folds
     Compute the p-value associated with the prediction accuracy using a parametric test.
 
 """
+import numpy as np
 from sklearn import datasets
 import sklearn.linear_model as lm
 import sklearn.metrics as metrics
 from sklearn.model_selection import StratifiedKFold
 
-X, y = datasets.make_classification(n_samples=100, n_features=100, 
+X, y = datasets.make_classification(n_samples=100, n_features=100,
                          n_informative=10, random_state=42)
 
 model = lm.LogisticRegression(C=1)
-nperm = 1000
+nperm = 100
 scores_perm= np.zeros((nperm, 3))  # 3 scores acc, recall0, recall1
 
 for perm in range(0, nperm):
@@ -34,7 +35,8 @@ for perm in range(0, nperm):
     yp = y if perm == 0 else np.random.permutation(y)
     # CV loop
     y_test_pred = np.zeros(len(yp))
-    for train, test in StratifiedKFold(yp, n_folds=5):
+    cv = StratifiedKFold(5)
+    for train, test in cv.split(X, y):
         X_train, X_test, y_train, y_test = X[train, :], X[test, :], yp[train], yp[test]
         model.fit(X_train, y_train)
         y_test_pred[test] = model.predict(X_test)
