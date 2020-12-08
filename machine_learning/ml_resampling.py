@@ -82,22 +82,22 @@ print("Test R2: %.2f" % metrics.r2_score(y_test, y_pred_test))
 # Train/validation/test splits: model selection and model evaluation
 # ------------------------------------------------------------------
 #
-# Re-split (inner split) train set into train/validation and build a
-# `GridSearchCV` to perform the model selection.
+# The **Grid search procedure** (`GridSearchCV`) performs a
+# model selection of the best **hyper-parameters** :math:`\alpha` over a grid of possible values.
+# Train set is  "splitted (inner split) into train/validation sets.
 #
-# **Grid search procedure**
+# **Model selection with grid search procedure:**
 #
-# Model selection of the best hyper parameters over a grid of possible values
-# For each possible values of hyper parameters :math:`\alpha_k`:
+# 1. Fit the learner (\ie. estimate **parameters** :math:`\mathbf{\Omega}_k`)
+#    on training set: :math:`\mathbf{X}_{train}, \mathbf{y}_{train} \rightarrow f_{\alpha_k, \mathbf{\Omega}_k}(.)`
+# 2. Evaluate the model on the validation set and keep the hyper-parameter(s) that
+#    minimises the error measure :math:`\alpha_* = \arg \min L(f_{\alpha_k, \mathbf{\Omega}_k}(\mathbf{X}_{val}), \mathbf{y}_{val})`
+# 3. Refit the learner on all training + validation data,
+#    :math:`\mathbf{X}_{train \cup val}, \mathbf{y}_{train \cup val}`,
+#    using the best hyper parameters (:math:`\alpha_*`): :math:`\rightarrow f_{\alpha_*, \mathbf{\Omega}_*}(.)`
 #
-# 1. Fit the learner on training set: :math:`f(X_{train}, y_{train}, \alpha_k)`
-# 2. Evaluate the model on the validation set and keep the parameter(s) that
-#    minimises the error measure :math:`\alpha_* = \arg \min L(f(X_{train}), y_{val}, \alpha_k)`
-# 3. Refit the learner on all training + validation data using the best hyper
-#    parameters:
-#    :math:`f^* \equiv f(X_{train \cup val}, y_{train \cup val}, \alpha_*)`
-# 4. ** Model assessment** of :math:`f^*` on the test set:
-#    :math:`L(f^*(X_{test}), y_{test})`
+# **Model evaluation:** on the test set:
+# :math:`L(f_{\alpha_*, \mathbf{\Omega}_*}(\mathbf{X}_{test}), \mathbf{y}_{test})`
 
 train_idx, validation_idx = train_test_split(np.arange(X_train.shape[0]),
                                              test_size=0.25, random_state=42)
