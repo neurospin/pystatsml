@@ -7,8 +7,6 @@ classification model has its regression counterpart.
 '''
 
 # get_ipython().run_line_magic('matplotlib', 'inline')
-#import warnings
-#warnings.filterwarnings(action='once')
 import matplotlib.pyplot as plt
 
 import numpy as np

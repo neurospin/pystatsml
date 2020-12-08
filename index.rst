@@ -64,10 +64,9 @@ Machine Learning
     machine_learning/linear_regression.rst
     machine_learning/linear_classification.rst
     auto_gallery/ml_supervized_nonlinear.rst
-    machine_learning/resampling.rst
+    auto_gallery/ml_resampling.rst
     machine_learning/ensemble_learning.rst
     optimization/optim_gradient_descent.rst
-    machine_learning/processing_pipelines.rst
     auto_gallery/ml_lab_face_recognition.rst
 
 =============
