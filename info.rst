@@ -54,7 +54,8 @@ git add -f auto_gallery
 git add -f _sources
 git add -f _static
 git add -f _images
-gedit index.html # see blow
+meld index.html index.html.save
+#gedit   # see blow
 git commit -am "gh-pages update commit"
 git push origin gh-pages
 firefox  index.html

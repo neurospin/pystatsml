@@ -68,7 +68,7 @@ X, y = datasets.make_regression(n_samples=100, n_features=100,
 #
 
 X_train, X_test, y_train, y_test =\
-    train_test_split(X, y, test_size=0.25, random_state=42)
+    train_test_split(X, y, test_size=0.25, shuffle=True, random_state=42)
 
 mod = lm.Ridge(alpha=10)
 
@@ -100,7 +100,8 @@ print("Test R2: %.2f" % metrics.r2_score(y_test, y_pred_test))
 # :math:`L(f_{\alpha_*, \mathbf{\Omega}_*}(\mathbf{X}_{test}), \mathbf{y}_{test})`
 
 train_idx, validation_idx = train_test_split(np.arange(X_train.shape[0]),
-                                             test_size=0.25, random_state=42)
+                                             test_size=0.25, shuffle=True,
+                                             random_state=42)
 
 split_inner = PredefinedSplit(test_fold=validation_idx)
 print("Train set size: %i" % X_train[train_idx].shape[0])
@@ -189,7 +190,7 @@ from sklearn.model_selection import KFold
 
 estimator = lm.Ridge(alpha=10)
 
-cv = KFold(n_splits=5, random_state=42)
+cv = KFold(n_splits=5, shuffle=True, random_state=42)
 r2_train, r2_test = list(), list()
 
 for train, test in cv.split(X):
@@ -210,7 +211,7 @@ from sklearn.model_selection import cross_val_score
 scores = cross_val_score(estimator=estimator, X=X, y=y, cv=5)
 print("Test  r2:%.2f" % scores.mean())
 
-cv = KFold(n_splits=5, random_state=42)
+cv = KFold(n_splits=5, shuffle=True, random_state=42)
 scores = cross_val_score(estimator=estimator, X=X, y=y, cv=cv)
 print("Test  r2:%.2f" % scores.mean())
 
@@ -243,7 +244,7 @@ print("Test R2:%.2f; MAE:%.2f" % (scores['test_r2'].mean(),
 
 from sklearn.model_selection import StratifiedKFold
 
-X, y = datasets.make_classification(n_samples=100, n_features=100,
+X, y = datasets.make_classification(n_samples=100, n_features=100, shuffle=True,
                                     n_informative=10, random_state=42)
 
 mod = lm.LogisticRegression(C=1, solver='lbfgs')
@@ -275,7 +276,6 @@ def balanced_acc(estimator, X, y, **kwargs):
     """Balanced acuracy scorer."""
     return metrics.recall_score(y, estimator.predict(X), average=None).mean()
 
-
 scores = cross_val_score(estimator=mod, X=X, y=y, cv=cv,
                          scoring=balanced_acc)
 print("Test  bACC:%.2f" % scores.mean())
@@ -304,7 +304,7 @@ print("Test AUC:%.2f; bACC:%.2f" % (scores['test_roc_auc'].mean(),
 
 # Outer split:
 X_train, X_test, y_train, y_test =\
-    train_test_split(X, y, test_size=0.25, random_state=42)
+    train_test_split(X, y, test_size=0.25, shuffle=True, random_state=42)
 
 cv_inner = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
@@ -328,7 +328,8 @@ cv_outer = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 cv_inner = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 # Cross-validation for model (inner) selection
-lm_cv = GridSearchCV(lm.Ridge(), {'alpha': 10. ** np.arange(-3, 3)}, cv=cv_inner, n_jobs=5)
+lm_cv = GridSearchCV(lm.Ridge(), {'alpha': 10. ** np.arange(-3, 3)},
+                     cv=cv_inner, n_jobs=5)
 
 # Cross-validation for model (outer) evaluation
 scores = cross_validate(estimator=mod, X=X, y=y, cv=cv_outer,
@@ -428,7 +429,6 @@ for perm_i in range(1, nperm + 1):
     scores_perm[perm_i, :] = metrics.r2_score(y, y_pred)
     coefs_perm[perm_i, :] = model.coef_
 
-
 # One-tailed empirical p-value
 pval_pred_perm = np.sum(scores_perm >= scores_perm[0]) / scores_perm.shape[0]
 pval_coef_perm = np.sum(coefs_perm >= coefs_perm[0, :], axis=0) / coefs_perm.shape[0]
@@ -437,7 +437,8 @@ print("R2 p-value: %.3f" % pval_pred_perm)
 print("Coeficients p-values:", np.round(pval_coef_perm, 3))
 
 # %%
-# Compute p-values corrected for multiple comparisons using max-T (Westfall and Young, 1993) FWER
+# Compute p-values corrected for multiple comparisons using FWER max-T
+# (Westfall and Young, 1993) procedure.
 
 pval_coef_perm_tmax = np.array([np.sum(coefs_perm.max(axis=1) >= coefs_perm[0, j])
                                 for j in range(coefs_perm.shape[1])]) / coefs_perm.shape[0]
@@ -461,7 +462,7 @@ def hist_pvalue(perms, ax, name):
     pval = np.sum(perms >= perms[0]) / perms.shape[0]
     weights = np.ones(perms.shape[0]) / perms.shape[0]
     ax.hist([perms[perms >= perms[0]], perms], histtype='stepfilled',
-             bins=100, label="p-val:%.2f" % pval,
+             bins=100, label="p-val<%.3f" % pval,
              weights=[weights[perms >= perms[0]], weights])
     ax.axvline(x=perms[0], color="k", linewidth=2)#, label="observed statistic")
     ax.set_ylabel(name)
