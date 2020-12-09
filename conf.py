@@ -51,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Statistics and Machine Learning in Python'
-copyright = u'2019, Edouard Duchesnay, NeuroSpin CEA Université Paris-Saclay, France'
+copyright = u'2020, Edouard Duchesnay, NeuroSpin CEA Université Paris-Saclay, France'
 author = u'Edouard Duchesnay, Tommy Löfstedt, Younes Feki'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -184,7 +184,7 @@ html_static_path = ['_static']
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
 # base URL from which the finished HTML is served.
-#html_use_opensearch = ''
+html_use_opensearch = 'https://duchesnay.github.io/pystatsml/'
 
 # This is the file name suffix for HTML files (e.g. ".xhtml").
 #html_file_suffix = None
@@ -250,7 +250,7 @@ latex_documents = [
 #latex_show_pagerefs = False
 
 # If true, show URL addresses after external links.
-#latex_show_urls = False
+# latex_show_urls = True
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []

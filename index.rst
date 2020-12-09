@@ -3,15 +3,27 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-
 =======
 Phantom
 =======
 
-
 ============
 Introduction
 ============
+
+
+This document describes statistics and machine learning in Python using:
+
+- `Scikit-learn <https://scikit-learn.org/>`_ for machine learning.
+- `Pytorch <https://pytorch.org/>`_ for deep learning.
+- `Statsmodels <https://www.statsmodels.org/>`_ for statistics.
+
+
+External links:
+
+- `Web page <https://duchesnay.github.io/pystatsml/>`_
+- `Github <https://github.com/duchesnay/pystatsml>`_
+- `Latest pdf <ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf>`_
 
 .. toctree::
     :maxdepth: 2
