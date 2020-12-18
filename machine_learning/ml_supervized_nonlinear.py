@@ -180,6 +180,24 @@ print("bAcc: %.2f, AUC: %.2f " % (
 # %%
 # Gradient boosting
 # -----------------
+# 
+# Gradient boosting is a meta estimator that fits a sequence of **weak learners**.
+# Each learner aims to reduce the residuals (errors) produced by the previous learner.
+# The two main hyper-parameters are:
+#
+# - The **learning rate** (*lr*) controls over-fitting:
+#   decreasing the *lr* limits the capacity of a learner to overfit the residuals, ie,
+#   it slows down the learning speed and thus increases the **regularisation**. 
+#
+# - The **sub-sampling fraction** controls the fraction of samples to be used for
+#   fitting the learners. Values smaller than 1 leads to **Stochastic Gradient Boosting**.
+#   It thus controls for over-fitting reducing variance and incresing bias.
+#
+# .. figure:: ../images/gradient_boosting.png
+#    :width: 500
+#    :alt: Gradient boosting.
+#
+
 
 from sklearn.ensemble import GradientBoostingClassifier
 

@@ -17,7 +17,7 @@ This document describes statistics and machine learning in Python using:
 - `Scikit-learn <https://scikit-learn.org/>`_ for machine learning.
 - `Pytorch <https://pytorch.org/>`_ for deep learning.
 - `Statsmodels <https://www.statsmodels.org/>`_ for statistics.
-
+- `Official deposit for citation <https://hal.archives-ouvertes.fr/hal-03038776>`_.
 
 External links:
 

@@ -14,4 +14,12 @@ python/*.rst
 .spyderproject
 build/
 auto_gallery/
-
+.spyproject
+statistics/*.rst
+machine_learning/*.rst
+deep_learning/*.rst
+scientific_python/*.rst
+machine_learning/*_files
+deep_learning/*_files
+scientific_python/*files
+statistics/*_files

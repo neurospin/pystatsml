@@ -54,9 +54,24 @@ print(user3)
 # Concatenate DataFrame
 # ~~~~~~~~~~~~~~~~~~~~~
 
-user1.append(user2)
+##############################################################################
+# Concatenate columns (axis = 1).
+
+height = pd.DataFrame(dict(height=[1.65, 1.8]))
+print(user1, "\n", height)
+
+print(pd.concat([user1, height], axis=1))
+
+##############################################################################
+# Concatenate rows (default: axis = 0)
+
 users = pd.concat([user1, user2, user3])
 print(users)
+
+##############################################################################
+# Concatenate rows: append
+
+user1.append(user2)
 
 
 ##############################################################################
@@ -360,6 +375,18 @@ df = users.copy()
 df.loc[df.height.isnull(), "height"] = df["height"].mean()
 
 print(df)
+
+
+##############################################################################
+# Operation: multiplication
+# -------------------------
+#
+# Multiplication of dataframe and other, element-wise
+
+df = users.dropna()
+df.insert(0, 'random', np.arange(df.shape[0]))
+print(df)
+df[["age", "height"]].multiply(df["random"], axis="index")
 
 
 ##############################################################################
