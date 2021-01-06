@@ -11,19 +11,19 @@ Phantom
 Introduction
 ============
 
+Important links:
+
+- `Web page <https://duchesnay.github.io/pystatsml/>`_
+- `Github <https://github.com/duchesnay/pystatsml>`_
+- `Latest pdf <ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf>`_
+- `Official deposit for citation <https://hal.archives-ouvertes.fr/hal-03038776>`_.
 
 This document describes statistics and machine learning in Python using:
 
 - `Scikit-learn <https://scikit-learn.org/>`_ for machine learning.
 - `Pytorch <https://pytorch.org/>`_ for deep learning.
 - `Statsmodels <https://www.statsmodels.org/>`_ for statistics.
-- `Official deposit for citation <https://hal.archives-ouvertes.fr/hal-03038776>`_.
 
-External links:
-
-- `Web page <https://duchesnay.github.io/pystatsml/>`_
-- `Github <https://github.com/duchesnay/pystatsml>`_
-- `Latest pdf <ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf>`_
 
 .. toctree::
     :maxdepth: 2

@@ -45,6 +45,8 @@ firefox  index.html
 Update
 ```
 WD=~/git/pystatsml
+cd $WD
+make pdf html singlehtml
 cd ~/git/pystatsml_gh-pages
 git checkout gh-pages
 rsync -avu $WD/build/html/* ./
@@ -82,12 +84,6 @@ Python<a class="headerlink" href="#phantom" title="Permalink to this headline">Â
 <hr>
 
 <p><a href="https://duchesnay.github.io/">Edouard Duchesnay</a>, <a href="https://www.umu.se/en/staff/toklot02/">Tommy LÃ¶fstedt</a>, Feki Younes</p>
-
-Links:
-<ul>
-  <li><a href="https://github.com/duchesnay/pystatsml">Github</a></li>
-  <li><a href="ftp://ftp.cea.fr/pub/unati/people/educhesnay/pystatml/StatisticsMachineLearningPython.pdf">Pdf</a></li>
-</ul>
 ```
 
 Then
